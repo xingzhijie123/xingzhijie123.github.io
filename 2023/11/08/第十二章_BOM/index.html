@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>第十二章_BOM | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">第十二章_BOM</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 8, 2023&nbsp;&nbsp;22:17:14</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JavaScript/">JavaScript</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="BOM"><a href="#BOM" class="headerlink" title="BOM"></a>BOM</h1><p>BOM 是使用 JavaScript 开发 Web 应用程序的核心。BOM 提供了<strong>与网页无关</strong>的<strong>浏览器功能对象。</strong></p>
+<h2 id="window-对象"><a href="#window-对象" class="headerlink" title="window 对象"></a>window 对象</h2><p>BOM的核心是 <strong>window 对象</strong>，表示浏览器的实例。</p>
+<p>window 对象在浏览器中有两重身份，一个是 ECMAScript 中的 <strong>Global 对象</strong>，另一个就是<strong>浏览器窗口的 JavaScript 接口</strong>。这意味着<strong>网页中定义的所有对象、变量和函数都以 window 作为其 Global 对象</strong>，都可以访问其上定义的 parseInt()等全局方法。</p>
+<p><strong>因为 window 对象的属性在全局作用域中有效，所以很多浏览器 API 及相关构造函数都以 window 对象属性的形式暴露出来。</strong></p>
+<h3 id="Global-作用域"><a href="#Global-作用域" class="headerlink" title="Global 作用域"></a>Global 作用域</h3><p>1.通过 <strong>var</strong> 声明的所有全局变量和函 数都会变成 window对象的属性和方法。</p>
+<p>2.如果在这里使用 <strong>let 或 cons</strong>t 替代 var，则不会把变量添加给全局对象</p>
+<p>3.访问未声明的变量会抛出错误，但是<strong>可以在 window 对象上查询</strong>是否存在可能未声明的变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这会导致抛出错误，因为 oldValue 没有声明</span></span><br><span class="line"><span class="keyword">var</span> newValue = oldValue; </span><br><span class="line"><span class="comment">// 这不会抛出错误，因为这里是属性查询</span></span><br><span class="line"><span class="comment">// newValue 会被设置为 undefined </span></span><br><span class="line"><span class="keyword">var</span> newValue = <span class="variable language_">window</span>.<span class="property">oldValue</span>; </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="窗口关系"><a href="#窗口关系" class="headerlink" title="窗口关系"></a>窗口关系</h3><p>1.top 对象始终指向<strong>最上层（最外层）窗口</strong>，即<strong>浏览器窗口本身</strong>。</p>
+<p>2.<strong>parent</strong> 对象则始终指向<strong>当前窗口的父窗口</strong>。</p>
+<p>3.如果当前窗口是最上层窗口，则 parent 等于 top（都等于 window）</p>
+<p>4.最上层的 window 如果不是通过 window.open()打开的，那么其 name 属性就不会包含值</p>
+<p>5.self 对象，它是终极 window 属性，始终会指向 window。</p>
+<h3 id="窗口位置与像素比"><a href="#窗口位置与像素比" class="headerlink" title="窗口位置与像素比"></a>窗口位置与像素比</h3><p>window 对象的位置可以通过不同的属性和方法来确定。</p>
+<p><strong>screenLeft</strong> 和 <strong>screenTop</strong> 属性，用于表示窗口相对于屏幕左侧和顶部的位置 ，返回值的单位是 <strong>CSS 像素</strong>。</p>
+<p>**moveTo()**和 **moveBy()**方法移动窗口，这两个方法都接收两个参数，其中 </p>
+<p>moveTo()接收<strong>要移动到的新位置的绝对坐标 x 和 y</strong>；</p>
+<p>moveBy()则接收<strong>相对当前位置在两个方向上移动的像素数</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把窗口移动到左上角</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">moveTo</span>(<span class="number">0</span>,<span class="number">0</span>); </span><br><span class="line"><span class="comment">// 把窗口向下移动 100 像素</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">moveBy</span>(<span class="number">0</span>, <span class="number">100</span>); </span><br><span class="line"><span class="comment">// 把窗口移动到坐标位置(200, 300) </span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">moveTo</span>(<span class="number">200</span>, <span class="number">300</span>); </span><br><span class="line"><span class="comment">// 把窗口向左移动 50 像素</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">moveBy</span>(-<span class="number">50</span>, <span class="number">0</span>); </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h3><p>所有现代浏览器都支持 4 个属性：</p>
+<p> <strong>innerWidth</strong>、<strong>innerHeight</strong>、<strong>outerWidth</strong> 和 <strong>outerHeight</strong>。</p>
+<p>outerWidth 和 outerHeight 返回浏览器窗口自身的大小（不管是在最外层 window 上使用，还是在窗格中使用）。</p>
+<p>innerWidth 和 innerHeight 返回浏览器窗口中页面视口的大小（不包含浏览器边框和工具栏）。</p>
+<p>document.documentElement.clientWidth 和 document.documentElement.clientHeight 返回页面视口的宽度和高度。</p>
+<p>因为桌面浏览器的差异，所以需要先确定用户是不是在使用移动设备，然后再决定使用哪个属性。</p>
+<p>用**resizeTo()<strong>和</strong>resizeBy()**方法调整窗口大小。</p>
+<p>这两个方法都接收两个参数</p>
+<p>resizeTo() 接收<strong>新的宽度和高度值</strong></p>
+<p>resizeBy()接收<strong>宽度和高度各要缩放多少</strong>。</p>
+<p>与移动窗口的方法一样，缩放窗口的*<em>方法可能会被浏览器禁用</em>***，缩放窗口的方法只能应用到最上层的 window 对象。</p>
+<h3 id="视口位置"><a href="#视口位置" class="headerlink" title="视口位置"></a>视口位置</h3><p>浏览器窗口尺寸通常无法满足完整显示整个页面，为此用户可以通过滚动在有限的视口中查看文档。</p>
+<p>度量文档相对于视口滚动距离的属性有两对，返回相等的值：<strong>window.pageXoffset&#x2F;window.  scrollX</strong> 和 <strong>window.pageYoffset&#x2F;window.scrollY</strong>。</p>
+<p> 可以使用 scroll()、scrollTo()和 scrollBy()方法滚动页面。这3个方法都接收表示相对视口距 离的 x 和 y 坐标，这两个参数在前两个方法中表示要滚动到的坐标，在最后一个方法中表示滚动的距离。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 相对于当前视口向下滚动 100 像素</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollBy</span>(<span class="number">0</span>, <span class="number">100</span>); </span><br><span class="line"><span class="comment">// 相对于当前视口向右滚动 40 像素</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollBy</span>(<span class="number">40</span>, <span class="number">0</span>); </span><br><span class="line"><span class="comment">// 滚动到页面左上角</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">0</span>, <span class="number">0</span>); </span><br><span class="line"><span class="comment">// 滚动到距离屏幕左边及顶边各 100 像素的位置</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(<span class="number">100</span>, <span class="number">100</span>); </span><br></pre></td></tr></table></figure>
+
+<p>除了提供偏移值，还可以通过 <strong>behavior</strong> 属性告诉<strong>浏览器是否平滑滚动</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 正常滚动 </span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(&#123; </span><br><span class="line"> <span class="attr">left</span>: <span class="number">100</span>, </span><br><span class="line"> <span class="attr">top</span>: <span class="number">100</span>, </span><br><span class="line"> <span class="attr">behavior</span>: <span class="string">&#x27;auto&#x27;</span> </span><br><span class="line">&#125;); </span><br><span class="line"><span class="comment">// 平滑滚动</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollTo</span>(&#123; </span><br><span class="line"> <span class="attr">left</span>: <span class="number">100</span>, </span><br><span class="line"> <span class="attr">top</span>: <span class="number">100</span>, </span><br><span class="line"> <span class="attr">behavior</span>: <span class="string">&#x27;smooth&#x27;</span> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="导航与打开新窗口"><a href="#导航与打开新窗口" class="headerlink" title="导航与打开新窗口"></a>导航与打开新窗口</h3><p><strong>window.open()方法</strong>可以用于<strong>导航到指定 URL</strong></p>
+<p>这个方法接收 4 个参数：</p>
+<p>要加载的 <strong>URL</strong>、<strong>目标窗口</strong>、<strong>特性字符串</strong>和<strong>表示新窗口在浏览器历史记录中是否替代当前加载页面的布尔值</strong>。</p>
+<p>如果 window.open()的第二个参数是一个已经存在的窗口或窗格（frame）的名字，则会在对应的窗口或窗格中打开URL。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 与&lt;a href=&quot;http://www.wrox.com&quot; target=&quot;topFrame&quot;/&gt;相同</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&quot;http://www.wrox.com/&quot;</span>, <span class="string">&quot;topFrame&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>执行这行代码的结果就如同用户点击了一个 href 属性为”<a target="_blank" rel="noopener" href="http://www.wrox.com" ,target ">http://www.wrox.com&quot;，target</a> 属 性为”topFrame”的链接。如果有一个窗口名叫”topFrame”，则这个窗口就会打开这个 URL；否则就会打开一个新窗口并将其命名为”topFrame”。</p>
+<p>第二个参数也可以是一个特殊的窗口名，比如**_self、 _parent、_top 或_blank。**</p>
+<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>如果 window.open()的第二个参数不是已有窗口，则会打开一个新窗口或标签页。第三个参数， 即特性字符串，用于指定新窗口的配置。如果没有传第三个参数，则新窗口（或标签页）会带有所有默认的浏览器特性（工具栏、地址栏、状态栏等都是默认配置）。如果打开的不是新窗口，则忽略第三个参数。</p>
+<p>特性字符串是一个<strong>逗号分隔的设置字符串</strong>，用于<strong>指定新窗口包含的特性</strong></p>
+<p>这些设置需要<strong>以逗号分隔的名值对形式出现</strong>，其中名值对以等号连接。</p>
+<p><strong>特性字符串中不能包含空格</strong>。</p>
+<p>window.open()方法<strong>返回一个对新建窗口的引用</strong>。</p>
+<p>可以使用这个对象操纵新打开的窗口。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wroxWin=<span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&quot;http://www.wrox.com/&quot;</span>, </span><br><span class="line"> <span class="string">&quot;wroxWindow&quot;</span>, </span><br><span class="line"> <span class="string">&quot;height=400,width=400,top=10,left=10,resizable=yes&quot;</span>); </span><br><span class="line"><span class="comment">//这行代码会打开一个可缩放的新窗口，大小为 400 像素×400 像素，位于离屏幕左边及顶边各 10 像素的位置。</span></span><br></pre></td></tr></table></figure>
+
+<p>可以<strong>使用 close()方法像这样关闭</strong>新打开的窗口： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wroxWin.<span class="title function_">close</span>(); </span><br><span class="line"><span class="title function_">alert</span>(wroxWin.<span class="property">closed</span>); <span class="comment">// true </span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>新创建窗口的 window 对象有一个属性 <strong>opener，指向打开它的窗口</strong>。这个属性只在弹出窗口的最上层 window 对象（top）有定义，是指向调用 window.open()打开它的窗口或窗格的指针。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wroxWin = <span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&quot;http://www.wrox.com/&quot;</span>, </span><br><span class="line"> <span class="string">&quot;wroxWindow&quot;</span>, </span><br><span class="line"> <span class="string">&quot;height=400,width=400,top=10,left=10,resizable=yes&quot;</span>); </span><br><span class="line"><span class="title function_">alert</span>(wroxWin.<span class="property">opener</span> === <span class="variable language_">window</span>); <span class="comment">// true </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以将新打开的标签页的 opener 属性设置为 <strong>null</strong>，表示新打开的标签页可以运行在独立的进程中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wroxWin = <span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&quot;http://www.wrox.com/&quot;</span>, </span><br><span class="line"> <span class="string">&quot;wroxWindow&quot;</span>, </span><br><span class="line"> <span class="string">&quot;height=400,width=400,top=10,left=10,resizable=yes&quot;</span>); </span><br><span class="line">wroxWin.<span class="property">opener</span> = <span class="literal">null</span>; </span><br></pre></td></tr></table></figure>
+
+<p>把 opener 设置为 null 表示新打开的标签页不需要与打开它的标签页通信，因此可以在独立进程 中运行。这个连接一旦切断，就无法恢复了。</p>
+<h4 id="弹窗屏蔽程序"><a href="#弹窗屏蔽程序" class="headerlink" title="弹窗屏蔽程序"></a>弹窗屏蔽程序</h4><p>所有现代浏览器都内置了屏蔽弹窗的程序，因此大多数意料之外的弹窗都会被屏蔽。在浏览器屏蔽弹窗时，可能会发生一些事。如果<strong>浏览器内置的弹窗屏蔽程序阻止了弹窗</strong>，那么 window.open()很可能会返回<strong>null</strong>。此时，只要检查这个方法的返回值就可以知道弹窗是否被屏蔽了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> wroxWin = <span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&quot;http://www.wrox.com&quot;</span>, <span class="string">&quot;_blank&quot;</span>); </span><br><span class="line"><span class="keyword">if</span> (wroxWin == <span class="literal">null</span>)&#123; </span><br><span class="line"> <span class="title function_">alert</span>(<span class="string">&quot;The popup was blocked!&quot;</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>window.open()通常会抛出错误。</p>
+<p>因此要准确检测弹窗是否被屏蔽，除了检测 window.open()的返回值，还要把它用 try&#x2F;catch 包装起来</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> blocked = <span class="literal">false</span>;</span><br><span class="line"><span class="keyword">try</span> &#123; </span><br><span class="line"> <span class="keyword">let</span> wroxWin = <span class="variable language_">window</span>.<span class="title function_">open</span>(<span class="string">&quot;http://www.wrox.com&quot;</span>, <span class="string">&quot;_blank&quot;</span>); </span><br><span class="line"> <span class="keyword">if</span> (wroxWin == <span class="literal">null</span>)&#123; </span><br><span class="line">	blocked = <span class="literal">true</span>; </span><br><span class="line"> &#125; </span><br><span class="line">&#125; <span class="keyword">catch</span> (ex)&#123; </span><br><span class="line"> 	blocked = <span class="literal">true</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">if</span> (blocked)&#123; </span><br><span class="line"> 	<span class="title function_">alert</span>(<span class="string">&quot;The popup was blocked!&quot;</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h3><p>**setTimeout()**用于指定在一定时间后执行某些代码</p>
+<p><strong>setInterval()<strong>用于指定</strong>每隔</strong>一段时间执行某些代码。</p>
+<p>setTimeout()方法通常接收<strong>两个参数</strong>：要<strong>执行的代码</strong>和在<strong>执行回调函数前等待的时间</strong>（毫秒）。</p>
+<p>第一个参数可以是包含 JavaScript 代码的字符串或者一个函数。</p>
+<p>第二个参数是要等待的毫秒数，而不是要执行代码的确切时间。</p>
+<p>调用 setTimeout()时，会返回一个表示该超时排期的数值 ID。这个超时 ID 是被排期执行代码的唯一标识符，可用于取消该任务。</p>
+<p><strong>只要是在指定时间到达之前调用 clearTimeout()，就可以取消超时任务</strong>。在任务<strong>执行后</strong>再调用 clearTimeout()<strong>没有效果</strong>。</p>
+<h3 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h3><p><strong>alert()、confirm()和 prompt()方法</strong>，可以让浏览器调用系统对话框向用户显示消息。这 些对话框与浏览器中显示的网页无关，而且也不包含 HTML。<strong>它们的外观由操作系统或者浏览器决定， 无法使用 CSS 设置。</strong></p>
+<p>这些对话框都是同步的模态对话框，即在它们显示的时候，代码会停止执行， 在它们消失以后，代码才会恢复执行。</p>
+<p>alert()警告框<strong>只接收一个参数</strong>。调用 alert()时，传入 的字符串会显示在一个系统对话框中。对话框只有一个“OK”（确定）按钮。如果传给 alert()的参数不是一个原始字符串，则会调用这个值的 toString()方法将其转换为字符串。</p>
+<p>confirm()确认框跟警告框类似，都会向用户显示消息。但不同之处在于，确认框有两个按钮：“Cancel”（取消）和“OK”（确定）。用户通过单击不同的按 钮表明希望接下来执行什么操作，要知道用户单击了 OK 按钮还是 Cancel 按钮，可以判断 confirm()方法的返回值：true 表示单击 了 OK 按钮，false 表示单击了 Cancel 按钮或者通过单击某一角上的 X 图标关闭了确认框。</p>
+<p>prompt()提示框</p>
+<p>提示框的用途是提示用户输入消息。 除了 OK 和 Cancel 按钮，提示框还会显示一个文本框，让用户输入内容。prompt()方法<strong>接收两个参数</strong>： 要显示给用户的文本，以及文本框的默认值（可以是空字符串）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">prompt</span>(<span class="string">&quot;What is your name?&quot;</span>,  <span class="string">&quot;Jake&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/../images/prompt1.png"></p>
+<p>如果用户单击了 OK 按钮，则 prompt()会<strong>返回文本框中的值</strong>。</p>
+<p>如果用户单击了 Cancel 按钮，或者对话框被关闭，则 prompt()会<strong>返回 null</strong>。</p>
+<p>JavaScript 还可以显示另外两种对话框：find()和 print()。</p>
+<p>用户在浏览器菜单上选择“查找”（find）和“打印”（print）时显示的就是这 两种对话框。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 显示打印对话框</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">print</span>(); </span><br><span class="line"><span class="comment">// 显示查找对话框</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">find</span>(); </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="location-对象"><a href="#location-对象" class="headerlink" title="location 对象"></a>location 对象</h2><p>location<strong>提供了当前窗口中加载文档的信息，以及通常的导航功能</strong>。</p>
+<p>这个对象独特的地方在于，它<strong>既是 window 的属性，也是 document 的属性</strong>。</p>
+<p>location 对象不仅保存着当前加载文档的信息，也<strong>保存着把 URL 解析为离散片段后能够通过属性访问的信息</strong>。</p>
+<p>假设浏览器当前加载的 URL 是  <a target="_blank" rel="noopener" href="http://foouser:barpassword@www.wrox.com/WileyCDA/?q=javascript#contents%EF%BC%8Clocation">http://foouser:barpassword@www.wrox.com:80/WileyCDA/?q=javascript#contents，location</a> 对象的内容如下表</p>
+<p><img src="/../images/history1.png"></p>
+<h3 id="查询字符串"><a href="#查询字符串" class="headerlink" title="查询字符串"></a>查询字符串</h3><p>虽然 location.search 返回了从问号开始直到 URL 末尾的所有内容，但没有办法逐个访问每个查询参数。</p>
+<h3 id="操作地址"><a href="#操作地址" class="headerlink" title="操作地址"></a>操作地址</h3><p>可以通过<strong>修改 location 对象修改浏览器的地址</strong>。设置 <strong>location.href</strong> 是最常见的。</p>
+<p>首先，使用 assign()方法并传入一 个URL，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.<span class="title function_">assign</span>(<span class="string">&quot;http://www.wrox.com&quot;</span>); </span><br></pre></td></tr></table></figure>
+
+<p>这行代码会立即启动导航到新 URL 的操作，同时在浏览器历史记录中增加一条记录。</p>
+<p>如果给 location.href 或 window.location 设置一个 URL，也会以同一个 URL 值调用 assign()方法。</p>
+<p>比如，下面两行代码都会执行与显式调用 assign()一样的操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">location</span> = <span class="string">&quot;http://www.wrox.com&quot;</span>; </span><br><span class="line"></span><br><span class="line">location.<span class="property">href</span> = <span class="string">&quot;http://www.wrox.com&quot;</span>; </span><br></pre></td></tr></table></figure>
+
+<p>在以前面提到的方式修改 URL 之后，浏览器历史记录中就会增加相应的记录。当用户单击“后退” 按钮时，就会导航到前一个页面。<strong>如果不希望增加历史记录，可以使用 replace()方法。这个方法接收一个URL 参数，但重新加载后不会增加历史记录。调用 replace()之后，用户不能回到前一页。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!<span class="variable constant_">DOCTYPE</span> html&gt; </span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"> <span class="tag">&lt;<span class="name">title</span>&gt;</span>You won&#x27;t be able to get back here<span class="tag">&lt;/<span class="name">title</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"> <span class="tag">&lt;<span class="name">p</span>&gt;</span>Enjoy this page for a second, because you won&#x27;t be coming back here.<span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"> </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> location.<span class="title function_">replace</span>(<span class="string">&quot;http://www.wrox.com/&quot;</span>), <span class="number">1000</span>); </span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"> </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span> </span><br></pre></td></tr></table></figure>
+
+<p>浏览器加载这个页面 1 秒之后会重定向到 <a target="_blank" rel="noopener" href="http://www.wrox.com.此时,“后退”按钮是禁用状态,即不能返回这个示例页面,除非手动输入完整的/">www.wrox.com。此时，“后退”按钮是禁用状态，即不能返回这个示例页面，除非手动输入完整的</a> URL。</p>
+<p><strong>最后一个修改地址的方法是 reload()，它能重新加载当前显示的页面。调用 reload()而不传参数，页面会以最有效的方式重新加载。</strong></p>
+<p>也就是说，如果页面自上次请求以来没有修改过，浏览器可能会 从缓存中加载页面。</p>
+<p>如果想强制从服务器重新加载，可以像下面这样给 reload()传个 true：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">location.<span class="title function_">reload</span>(); <span class="comment">// 重新加载，可能是从缓存加载</span></span><br><span class="line">location.<span class="title function_">reload</span>(<span class="literal">true</span>); <span class="comment">// 重新加载，从服务器加载</span></span><br></pre></td></tr></table></figure>
+
+<p>脚本中位于 reload()调用之后的代码可能执行也可能不执行，这取决于网络延迟和系统资源等因 素。为此，最好把 reload()作为最后一行代码。</p>
+<h2 id="navigator-对象"><a href="#navigator-对象" class="headerlink" title="navigator 对象"></a>navigator 对象</h2><p>navigator 现在已经成为<strong>客户端标识浏览器的标准</strong>。</p>
+<p>navigator 对象的属性通常<strong>用于确定浏览器的类型</strong>。</p>
+<h3 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h3><p>检测浏览器是否安装了某个插件可以通过 <strong>plugins 数组</strong>来确定</p>
+<p> name：插件名称。</p>
+<p> description：插件介绍。 </p>
+<p> filename：插件的文件名。 </p>
+<p> length：由当前插件处理的 MIME 类型数量</p>
+<p><strong>name 属性包含识别插件所需的必要信息</strong></p>
+<p><strong>检测插件就是遍历浏览器中可用的插件，并逐个比较插件的名称</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 插件检测，IE10 及更低版本无效 </span></span><br><span class="line"><span class="keyword">let</span> hasPlugin = <span class="keyword">function</span>(<span class="params">name</span>) &#123; </span><br><span class="line"> name = name.<span class="title function_">toLowerCase</span>();</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">let</span> plugin <span class="keyword">of</span> <span class="variable language_">window</span>.<span class="property">navigator</span>.<span class="property">plugins</span>)&#123; </span><br><span class="line"> <span class="keyword">if</span> (plugin.<span class="property">name</span>.<span class="title function_">toLowerCase</span>().<span class="title function_">indexOf</span>(name) &gt; -<span class="number">1</span>)&#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line"> &#125; </span><br><span class="line"> &#125; </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">false</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 检测 Flash </span></span><br><span class="line"><span class="title function_">alert</span>(<span class="title function_">hasPlugin</span>(<span class="string">&quot;Flash&quot;</span>)); </span><br><span class="line"><span class="comment">// 检测 QuickTime </span></span><br><span class="line"><span class="title function_">alert</span>(<span class="title function_">hasPlugin</span>(<span class="string">&quot;QuickTime&quot;</span>)); </span><br></pre></td></tr></table></figure>
+
+<h3 id="注册处理程序"><a href="#注册处理程序" class="headerlink" title="注册处理程序"></a>注册处理程序</h3><p>现代浏览器支持 navigator 上的registerProtocolHandler()方法。</p>
+<p>这个方法可以把一个网站注册为处理某种特定类型信息应用程序。随着在线 RSS 阅读器和电子邮件客户端的流行，可以借助这个方法将 Web 应用程序注册为像桌面软件一样的默认应用程序。</p>
+<h2 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h2><p>window 的另一个属性 screen 对象，是为数不多的几个在编程中很少用的 JavaScript 对象。这个对象中保存的纯粹是客户端能力信息，也就是浏览器窗口外面的客户端显示器的信息，比如像素宽度和像素高度。每个浏览器都会在 screen 对象上暴露不同的属性。</p>
+<h2 id="history-对象"><a href="#history-对象" class="headerlink" title="history 对象"></a>history 对象</h2><p>history 对象表示当前窗口首次使用以来用户的导航历史记录。因为 history 是 window 的属性， <strong>所以每个 window 都有自己的 history 对象</strong>。</p>
+<p>出于安全考虑，<strong>这个对象不会暴露用户访问过的 URL</strong>， 但可以通过它在不知道实际 URL 的情况下前进和后退。</p>
+<h3 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h3><p>go()方法可以在用户历史记录中沿任何方向导航，可以前进也可以后退。这个方法只接收一个参数， <strong>这个参数可以是一个整数</strong>，<strong>表示前进或后退多少步</strong>。<strong>负值表示在历史记录中后退</strong>（类似点击浏览器的“后退”按钮），而正值表示在历史记录中前进（类似点击浏览器的“前进”按钮）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后退一页</span></span><br><span class="line">history.<span class="title function_">go</span>(-<span class="number">1</span>); </span><br><span class="line"><span class="comment">// 前进一页</span></span><br><span class="line">history.<span class="title function_">go</span>(<span class="number">1</span>); </span><br><span class="line"><span class="comment">// 前进两页</span></span><br><span class="line">history.<span class="title function_">go</span>(<span class="number">2</span>); </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>go()有两个简写方法：**back()和 forward()**。</p>
+<p>顾名思义，<strong>这两个方法模拟了浏览器的后退按钮和前进按钮</strong>： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 后退一页 history.back();  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 前进一页 history.forward();</span></span><br></pre></td></tr></table></figure>
+
+<p>history 对象还有一个 <strong>length 属性，表示历史记录中有多个条目</strong>。这个属性反映了历史记录的数量，包括可以前进和后退的页面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (history.<span class="property">length</span> == <span class="number">1</span>)&#123; </span><br><span class="line"> <span class="comment">// 这是用户窗口中的第一个页面</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><strong>history 对象通常被用于创建“后退”和“前进”按钮，以及确定页面是不是用户历史记录中的第</strong><br><strong>一条记录</strong></p>
+<h3 id="历史状态管理"><a href="#历史状态管理" class="headerlink" title="历史状态管理"></a>历史状态管理</h3>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/08/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0_BOM/">http://example.com/2023/11/08/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0_BOM/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/09/%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0-DOM/">第十四章_DOM</a>
+            
+            
+            <a class="next" rel="next" href="/2023/11/08/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0_%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0/">第十一章_异步函数</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

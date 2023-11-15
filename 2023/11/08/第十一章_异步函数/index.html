@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>第十一章_异步函数 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">第十一章_异步函数</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 8, 2023&nbsp;&nbsp;22:09:23</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JavaScript/">JavaScript</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="异步函数"><a href="#异步函数" class="headerlink" title="异步函数"></a>异步函数</h2><p>异步函数，也称为“async&#x2F;await”（语法关键字），是 ES6 期约模式在 ECMAScript 函数中的应用。</p>
+<p>这个特性从行为和语法上都增强了 JavaScript，让以同步方式写的代码能够异步执行。</p>
+<p>下面来看一个最简单的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>, <span class="number">3</span>)); </span><br></pre></td></tr></table></figure>
+
+<p>这个期约在1000 毫秒之后解决为数值 3。如果程序中的其他代码要在这个值可用时访问它，则需写一个解决处理程序，这其实是很不方便的，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>, <span class="number">3</span>)); </span><br><span class="line">p.<span class="title function_">then</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x)); <span class="comment">// 3 </span></span><br></pre></td></tr></table></figure>
+
+<p>因为其他代码都必须塞到期约处理程序中。不过可以把处理程序定义为一个函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">handler</span>(<span class="params">x</span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(x); &#125; </span><br><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>, <span class="number">3</span>)); </span><br><span class="line">p.<span class="title function_">then</span>(handler); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>这个改进其实也不大。这是因为任何需要访问这个期约所产生值的代码，都需要以处理程序的形式 来接收这个值。也就是说，代码照样还是要放到处理程序里。</p>
+<p><strong>ES8 为此提供了 async&#x2F;await 关键字。</strong></p>
+<h3 id="async-和-await"><a href="#async-和-await" class="headerlink" title="async 和 await"></a>async 和 await</h3><h4 id="async"><a href="#async" class="headerlink" title="async"></a>async</h4><p>1.async 关键字用于声明异步函数。这个关键字可以用在函数声明、函数表达式、箭头函数和方法上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;&#125; </span><br><span class="line"><span class="keyword">let</span> bar = <span class="keyword">async</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;; </span><br><span class="line"><span class="keyword">let</span> <span class="title function_">baz</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;&#125;; </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Qux</span> &#123; </span><br><span class="line"> <span class="keyword">async</span> <span class="title function_">qux</span>(<span class="params"></span>) &#123;&#125; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>2.使用 async 关键字可以让函数具有异步特征，但总体上其代码仍然是同步求值的。</p>
+<p>而在参数或闭包方面，异步函数仍然具有普通 JavaScript 函数的正常行为。</p>
+<p>3.异步函数的返回值期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。 如果返回的是实现 thenable 接口的对象，则这个对象可以由提供给 then()的处理程序“解包”。如果不是，则返回值就被当作已经解决的期约。下面的代码演示了这些情况：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个原始值 </span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="string">&#x27;foo&#x27;</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">foo</span>().<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); </span><br><span class="line"><span class="comment">// foo</span></span><br><span class="line"><span class="comment">// 返回一个没有实现 thenable 接口的对象</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> [<span class="string">&#x27;bar&#x27;</span>]; </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">bar</span>().<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); </span><br><span class="line"><span class="comment">// [&#x27;bar&#x27;]</span></span><br><span class="line"><span class="comment">// 返回一个实现了 thenable 接口的非期约对象</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">baz</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">const</span> thenable = &#123; </span><br><span class="line"> <span class="title function_">then</span>(<span class="params">callback</span>) &#123; <span class="title function_">callback</span>(<span class="string">&#x27;baz&#x27;</span>); &#125; </span><br><span class="line"> &#125;; </span><br><span class="line"> <span class="keyword">return</span> thenable; </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">baz</span>().<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); </span><br><span class="line"><span class="comment">// baz</span></span><br><span class="line"><span class="number">350</span> 第 <span class="number">11</span> 章 期约与异步函数</span><br><span class="line"><span class="comment">// 返回一个期约</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">qux</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;qux&#x27;</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">qux</span>().<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); </span><br><span class="line"><span class="comment">// qux</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.与在期约处理程序中一样，在异步函数中抛出错误会返回拒绝的期约：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>); </span><br><span class="line"> <span class="keyword">throw</span> <span class="number">3</span>; </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 给返回的期约添加一个拒绝处理程序</span></span><br><span class="line"><span class="title function_">foo</span>().<span class="title function_">catch</span>(<span class="variable language_">console</span>.<span class="property">log</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>); </span><br><span class="line"><span class="comment">// 1 </span></span><br><span class="line"><span class="comment">// 2 </span></span><br><span class="line"><span class="comment">// 3 </span></span><br><span class="line">不过，拒绝期约的错误不会被异步函数捕获：</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>); </span><br><span class="line"> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(<span class="number">3</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// Attach a rejected handler to the returned promise </span></span><br><span class="line"><span class="title function_">foo</span>().<span class="title function_">catch</span>(<span class="variable language_">console</span>.<span class="property">log</span>); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>); </span><br><span class="line"><span class="comment">// 1 </span></span><br><span class="line"><span class="comment">// 2 </span></span><br><span class="line"><span class="comment">// Uncaught (in promise): 3 </span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="await"><a href="#await" class="headerlink" title="await"></a>await</h4><p>1.异步函数主要针对不会马上完成的任务，所以自然需要一种暂停和恢复执行的能力。使用 await 关键字可以暂停异步函数代码的执行，等待期约解决。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>, <span class="number">3</span>)); </span><br><span class="line">p.<span class="title function_">then</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x)); <span class="comment">// 3 </span></span><br><span class="line">使用 <span class="keyword">async</span>/<span class="keyword">await</span> 可以写成这样：</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>, <span class="number">3</span>)); </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> p); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">foo</span>(); </span><br><span class="line"><span class="comment">// 3 </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.await 关键字会暂停执行异步函数后面的代码，让出 JavaScript 运行时的执行线程。这个行 为与生成器函数中的 yield 关键字是一样的。</p>
+<p>3.await 关键字的用法与 JavaScript 的一元操作一样。它可以单独使用，也可以在表达式中使用，如下面的例子所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步打印&quot;foo&quot; </span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;foo&#x27;</span>)); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">foo</span>(); </span><br><span class="line"><span class="comment">// foo </span></span><br><span class="line"><span class="comment">// 异步打印&quot;bar&quot; </span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;bar&#x27;</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">bar</span>().<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); </span><br><span class="line"><span class="comment">// bar </span></span><br><span class="line"><span class="comment">// 1000 毫秒后异步打印&quot;baz&quot; </span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">baz</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">await</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">1000</span>)); </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;baz&#x27;</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">baz</span>(); </span><br><span class="line"><span class="comment">// baz（1000 毫秒后）</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4.await 关键字期待（但实际上并不要求）一个实现 thenable 接口的对象，但常规的值也可以。如 果是实现 thenable 接口的对象，则这个对象可以由 await 来“解包”。如果不是，则这个值就被当作已经解决的期约。</p>
+<h4 id="await-的限制"><a href="#await-的限制" class="headerlink" title="await 的限制"></a>await 的限制</h4><p>1.await 关键字必须在异步函数中使用，不能在顶级上下文如<code>&lt;script&gt;</code>标签或模块中使用。不过，定义并立即调用异步函数是没问题的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">3</span>)); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">foo</span>(); </span><br><span class="line"><span class="comment">// 3 </span></span><br><span class="line"><span class="comment">// 立即调用的异步函数表达式</span></span><br><span class="line">(<span class="keyword">async</span> <span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">3</span>)); </span><br><span class="line">&#125;)(); </span><br><span class="line"><span class="comment">// 3 </span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.异步函数的特质不会扩展到嵌套函数。因此，await 关键字也只能直接出现在异步函数的定 义中。在同步函数内部使用 await 会抛出 SyntaxError。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不允许：await 出现在了箭头函数中</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">const</span> <span class="title function_">syncFn</span> = (<span class="params"></span>) =&gt; &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;foo&#x27;</span>); </span><br><span class="line"> &#125;; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">syncFn</span>());</span><br><span class="line"> &#125; </span><br><span class="line"><span class="comment">// 不允许：await 出现在了同步函数声明中</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">syncFn</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;bar&#x27;</span>); </span><br><span class="line"> &#125; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">syncFn</span>()); </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 不允许：await 出现在了同步函数表达式中</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">baz</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">const</span> syncFn = <span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;baz&#x27;</span>); </span><br><span class="line"> &#125;; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">syncFn</span>()); </span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 不允许：IIFE 使用同步函数表达式或箭头函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">qux</span>(<span class="params"></span>) &#123; </span><br><span class="line"> (<span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;qux&#x27;</span>)); &#125;)(); </span><br><span class="line"> (<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;qux&#x27;</span>)))(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.要完全理解 await 关键字，必须知道它并非只是等待一个值可用那么简单。JavaScript 运行时在碰 到 await 关键字时，会记录在哪里暂停执行。等到 await 右边的值可用了，JavaScript 运行时会向消息 队列中推送一个任务，这个任务会恢复异步函数的执行。</p>
+<p>因此，即使 await 后面跟着一个立即可用的值，函数的其余部分也会被异步求值。下面的例子演 示了这一点：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>); </span><br><span class="line"> <span class="keyword">await</span> <span class="literal">null</span>; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>); </span><br><span class="line"><span class="title function_">foo</span>(); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>); </span><br><span class="line"><span class="comment">// 1 </span></span><br><span class="line"><span class="comment">// 2 </span></span><br><span class="line"><span class="comment">// 3 </span></span><br><span class="line"><span class="comment">// 4 </span></span><br><span class="line">控制台中输出结果的顺序很好地解释了运行时的工作过程：</span><br><span class="line">(<span class="number">1</span>) 打印 <span class="number">1</span>；</span><br><span class="line">(<span class="number">2</span>) 调用异步函数 <span class="title function_">foo</span>()；</span><br><span class="line">(<span class="number">3</span>)（在 <span class="title function_">foo</span>()中）打印 <span class="number">2</span>；</span><br><span class="line">(<span class="number">4</span>)（在 <span class="title function_">foo</span>()中）<span class="keyword">await</span> 关键字暂停执行，为立即可用的值 <span class="literal">null</span> 向消息队列中添加一个任务；</span><br><span class="line">(<span class="number">5</span>) <span class="title function_">foo</span>()退出；</span><br><span class="line">(<span class="number">6</span>) 打印 <span class="number">3</span>；</span><br><span class="line">(<span class="number">7</span>) 同步线程的代码执行完毕；</span><br><span class="line">(<span class="number">8</span>) <span class="title class_">JavaScript</span> 运行时从消息队列中取出任务，恢复异步函数执行；</span><br><span class="line">(<span class="number">9</span>)（在 <span class="title function_">foo</span>()中）恢复执行，<span class="keyword">await</span> 取得 <span class="literal">null</span> 值（这里并没有使用）；</span><br><span class="line">(<span class="number">10</span>)（在 <span class="title function_">foo</span>()中）打印 <span class="number">4</span>；</span><br><span class="line">(<span class="number">11</span>) <span class="title function_">foo</span>()返回。</span><br><span class="line">如果 <span class="keyword">await</span> 后面是一个期约，则问题会稍微复杂一些。此时，为了执行异步函数，实际上会有两个</span><br><span class="line">任务被添加到消息队列并被异步求值。下面的例子虽然看起来很反直觉，但它演示了真正的执行顺序：</span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>); </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="number">8</span>)); </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">9</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>); </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">await</span> <span class="number">6</span>); </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">7</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>); </span><br><span class="line"><span class="title function_">foo</span>(); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>); </span><br><span class="line"><span class="title function_">bar</span>(); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>); </span><br><span class="line"><span class="comment">// 1 </span></span><br><span class="line"><span class="comment">// 2 </span></span><br><span class="line"><span class="comment">// 3 </span></span><br><span class="line"><span class="comment">// 4 </span></span><br><span class="line"><span class="comment">// 5 </span></span><br><span class="line"><span class="comment">// 6 </span></span><br><span class="line"><span class="comment">// 7 </span></span><br><span class="line"><span class="comment">// 8 </span></span><br><span class="line"><span class="comment">// 9 </span></span><br><span class="line">运行时会像这样执行上面的例子：</span><br><span class="line">(<span class="number">1</span>) 打印 <span class="number">1</span>；</span><br><span class="line">(<span class="number">2</span>) 调用异步函数 <span class="title function_">foo</span>()；</span><br><span class="line">(<span class="number">3</span>)（在 <span class="title function_">foo</span>()中）打印 <span class="number">2</span>；</span><br><span class="line">(<span class="number">4</span>)（在 <span class="title function_">foo</span>()中）<span class="keyword">await</span> 关键字暂停执行，向消息队列中添加一个期约在落定之后执行的任务；</span><br><span class="line">(<span class="number">5</span>) 期约立即落定，把给 <span class="keyword">await</span> 提供值的任务添加到消息队列；</span><br><span class="line">(<span class="number">6</span>) <span class="title function_">foo</span>()退出；</span><br><span class="line">(<span class="number">7</span>) 打印 <span class="number">3</span>；</span><br><span class="line">(<span class="number">8</span>) 调用异步函数 <span class="title function_">bar</span>()；</span><br><span class="line">(<span class="number">9</span>)（在 <span class="title function_">bar</span>()中）打印 <span class="number">4</span>；</span><br><span class="line">(<span class="number">10</span>)（在 <span class="title function_">bar</span>()中）<span class="keyword">await</span> 关键字暂停执行，为立即可用的值 <span class="number">6</span> 向消息队列中添加一个任务；</span><br><span class="line">(<span class="number">11</span>) <span class="title function_">bar</span>()退出；</span><br><span class="line">(<span class="number">12</span>) 打印 <span class="number">5</span>；</span><br><span class="line">(<span class="number">13</span>) 顶级线程执行完毕；</span><br><span class="line">(<span class="number">14</span>) <span class="title class_">JavaScript</span> 运行时从消息队列中取出解决 <span class="keyword">await</span> 期约的处理程序，并将解决的值 <span class="number">8</span> 提供给它；</span><br><span class="line">(<span class="number">15</span>) <span class="title class_">JavaScript</span> 运行时向消息队列中添加一个恢复执行 <span class="title function_">foo</span>()函数的任务；</span><br><span class="line">(<span class="number">16</span>) <span class="title class_">JavaScript</span> 运行时从消息队列中取出恢复执行 <span class="title function_">bar</span>()的任务及值 <span class="number">6</span>；</span><br><span class="line">(<span class="number">17</span>)（在 <span class="title function_">bar</span>()中）恢复执行，<span class="keyword">await</span> 取得值 <span class="number">6</span>；</span><br><span class="line">(<span class="number">18</span>)（在 <span class="title function_">bar</span>()中）打印 <span class="number">6</span>；</span><br><span class="line">(<span class="number">19</span>)（在 <span class="title function_">bar</span>()中）打印 <span class="number">7</span>；</span><br><span class="line">(<span class="number">20</span>) <span class="title function_">bar</span>()返回；</span><br><span class="line">(<span class="number">21</span>) 异步任务完成，<span class="title class_">JavaScript</span> 从消息队列中取出恢复执行 <span class="title function_">foo</span>()的任务及值 <span class="number">8</span>；</span><br><span class="line">(<span class="number">22</span>)（在 <span class="title function_">foo</span>()中）打印 <span class="number">8</span>；</span><br><span class="line">(<span class="number">23</span>)（在 <span class="title function_">foo</span>()中）打印 <span class="number">9</span>；</span><br><span class="line">(<span class="number">24</span>) <span class="title function_">foo</span>()返回。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="异步函数策略"><a href="#异步函数策略" class="headerlink" title="异步函数策略"></a>异步函数策略</h3><p>因为简单实用，所以异步函数很快成为 JavaScript 项目使用最广泛的特性之一。</p>
+<h4 id="实现-sleep"><a href="#实现-sleep" class="headerlink" title="实现 sleep()"></a>实现 sleep()</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">sleep</span>(<span class="params">delay</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> <span class="built_in">setTimeout</span>(resolve, delay)); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="keyword">const</span> t0 = <span class="title class_">Date</span>.<span class="title function_">now</span>(); </span><br><span class="line"> <span class="keyword">await</span> <span class="title function_">sleep</span>(<span class="number">1500</span>); <span class="comment">// 暂停约 1500 毫秒</span></span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Date</span>.<span class="title function_">now</span>() - t0); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">foo</span>(); </span><br><span class="line"><span class="comment">// 1502</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="利用平行执行"><a href="#利用平行执行" class="headerlink" title="利用平行执行"></a>利用平行执行</h4><h4 id="串行执行期约"><a href="#串行执行期约" class="headerlink" title="串行执行期约"></a>串行执行期约</h4><p>使用 async&#x2F;await，期约连锁会变得很简单：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">addTwo</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x + <span class="number">2</span>;&#125; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addThree</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x + <span class="number">3</span>;&#125; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addFive</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x + <span class="number">5</span>;&#125; </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">addTen</span>(<span class="params">x</span>) &#123; </span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">const</span> fn <span class="keyword">of</span> [addTwo, addThree, addFive]) &#123; </span><br><span class="line"> x = <span class="keyword">await</span> <span class="title function_">fn</span>(x); </span><br><span class="line"> &#125; </span><br><span class="line"> <span class="keyword">return</span> x; </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">addTen</span>(<span class="number">9</span>).<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); <span class="comment">// 19 </span></span><br></pre></td></tr></table></figure>
+
+<p>这里，await 直接传递了每个函数的返回值，结果通过迭代产生。当然，这个例子并没有使用期约， 如果要使用期约，则可以把所有函数都改成异步函数。这样它们就都返回期约了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">addTwo</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x + <span class="number">2</span>;&#125; </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">addThree</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x + <span class="number">3</span>;&#125; </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">addFive</span>(<span class="params">x</span>) &#123;<span class="keyword">return</span> x + <span class="number">5</span>;&#125; </span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">addTen</span>(<span class="params">x</span>) &#123; </span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">const</span> fn <span class="keyword">of</span> [addTwo, addThree, addFive]) &#123; </span><br><span class="line"> x = <span class="keyword">await</span> <span class="title function_">fn</span>(x); </span><br><span class="line"> &#125; </span><br><span class="line"> <span class="keyword">return</span> x; </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">addTen</span>(<span class="number">9</span>).<span class="title function_">then</span>(<span class="variable language_">console</span>.<span class="property">log</span>); <span class="comment">// 19</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="栈追踪与内存管理"><a href="#栈追踪与内存管理" class="headerlink" title="栈追踪与内存管理"></a>栈追踪与内存管理</h4>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/08/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0_%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0/">http://example.com/2023/11/08/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0_%E5%BC%82%E6%AD%A5%E5%87%BD%E6%95%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/08/%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0_BOM/">第十二章_BOM</a>
+            
+            
+            <a class="next" rel="next" href="/2023/11/07/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0_%E6%9C%9F%E7%BA%A6/">第十一章_期约</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

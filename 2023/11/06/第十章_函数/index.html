@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>第十章_函数 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">第十章_函数</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 6, 2023&nbsp;&nbsp;20:32:15</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JavaScript/">JavaScript</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><p><strong>定义:函数实际上是对象。每个函数都是Function 类型的实例，而 Function 也有属性和方法，跟其他引用类型一样。</strong></p>
+<h2 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h2><p>1.函数声明</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span> (num1, num2) &#123;  <span class="keyword">return</span> num1 + num2;  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.函数表达式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = <span class="keyword">function</span>(<span class="params">num1, num2</span>) &#123;  <span class="keyword">return</span> num1 + num2;  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>3.箭头函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">sum</span> = (<span class="params">num1, num2</span>) =&gt; &#123;  <span class="keyword">return</span> num1 + num2;  &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>4.Function 构造函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = <span class="keyword">new</span> <span class="title class_">Function</span>(<span class="string">&quot;num1&quot;</span>, <span class="string">&quot;num2&quot;</span>, <span class="string">&quot;return num1 + num2&quot;</span>); <span class="comment">// 不推荐</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>任何可以使用<strong>函数表达式</strong>的地方，都<strong>可以使用箭头函数</strong></p>
+<p>如果只有一个参数，那也可以不用括号。</p>
+<p>只有没有参数，或者多个参数的情况下，才需要使用括号： </p>
+<p> 以下两种写法都有效</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">double</span> = (<span class="params">x</span>) =&gt; &#123; <span class="keyword">return</span> <span class="number">2</span> * x; &#125;; </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">triple</span> = x =&gt; &#123; <span class="keyword">return</span> <span class="number">3</span> * x; &#125;;  </span><br></pre></td></tr></table></figure>
+
+<p> 没有参数需要括号 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">getRandom</span> = (<span class="params"></span>) =&gt; &#123; <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">random</span>(); &#125;; </span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>箭头函数不能使用 arguments（<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_16339527/article/details/53231725">js的arguments到底是什么？-CSDN博客</a>）、super（[js中的super_js super-CSDN博客](<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35087256/article/details/82669618?ops_request_misc=%7B%22request_id%22:%22169927501416800188547081%22,%22scm%22:%2220140713.130102334..%22%7D&request_id=169927501416800188547081&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-82669618-null-null.142%5Ev96%5Epc_search_result_base6&utm_term=js">https://blog.csdn.net/qq_35087256/article/details/82669618?ops_request_misc=%7B%22request%5Fid%22%3A%22169927501416800188547081%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&amp;request_id=169927501416800188547081&amp;biz_id=0&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-82669618-null-null.142^v96^pc_search_result_base6&amp;utm_term=js</a> super&amp;spm&#x3D;1018.2226.3001.4187)） 和 new.target</strong></p>
+<h2 id="函数名"><a href="#函数名" class="headerlink" title="函数名"></a>函数名</h2><p> 一个函数可以有多个名称</p>
+<p>ECMAScript6的所有<strong>函数对象都会暴露一个只读的 name 属性</strong>，其中包含关于函数的信息。</p>
+<p>即使函数没有名称， 也会如实显示成空字符串。如果它是<strong>使用 Function 构造函数创建的，则会标识成”anonymous</strong>“。</p>
+<p>如果函数是一个<strong>获取get函数</strong>、<strong>设置set函数</strong>，或者<strong>使用 bind()实例化</strong>，那么标识符前面会<strong>加上一个前缀</strong>：</p>
+<p><img src="/../images/%E5%87%BD%E6%95%B0%E5%90%8D%E5%89%8D%E7%BC%80.png" alt="1"></p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>ECMAScript函数既不关心传入的参数个数，也不关心这些参数的数据类型。</p>
+<p>定义函数时要接收两个参数，并不意味着调用时就传两个参数。你可以传一个、三个，甚至一个也不传，解释器都不会报错。</p>
+<h3 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h3><p>arguments 对象是一个类数组对象（但不是 Array 的实例），因此可以使用中括号语法访问其中的元素（第一个参数是 arguments[0]，第二个参数是 arguments[1]）。而要确定传进来多少个参数， 可以访问 arguments.length 属性。 </p>
+<p>在下面的例子中，sayHi()函数的第一个参数叫 name： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params">name, message</span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello &quot;</span> + name + <span class="string">&quot;, &quot;</span> + message);  &#125;  </span><br></pre></td></tr></table></figure>
+
+<p>可以通过 arguments[0]取得相同的参数值。</p>
+<p>因此，把函数重写成不声明参数也可以： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hello &quot;</span> + <span class="variable language_">arguments</span>[<span class="number">0</span>] + <span class="string">&quot;, &quot;</span> + <span class="variable language_">arguments</span>[<span class="number">1</span>]);  &#125;  </span><br></pre></td></tr></table></figure>
+
+<p>在重写后的代码中，没有命名参数。name 和 message 参数都不见了，但函数照样可以调用。这就表明，ECMAScript 函数的参数只是为了方便才写出来的，并不是必须写出来的。与其他语言不同，在 ECMAScript 中的命名参数不会创建让之后的调用必须匹配的函数签名。这是因为根本不存在验证命名参数的机制。 </p>
+<p>也可以通过 arguments 对象的 length 属性检查传入的参数个数。</p>
+<p>下面的例子展示了在每调用一 个函数时，都会打印出传入的参数个数： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">howManyArgs</span>(<span class="params"></span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>.<span class="property">length</span>);  &#125;  </span><br><span class="line"></span><br><span class="line"><span class="title function_">howManyArgs</span>(<span class="string">&quot;string&quot;</span>, <span class="number">45</span>); <span class="comment">// 2 </span></span><br><span class="line"></span><br><span class="line"><span class="title function_">howManyArgs</span>(); <span class="comment">// 0  </span></span><br><span class="line"></span><br><span class="line"><span class="title function_">howManyArgs</span>(<span class="number">12</span>); <span class="comment">// 1 </span></span><br></pre></td></tr></table></figure>
+
+<p>还有一个必须理解的重要方面，那就是 arguments 对象可以跟命名参数一起使用，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">doAdd</span>(<span class="params">num1, num2</span>) &#123;  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="variable language_">arguments</span>.<span class="property">length</span> === <span class="number">1</span>) &#123;  </span><br><span class="line"></span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(num1 + <span class="number">10</span>);&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> </span><br><span class="line">    (<span class="variable language_">arguments</span>.<span class="property">length</span> === <span class="number">2</span>) &#123;  </span><br><span class="line"></span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>[<span class="number">0</span>] + num2); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>在这个 doAdd()函数中，同时使用了两个命名参数和 arguments 对象。命名参数 num1 保存着与 arugments[0]一样的值，因此使用谁都无所谓</p>
+<p>ECMAScript 中的所有参数都按值传递的。不可能按引用传递参数。如果把对象作 为参数传递，那么传递的值就是这个对象的引用</p>
+<h3 id="没有重载"><a href="#没有重载" class="headerlink" title="没有重载"></a>没有重载</h3><p> ECMAScript 函数<strong>不能像传统编程那样重载</strong>。</p>
+<h3 id="参数定义默认值和暂时性死区"><a href="#参数定义默认值和暂时性死区" class="headerlink" title="参数定义默认值和暂时性死区"></a>参数定义默认值和暂时性死区</h3><p>给多个<strong>参数定义默认值</strong>实际上跟使用 let 关键字顺序声明变量一样。</p>
+<p>来看下面的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">makeKing</span>(<span class="params">name = <span class="string">&#x27;Henry&#x27;</span>, numerals = <span class="string">&#x27;VIII&#x27;</span></span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">`King <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;numerals&#125;</span>`</span>;  &#125;  </span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">makeKing</span>()); <span class="comment">// King Henry VIII  </span></span><br></pre></td></tr></table></figure>
+
+<p>这里的默认参数会按照定义它们的顺序依次被初始化。</p>
+<p>可以依照如下示例想象一下这个过程： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">makeKing</span>(<span class="params"></span>) &#123; </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;Henry&#x27;</span>;  <span class="keyword">let</span> numerals = <span class="string">&#x27;VIII&#x27;</span>;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">`King <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;numerals&#125;</span>`</span>;  &#125;  </span><br></pre></td></tr></table></figure>
+
+<p><strong>因为参数是按顺序初始化的，所以后定义默认值的参数可以引用先定义的参数。</strong></p>
+<p>看下面这个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">makeKing</span>(<span class="params">name = <span class="string">&#x27;Henry&#x27;</span>, numerals = name</span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">`King <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;numerals&#125;</span>`</span>;  &#125;  </span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">makeKing</span>()); <span class="comment">// King Henry Henry  </span></span><br></pre></td></tr></table></figure>
+
+<p><strong>参数初始化顺序遵循“暂时性死区”规则，即前面定义的参数不能引用后面定义的。</strong></p>
+<p>像这样就会抛出错误 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">makeKing</span>(<span class="params">name = numerals, numerals = <span class="string">&#x27;VIII&#x27;</span></span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">`King <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;numerals&#125;</span>`</span>;  &#125;  </span><br></pre></td></tr></table></figure>
+
+<p><strong>参数也存在于自己的作用域中</strong>，它们不能引用函数体的作用域： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">makeKing</span>(<span class="params">name = <span class="string">&#x27;Henry&#x27;</span>, numerals = defaultNumeral</span>) &#123;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> defaultNumeral = <span class="string">&#x27;VIII&#x27;</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="string">`King <span class="subst">$&#123;name&#125;</span> <span class="subst">$&#123;numerals&#125;</span>`</span>;  &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="参数扩展与收集"><a href="#参数扩展与收集" class="headerlink" title="参数扩展与收集"></a>参数扩展与收集</h3><p>通过扩展操作符极为简洁地实现这种操作。</p>
+<p>对可迭代对象应用扩展操作符，并将其作为一个参数传入，可以将可迭代对象拆分，并将迭代返回的每个值单独传入。</p>
+<p>比如，使用扩展操作符可以将前面例子中的数组像这样直接传给函数：</p>
+<p><img src="/../images/%E6%95%B0%E7%BB%84%E6%B1%82%E5%92%8C.png" alt="2"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getSum</span>(...values)); <span class="comment">// 10  </span></span><br></pre></td></tr></table></figure>
+
+<p>因为数组的长度已知，所以在使用扩展操作符传参的时候，并不妨碍在其前面或后面再传其他的值，包括使用扩展操作符传其他参数： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getSum</span>(-<span class="number">1</span>, ...values)); <span class="comment">// 9  </span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getSum</span>(...values, <span class="number">5</span>)); <span class="comment">// 15  </span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getSum</span>(-<span class="number">1</span>, ...values, <span class="number">5</span>)); <span class="comment">// 14  </span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getSum</span>(...values, ...[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>])); <span class="comment">// 28</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>在构思函数定义时，可以使用扩展操作符把不同长度的独立参数组合为一个数组。</strong></p>
+<h2 id="函数声明与函数表达式"><a href="#函数声明与函数表达式" class="headerlink" title="函数声明与函数表达式"></a>函数声明与函数表达式</h2><p>JavaScript 引擎在任何代码执行之前，会先读取函数声明，并在执行上下文中生成函数定义。而函数表达式必须等到代码执行到它那一行，才会在执行上下文中生成函数定义。</p>
+<p>因为函数声明会在任何代码执行之前先被读取并添加到执行上下文。这个 过程叫作<strong>函数声明提升</strong>。在执行代码时，JavaScript 引擎会先执行一遍扫描， 把发现的函数声明提升到源代码树的顶部。因此即使函数定义出现在调用它们的代码之后，引擎也会把函数声明提升到顶部。如果把前面代码中的函数声明改为等价的函数表达式，那么执行的时候就会出错： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 会出错 </span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">sum</span>(<span class="number">10</span>, <span class="number">10</span>)); </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sum = <span class="keyword">function</span>(<span class="params">num1, num2</span>) <span class="comment">//这样创建的函数叫作匿名函数</span></span><br><span class="line"></span><br><span class="line">&#123;  <span class="keyword">return</span> num1 + num2;  &#125;; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="函数内部"><a href="#函数内部" class="headerlink" title="函数内部"></a>函数内部</h2><p>在 ECMAScript 5 中，函数内部存在两个特殊的对象：<strong>arguments 和 this</strong>。ECMAScript 6 又新增了 <strong>new.target</strong> 属性</p>
+<p>arguments 对象前面讨论过多次了，它是一个类数组对象，包含调用函数时传入的所有参数。这 个对象只有以 <strong>function 关键字</strong>定义函数（相对于使用箭头语法创建函数）时才会有。虽然主要用于包含函数参数，<strong>但 arguments 对象其实还有一个 callee 属性</strong>，是一个<strong>指向 arguments 对象所在函数的指针</strong>。</p>
+<h3 id="callee"><a href="#callee" class="headerlink" title="callee"></a>callee</h3><p>来看下面这个经典的阶乘函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">num</span>) &#123;  </span><br><span class="line"><span class="keyword">if</span> (num &lt;= <span class="number">1</span>)&#123;  </span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> num * <span class="title function_">factorial</span>(num - <span class="number">1</span>);  &#125; </span><br><span class="line"> &#125;  </span><br></pre></td></tr></table></figure>
+
+<p>阶乘函数一般定义成递归调用的，就像上面这个例子一样。只要给函数一个名称，而且这个名称不会变，这样定义就没有问题。</p>
+<p>但是，<strong>这个函数要正确执行就必须保证函数名是 factorial，从而导致了紧密耦合。</strong></p>
+<p>使用 <strong>arguments.callee 就可以让函数逻辑与函数名解耦</strong>： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">num</span>) &#123;  </span><br><span class="line"><span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;  </span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;  </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">    <span class="keyword">return</span> num * <span class="variable language_">arguments</span>.<span class="title function_">callee</span>(num - <span class="number">1</span>); &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>这个重写之后的 factorial()函数已经用 arguments.callee 代替了之前硬编码的 factorial。 <strong>这意味着无论函数叫什么名称，都可以引用正确的函数</strong>。</p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>在标准函数中，this 引用的是把函数当成方法调用的上下文对象，这时候通常称其为 this 值（在 网页的全局上下文中调用函数时，this 指向 windows）。</p>
+<p>来看下面的例子： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">color</span> = <span class="string">&#x27;red&#x27;</span>;  </span><br><span class="line"><span class="keyword">let</span> o = &#123;  <span class="attr">color</span>: <span class="string">&#x27;blue&#x27;</span>  &#125;;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayColor</span>(<span class="params"></span>) &#123;  </span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">color</span>); </span><br><span class="line"> &#125;  </span><br><span class="line"><span class="title function_">sayColor</span>(); <span class="comment">// &#x27;red&#x27;  </span></span><br><span class="line">o.<span class="property">sayColor</span> = sayColor;  </span><br><span class="line">o.<span class="title function_">sayColor</span>(); <span class="comment">// &#x27;blue&#x27;  </span></span><br></pre></td></tr></table></figure>
+
+<p>定义在全局上下文中的函数 sayColor()引用了 this 对象。这个 this 到底引用哪个对象必须到函数被调用时才能确定。</p>
+<p>因此这个值在代码执行的过程中可能会变。如果在全局上下文中调用 sayColor()，这结果会输出”red”，因为 this 指向 window，而 this.color 相当于 window.color。 而在把 sayColor()赋值给 o 之后再调用 o.sayColor()，this 会指向 o，即 this.color 相当于 o.color，所以会显示”blue”。</p>
+<p> 在箭头函数中，this引用的是定义箭头函数的上下文。下面的例子演示了这一点。<strong>在对sayColor() 的两次调用中，this 引用的都是 window 对象，因为这个箭头函数是在 window 上下文中定义的</strong>： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">color</span> = <span class="string">&#x27;red&#x27;</span>;  </span><br><span class="line"><span class="keyword">let</span> o = &#123; <span class="attr">color</span>: <span class="string">&#x27;blue&#x27;</span> &#125;; </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">sayColor</span> = (<span class="params"></span>) =&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">color</span>); </span><br><span class="line"></span><br><span class="line"><span class="title function_">sayColor</span>(); <span class="comment">// &#x27;red&#x27;  </span></span><br><span class="line">o.<span class="property">sayColor</span> = sayColor;  </span><br><span class="line">o.<span class="title function_">sayColor</span>(); <span class="comment">// &#x27;red&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>在事件回调或定时回调中调用某个函数时，this 值指向的并非想要的对象。此时将回调函数写成箭头函数就可以解决问题。这是因为箭头函数中的 this 会保留定义该函数时的上下文：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">King</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">royaltyName</span> = <span class="string">&#x27;Henry&#x27;</span>; </span><br><span class="line"> <span class="comment">// this 引用 King 的实例</span></span><br><span class="line"> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">royaltyName</span>), <span class="number">1000</span>); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Queen</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">royaltyName</span> = <span class="string">&#x27;Elizabeth&#x27;</span>; </span><br><span class="line"> <span class="comment">// this 引用 window 对象</span></span><br><span class="line"> <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">royaltyName</span>); &#125;, <span class="number">1000</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">new</span> <span class="title class_">King</span>(); <span class="comment">// Henry </span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Queen</span>(); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="new-target"><a href="#new-target" class="headerlink" title="new.target"></a>new.target</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;fn:&#x27;</span>,<span class="keyword">new</span>.<span class="property">target</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">fn</span>(<span class="string">&#x27;nanjiu&#x27;</span>) <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">new</span> <span class="title function_">fn</span>(<span class="string">&#x27;nanjiu&#x27;</span>) </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">fn: ƒ fn(name) &#123;</span></span><br><span class="line"><span class="comment">    console.log(&#x27;fn:&#x27;,new.target)</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">fn2</span> = (<span class="params">name</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;fn2&#x27;</span>,<span class="keyword">new</span>.<span class="property">target</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn2</span>(<span class="string">&#x27;nan&#x27;</span>) <span class="comment">// 报错 Uncaught SyntaxError: new.target expression is not allowed here</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="函数属性与方法"><a href="#函数属性与方法" class="headerlink" title="函数属性与方法"></a>函数属性与方法</h2><p>ECMAScript 中的函数是对象，因此有属性和方法。<strong>每个函数都有两个属性：length 和 prototype。</strong></p>
+<h3 id="length"><a href="#length" class="headerlink" title="length"></a>length</h3><p>length 属性保存函数定义的命名参数的个数，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayName</span>(<span class="params">name</span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(name); </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">num1, num2</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;hi&quot;</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sayName.<span class="property">length</span>); <span class="comment">// 1 </span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum.<span class="property">length</span>); <span class="comment">// 2 </span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sayHi.<span class="property">length</span>); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3><p>prototype属性是保存引用类型所有实例方法的地方，这意味着 **toString()、valueOf()**等方法实际上都保存在 prototype 上，进而由所有实例共享。</p>
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h3><p>apply()方法接收两个参数：函数内 this 的值和一个参数数组。第二个参数可以是 Array 的实例，但也可以是 arguments 对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">num1, num2</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">callSum1</span>(<span class="params">num1, num2</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> sum.<span class="title function_">apply</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>); <span class="comment">// 传入 arguments 对象</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">callSum2</span>(<span class="params">num1, num2</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> sum.<span class="title function_">apply</span>(<span class="variable language_">this</span>, [num1, num2]); <span class="comment">// 传入数组</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">callSum1</span>(<span class="number">10</span>, <span class="number">10</span>)); <span class="comment">// 20 </span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">callSum2</span>(<span class="number">10</span>, <span class="number">10</span>)); <span class="comment">// 20 </span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，callSum1()会调用sum()函数，将 this 作为函数体内的 this 值（这里等于 window，因为是在全局作用域中调用的）传入，同时还传入了 arguments 对象。callSum2()也会调用 sum()函数，但会传入参数的数组。这两个函数都会执行并返回正确的结果。</p>
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><p>call()方法与 apply()的作用一样，只是传参的形式不同。第一个参数跟 apply()一样，也是 this 值，而剩下的要传给被调用函数的参数则是逐个传递的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">num1, num2</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> num1 + num2; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">callSum</span>(<span class="params">num1, num2</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> sum.<span class="title function_">call</span>(<span class="variable language_">this</span>, num1, num2); </span><br><span class="line">&#125; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">callSum</span>(<span class="number">10</span>, <span class="number">10</span>)); <span class="comment">// 20 </span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>总结:apply()和 call()真正强大的地方并不是给函数传参，而是控制函数调用上下文即函数体内 this 值的能力。使用 call()或 apply()的好处是可以将任意对象设置为任意函数的作用域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">color</span> = <span class="string">&#x27;red&#x27;</span>; </span><br><span class="line"><span class="keyword">let</span> o = &#123; </span><br><span class="line"> <span class="attr">color</span>: <span class="string">&#x27;blue&#x27;</span> </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayColor</span>(<span class="params"></span>) &#123; </span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">color</span>); </span><br><span class="line">&#125; </span><br><span class="line"><span class="title function_">sayColor</span>(); <span class="comment">// red </span></span><br><span class="line">sayColor.<span class="title function_">call</span>(<span class="variable language_">this</span>); <span class="comment">// red </span></span><br><span class="line">sayColor.<span class="title function_">call</span>(<span class="variable language_">window</span>); <span class="comment">// red </span></span><br><span class="line">sayColor.<span class="title function_">call</span>(o); <span class="comment">// blue </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>这是经典的递归阶乘函数。虽然这样写是可以的，但如果把这个函数赋值给其他变量，就会出问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">num</span>) &#123; </span><br><span class="line"> <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span>; </span><br><span class="line"> &#125; <span class="keyword">else</span> &#123; </span><br><span class="line"> <span class="keyword">return</span> num * <span class="title function_">factorial</span>(num - <span class="number">1</span>); </span><br><span class="line"> &#125; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">let</span> anotherFactorial = factorial; </span><br><span class="line">factorial = <span class="literal">null</span>; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">anotherFactorial</span>(<span class="number">4</span>)); <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
+
+<p>这里把factorial()函数保存在了另一个变量 anotherFactorial 中，然后将 factorial 设置 为 null，于是只保留了一个对原始函数的引用。而在调用 anotherFactorial()时，要递归调用 factorial()，但因为它已经不是函数了，所以会出错。在写递归函数时使用 arguments.callee 可以避免这个问题。</p>
+<p>arguments.callee 就是一个指向正在执行的函数的指针，因此可以在函数内部递归调用，如下所示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">num</span>) &#123; </span><br><span class="line"> <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123; </span><br><span class="line"> <span class="keyword">return</span> <span class="number">1</span>; </span><br><span class="line"> &#125; <span class="keyword">else</span> &#123; </span><br><span class="line"> <span class="keyword">return</span> num * <span class="variable language_">arguments</span>.<span class="title function_">callee</span>(num - <span class="number">1</span>); </span><br><span class="line"> &#125; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>不过，<strong>在严格模式下运行的代码</strong>是不能访问 arguments.callee 的</p>
+<h2 id="立即调用的函数表达式-IIFE"><a href="#立即调用的函数表达式-IIFE" class="headerlink" title="立即调用的函数表达式(IIFE)"></a>立即调用的函数表达式(IIFE)</h2><p>立即调用的匿名函数又被称作立即调用的函数表达式（IIFE，Immediately Invoked Function  Expression）。它类似于函数声明，但由于被包含在括号中，所以会被解释为函数表达式。紧跟在第一组括号后面的第二组括号会立即调用前面的函数表达式。下面是一个简单的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;<span class="comment">//块级作用域  &#125;)(); </span></span><br></pre></td></tr></table></figure>
+
+<p>使用 IIFE 可以模拟块级作用域，即在一个函数表达式内部声明变量，然后立即调用这个函数。</p>
+<p>为了防止变量定义外泄，IIFE 是个非常有效的方式。 这样也不会导致闭包相关的内存问题，因为不存在对这个匿名函数的引用。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/06/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E5%87%BD%E6%95%B0/">http://example.com/2023/11/06/%E7%AC%AC%E5%8D%81%E7%AB%A0_%E5%87%BD%E6%95%B0/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/06/pc%E7%AB%AF%E7%BD%91%E9%A1%B5%E7%89%B9%E6%95%88/">pc端网页特效</a>
+            
+            
+            <a class="next" rel="next" href="/2023/10/31/css%E5%AE%9A%E4%BD%8D/">css定位</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
