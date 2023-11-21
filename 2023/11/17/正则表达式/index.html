@@ -228,7 +228,7 @@
 <p><img src="/../images/%E7%82%B9%E8%BF%90%E7%AE%97%E7%AC%A6.png"></p>
 <h3 id="字符集"><a href="#字符集" class="headerlink" title="字符集[ ]"></a>字符集[ ]</h3><p>表达式[Tt]he 匹配 the 和 The。</p>
 <p><img src="/../images/%E5%AD%97%E7%AC%A6%E9%9B%86.png"></p>
-<h3 id="号"><a href="#号" class="headerlink" title="* 号"></a>* 号</h3><p><em><em>号匹配 在</em>之前的字符出现大于等于0次。 例如，表达式 a* 匹配0或更多个以a开头的字符。表达式[a-z]</em> 匹配一个行中所有以小写字母开头的字符串</p>
+<h3 id="号"><a href="#号" class="headerlink" title="* 号"></a>* 号</h3><p> <em>*号匹配 在*<em>之前的字符出现大于等于0次。 例如，表达式 a</em> 匹配0或更多个以a开头的字符。表达式[a-z]</em> 匹配一个行中所有以小写字母开头的字符串。</p>
 <p><img src="/../images/%E5%8C%B9%E9%85%8D%E5%8F%B7.png"></p>
 <p>.+号</p>
 <p>+号匹配+号之前的字符出现 &gt;&#x3D;1 次。 例如表达式c.+t 匹配以首字母c开头以t结尾，中间跟着至少一个字符的字符串。</p>
@@ -242,8 +242,11 @@
 <h3 id="…-特征标群"><a href="#…-特征标群" class="headerlink" title="(…) 特征标群"></a>(…) 特征标群</h3><p>特征标群是一组写在 (…) 中的子模式。(…) 中包含的内容将会被看成一个整体，和数学中小括号（ ）的作用相同。</p>
 <p>例如, 表达式 (ab)* 匹配连续出现 0  或更多个 ab。如果没有使用 (…) ，那么表达式 ab* 将匹配连续出现 0 或更多个 b 。再比如之前说的 {} 是用来表示前面一个字符出现指定次数。但如果在 {} 前加上特征标群 (…) 则表示整个标群内的字符重复 N 次。</p>
 <p><img src="/../images/%E7%89%B9%E5%BE%81%E6%A0%87%E7%BE%A4.png"></p>
-<h3 id="或运算符"><a href="#或运算符" class="headerlink" title="| 或运算符"></a>| 或运算符</h3><p><img src="/../images/%E6%88%96%E8%BF%90%E7%AE%97%E7%AC%A6.png"></p>
-<h3 id="转码特殊字符"><a href="#转码特殊字符" class="headerlink" title="转码特殊字符 \"></a>转码特殊字符 \</h3><p>反斜线 \ 在表达式中用于转码紧跟其后的字符。用于指定 { } [ ] &#x2F; \ + * . $ ^ | ? 这些特殊字符。如果想要匹配这些特殊字符则要在其前面加上反斜线 \。<br>例如 . 是用来匹配除换行符外的所有字符的。如果想要匹配句子中的 . 则要写成 . 以下这个例子 .?是选择性匹配.</p>
+<h3 id="或运算符"><a href="#或运算符" class="headerlink" title="| 或运算符"></a>| 或运算符</h3><p>或运算符|表示或，用作判断条件。</p>
+<p>例如 (T|t)he|car 匹配 (T|t)he 或 car。</p>
+<p><img src="/../images/%E6%88%96%E8%BF%90%E7%AE%97%E7%AC%A6.png"></p>
+<h3 id="转码特殊字符"><a href="#转码特殊字符" class="headerlink" title="转码特殊字符 \"></a>转码特殊字符 \</h3><p>反斜线 \ 在表达式中用于转码紧跟其后的字符。用于指定 { } [ ] &#x2F; \ + * . $ ^ | ? 这些特殊字符。如果想要匹配这些特殊字符则要在其前面加上反斜线 \。<br>例如 . 是用来匹配除换行符外的所有字符的。如果想要匹配句子中的 . 则要写成 \. </p>
+<p>以下这个例子 \.?是选择性匹配.</p>
 <p><img src="/../images/%E8%BD%AC%E7%A0%81%E5%AD%97%E7%AC%A6.png"></p>
 <h3 id="开头锚点-号和-号"><a href="#开头锚点-号和-号" class="headerlink" title="开头锚点^号和$号"></a>开头锚点^号和$号</h3><p>在正则表达式中，想要匹配指定开头或结尾的字符串就要使用到锚点。^ 指定开头，$ 指定结尾<br><img src="/../images/1711.png"></p>
 <p><img src="/../images/1713.png"></p>
@@ -252,15 +255,15 @@
 <h3 id="简写字符集"><a href="#简写字符集" class="headerlink" title="简写字符集"></a>简写字符集</h3><p>​	正则表达式提供一些常用的字符集简写。</p>
 <p><img src="/../images/%E7%AE%80%E5%86%99%E5%AD%97%E7%AC%A6%E9%9B%86.png"></p>
 <h3 id="零宽度断言"><a href="#零宽度断言" class="headerlink" title="零宽度断言"></a>零宽度断言</h3><p><img src="/../images/%E9%9B%B6%E5%AE%BD%E5%BA%A6%E6%96%AD%E8%A8%80.png"></p>
-<h4 id="…正先行断言"><a href="#…正先行断言" class="headerlink" title="?&#x3D;…正先行断言"></a>?&#x3D;…正先行断言</h4><p>?&#x3D;… 为正先行断言，表示第一部分表达式之后必须跟着 ?&#x3D;…定义的表达式。<br>例子</p>
+<h4 id="正先行断言"><a href="#正先行断言" class="headerlink" title="?&#x3D;正先行断言"></a>?&#x3D;正先行断言</h4><p>?&#x3D;…为正先行断言，表示第一部分表达式之后必须跟着 ?&#x3D;定义的表达式。<br>例子</p>
 <p><img src="/../images/1101.png"></p>
 <p>注意这里是要找出The 和 the 后面紧跟着 (空格)fat的字符串，但是正先行断言只是一个判断条件，他不会作为匹配被检索，所以最后匹配到的只是The</p>
-<h4 id="负先行断言"><a href="#负先行断言" class="headerlink" title="?!.. 负先行断言"></a>?!.. 负先行断言</h4><blockquote>
+<h4 id="负先行断言"><a href="#负先行断言" class="headerlink" title="?!负先行断言"></a>?!负先行断言</h4><blockquote>
 <p>负先行断言 ?! 用于筛选所有匹配结果，筛选条件为 其后不跟随着断言中定义的格式。 （说白了就是正先行断言的反例）</p>
 </blockquote>
 <p><img src="/../images/1102.png"></p>
-<h4 id><a href="#" class="headerlink" title="?&lt;&#x3D; … 正后发断言"></a>?&lt;&#x3D; … 正后发断言</h4><p>正后发断言 记作(?&lt;&#x3D;…) 用于筛选所有匹配结果，筛选条件为 其前跟随着断言中定义的格式。 例如，表达式<br>(?&lt;&#x3D;(T|t)he\s)(fat|mat) 匹配 fat 和 mat，且其前跟着 The 或 the。</p>
-<h4 id="-1"><a href="#-1" class="headerlink" title="?&lt;!.. 负后发断言"></a>?&lt;!.. 负后发断言</h4><p>负后发断言 记作 (?&lt;!..) 用于筛选所有匹配结果，筛选条件为 其前不跟随着断言中定义的格式。</p>
+<h4 id><a href="#" class="headerlink" title="?&lt;&#x3D;  正后发断言"></a>?&lt;&#x3D;  正后发断言</h4><p>正后发断言 记作(?&lt;&#x3D;…) 用于筛选所有匹配结果，筛选条件为 其前跟随着断言中定义的格式。 例如，表达式<br>(?&lt;&#x3D;(T|t)he\s)(fat|mat) 匹配 fat 和 mat，且其前跟着 The 或 the。</p>
+<h4 id="-1"><a href="#-1" class="headerlink" title="?&lt;! 负后发断言"></a>?&lt;! 负后发断言</h4><p>负后发断言 记作 (?&lt;!..) 用于筛选所有匹配结果，筛选条件为 其前不跟随着断言中定义的格式。</p>
 <h3 id="标志"><a href="#标志" class="headerlink" title="标志"></a>标志</h3><p>标志也叫模式修正符，因为它可以用来修改表达式的搜索结果。 这些标志可以任意的组合使用，它也是整个正则表达式的一部分。</p>
 <p><img src="/../images/%E6%A0%87%E5%BF%97.png"></p>
 <h3 id="多行修饰符-m"><a href="#多行修饰符-m" class="headerlink" title="多行修饰符 m"></a>多行修饰符 m</h3><blockquote>
@@ -329,6 +332,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/17/%E7%BD%91%E9%A1%B5%E8%BD%AE%E6%92%AD%E5%9B%BE/">网页轮播图</a>
             
             
             <a class="next" rel="next" href="/2023/11/15/ES6%E8%AF%A6%E8%A7%A3/">ES6详解</a>
