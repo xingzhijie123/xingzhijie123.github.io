@@ -221,27 +221,19 @@
         </header>
 
         <div class="post-content">
-            <h1 id="网页预览"><a href="#网页预览" class="headerlink" title="网页预览"></a>网页预览</h1><img src="../images/商城.png" style="zoom: 200%;">
-
-
-
-<p>知识点：</p>
-<h4 id="1-为什么auto能实现水平居中？"><a href="#1-为什么auto能实现水平居中？" class="headerlink" title="1.为什么auto能实现水平居中？"></a>1.为什么auto能实现水平居中？</h4><p>这是因为水平方向的 <code>auto</code>，其计算值取决于可用空间，左右方向的auto值均分了可用空间，使得块元素得以在包含块内居中显示。</p>
-<img src="../images/marginauto的理解.png" style="zoom: 200%;">
-
-
-
-
-
+            <h2 id="网页预览"><a href="#网页预览" class="headerlink" title="网页预览"></a>网页预览</h2><p><img src="/../images/%E5%95%86%E5%9F%8E.png"></p>
+<h2 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a>知识点：</h2><h4 id="1-为什么auto能实现水平居中？"><a href="#1-为什么auto能实现水平居中？" class="headerlink" title="1.为什么auto能实现水平居中？"></a>1.为什么auto能实现水平居中？</h4><p>这是因为水平方向的 <code>auto</code>，其计算值取决于可用空间，左右方向的auto值均分了可用空间，使得块元素得以在包含块内居中显示。</p>
+<p><img src="/../images/marginauto%E7%9A%84%E7%90%86%E8%A7%A3.png"></p>
 <h4 id="2-href-”javascript-”"><a href="#2-href-”javascript-”" class="headerlink" title="2.href&#x3D;”javascript:;”"></a>2.href&#x3D;”javascript:;”</h4><p>禁止超链接的跳转</p>
 <h4 id="3-mixins"><a href="#3-mixins" class="headerlink" title="3.mixins"></a>3.mixins</h4><p><img src="/../images/mixinlizi.png"></p>
-<p>css封装常用的操作</p>
-<p>比如:由于父元素中的子元素的浮动效果，会产生父元素的高度塌陷问题，这种现象在后面的样式中也是比较常见的，所以我们需要在css目录中创建一个单独的mixins目录，在其中创建一个clear.less文件，然后在需要的位置调用即可。</p>
+<p><strong>css封装常用的操作</strong></p>
+<p>比如:</p>
+<p>由于父元素中的子元素的浮动效果，会产生父元素的高度塌陷问题，这种现象在后面的样式中也是比较常见的，所以我们需要在css目录中创建一个单独的mixins目录，在其中创建一个clear.less文件，然后在需要的位置调用即可。</p>
 <h4 id="4-font-size-0"><a href="#4-font-size-0" class="headerlink" title="4.font-size&#x3D;0"></a>4.font-size&#x3D;0</h4><p><img src="/../images/fontsize.png"></p>
 <p>用来解决行内元素留有一小撮空白的问题</p>
 <p>给父元素添加属性font-size&#x3D;0，再给子元素单独设置一个font-size值，以免子元素受到父元素影响</p>
 <p><img src="/../images/font.png"></p>
-<h4 id="5-window-onload-function"><a href="#5-window-onload-function" class="headerlink" title="5.window.onload&#x3D;function(){}"></a>5.window.onload&#x3D;function(){}</h4><p><img src="/../images/indexjs%E7%9A%84%E4%B8%80%E8%88%AC%E7%94%A8%E6%B3%95.png"></p>
+<h4 id="5-window-onload"><a href="#5-window-onload" class="headerlink" title="5.window.onload"></a>5.window.onload</h4><p><img src="/../images/indexjs%E7%9A%84%E4%B8%80%E8%88%AC%E7%94%A8%E6%B3%95.png"></p>
 <h4 id="6-Js文件顺序"><a href="#6-Js文件顺序" class="headerlink" title="6.Js文件顺序"></a>6.Js文件顺序</h4><p><img src="/../images/js%E6%96%87%E4%BB%B6%E4%BC%98%E5%85%88%E7%BA%A7.png"></p>
 <p>如果这个文件需要另一个js文件的数据，则先让另一个引入，所有js文件一般都放在body的末尾引入</p>
 <h4 id="7-动态创建元素和追加元素的实现"><a href="#7-动态创建元素和追加元素的实现" class="headerlink" title="7.动态创建元素和追加元素的实现"></a>7.动态创建元素和追加元素的实现</h4><p><img src="/../images/%E8%B7%AF%E5%BE%84%E5%AF%BC%E8%88%AA.png"></p>
@@ -258,7 +250,7 @@
 <h4 id="15-dl-dt-dd"><a href="#15-dl-dt-dd" class="headerlink" title="15.dl, dt, dd"></a>15.dl, dt, dd</h4><p> dl, dt, dd是组合标签，使用了dt dd最外层就必须使用dl包裹，此组合标签我们也又叫表格标签，与<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=table%E8%A1%A8%E6%A0%BC&spm=1001.2101.3001.7020">table表格</a>类似组合标签，故名我们也叫dl表格。</p>
 <h5 id="默认格式："><a href="#默认格式：" class="headerlink" title="默认格式："></a>默认格式：</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>This is title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>列表1<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span>标题1<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>列表1<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dt</span>&gt;</span>标题2<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>列表1<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dd</span>&gt;</span>列表2<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>资料：[CSS之排列系列–dl, dt, dd–使用&#x2F;教程&#x2F;实例_dt dd-CSDN博客](<a target="_blank" rel="noopener" href="https://blog.csdn.net/feiying0canglang/article/details/121724575#:~:text=dl%2C">https://blog.csdn.net/feiying0canglang/article/details/121724575#:~:text=dl%2C</a> dt%2C dd是组合标签，使用了dt dd最外层就必须使用dl包裹，此组合标签我们也又叫表格标签，与table表格类似组合标签，故名我们也叫dl表格。,&lt;%2Fdt&gt;&lt;%2Fdd&gt;&lt;%2Fdl&gt;为常用标题%2B列表型标签。 若没有对dl dt dd标签初始CSS样式，默认dd列表内容会缩进。)</p>
+<p>资料：[CSS之排列系列–dl, dt, dd](<a target="_blank" rel="noopener" href="https://blog.csdn.net/feiying0canglang/article/details/121724575#:~:text=dl%2C">CSS之排列系列–dl, dt, dd–使用&#x2F;教程&#x2F;实例_dt dd-CSDN博客</a>)</p>
 <h4 id="16-浮动与清除浮动："><a href="#16-浮动与清除浮动：" class="headerlink" title="16.浮动与清除浮动："></a>16.浮动与清除浮动：</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 子元素&#123;</span><br><span class="line">	<span class="attribute">float</span>：<span class="attribute">left</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>为了防止影响到父元素(父元素高度塌陷)，要对父元素做清除浮动处理</p>
@@ -347,7 +339,7 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2023/11/15/ES6%E8%AF%A6%E8%A7%A3/">ES6详解</a>
+                <a class="prev" rel="prev" href="/2023/11/15/ES6%E8%AF%A6%E8%A7%A3/">ES6详解(一)</a>
             
             
             <a class="next" rel="next" href="/2023/11/11/HTML5+CSS3_%E5%8E%9F%E7%A5%9E%E7%BD%91%E9%A1%B5%E5%AE%9E%E6%88%98/">HTML5+CSS3_原神网页实战</a>

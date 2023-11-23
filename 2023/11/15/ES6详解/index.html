@@ -13,7 +13,7 @@
 
 
 
-<title>ES6详解 | 我在看着你</title>
+<title>ES6详解(一) | 我在看着你</title>
 
 
 
@@ -196,7 +196,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">ES6详解</h1>
+            <h1 class="post-title">ES6详解(一)</h1>
             
                 <div class="post-meta">
                     
@@ -212,7 +212,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/ES6-JavaScript/">ES6,JavaScript</a>
+                                <a href="/categories/ES6/">ES6</a>
                             
                         </span>
                     
@@ -361,6 +361,7 @@
 <p>本质上，这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。下面是一些使用嵌套数组进行解构的例子。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [foo, [[bar], baz]] = [<span class="number">1</span>, [[<span class="number">2</span>], <span class="number">3</span>]];</span><br><span class="line">foo <span class="comment">// 1</span></span><br><span class="line">bar <span class="comment">// 2</span></span><br><span class="line">baz <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [ , , third] = [<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;bar&quot;</span>, <span class="string">&quot;baz&quot;</span>];</span><br><span class="line">third <span class="comment">// &quot;baz&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x, , y] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line">x <span class="comment">// 1</span></span><br><span class="line">y <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [head, ...tail] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line">head <span class="comment">// 1</span></span><br><span class="line">tail <span class="comment">// [2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x, y, ...z] = [<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line">x <span class="comment">// &quot;a&quot;</span></span><br><span class="line">y <span class="comment">// undefined</span></span><br><span class="line">z <span class="comment">// []</span></span><br><span class="line"><span class="comment">//如果解构不成功，变量的值就等于undefined。</span></span><br></pre></td></tr></table></figure>
 
+<p><strong>如果解构不成功，变量的值就等于undefined。</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [foo] = [];</span><br><span class="line"><span class="keyword">let</span> [bar, foo] = [<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
 
 <p>以上两种情况都属于解构不成功，<code>foo</code>的值都会等于<code>undefined</code>。</p>
@@ -380,7 +381,7 @@
 <h3 id="生成器函数（Generator-Function）实现的斐波那契数列生成器"><a href="#生成器函数（Generator-Function）实现的斐波那契数列生成器" class="headerlink" title="生成器函数（Generator Function）实现的斐波那契数列生成器"></a>生成器函数（Generator Function）实现的斐波那契数列生成器</h3><p>使用生成器函数（Generator Function）实现的斐波那契数列生成器。让我解释一下每一部分的作用：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="title function_">fibs</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> b = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">yield</span> a;</span><br><span class="line">    [a, b] = [b, a + b];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这是一个生成器函数 <code>fibs</code>，使用 <code>function*</code> 声明。在函数内部，定义了两个变量 <code>a</code> 和 <code>b</code>，初始化为斐波那契数列的起始值。然后，使用一个无限循环 <code>while (true)</code>，通过 <code>yield a;</code> 语句产生当前的斐波那契数列的值 <code>a</code>。接着，使用解构赋值 <code>[a, b] = [b, a + b];</code> 更新 <code>a</code> 和 <code>b</code> 的值，实现斐波那契数列的递进。</p>
+<p>这是一个生成器函数 <code>fibs</code>，使用 <code>function*</code> 声明。在函数内部，定义了两个变量 <code>a</code> 和 <code>b</code>，初始化为斐波那契数列的起始值。然后，使用一个无限循环 <code>while (true)</code>，通过 <code>yield a</code> 语句产生当前的斐波那契数列的值 <code>a</code>。接着，使用解构赋值 <code>[a, b] = [b, a + b];</code> 更新 <code>a</code> 和 <code>b</code> 的值，实现斐波那契数列的递进。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [first, second, third, fourth, fifth, sixth] = <span class="title function_">fibs</span>();</span><br></pre></td></tr></table></figure>
 
 <p>这一行代码通过<strong>解构赋值</strong>，从生成器函数 <code>fibs</code> 中取得前六个斐波那契数列的值。生成器函数会持续产生数列的值，但解构赋值只会取所需数量的值。</p>
@@ -401,7 +402,7 @@
 <h3 id="惰性求值"><a href="#惰性求值" class="headerlink" title="惰性求值"></a>惰性求值</h3><p>如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">f</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;aaa&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x = <span class="title function_">f</span>()] = [<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
 
-<p>上面代码中，因为<code>x</code>能取到值，所以函数<code>f</code>根本不会执行。上面的代码其实等价于下面的代码。</p>
+<p>上面代码中，因为<code>x</code>能取到值，所以函数<code>f</code>根本不会执行。</p>
 <p>默认值可以引用解构赋值的其他变量，但该变量必须已经声明。（有点抽象，认真看）</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [x = <span class="number">1</span>, y = x] = [];     <span class="comment">// x=1; y=1</span></span><br><span class="line"><span class="keyword">let</span> [x = <span class="number">1</span>, y = x] = [<span class="number">2</span>];    <span class="comment">// x=2; y=2</span></span><br><span class="line"><span class="keyword">let</span> [x = <span class="number">1</span>, y = x] = [<span class="number">1</span>, <span class="number">2</span>]; <span class="comment">// x=1; y=2</span></span><br><span class="line"><span class="keyword">let</span> [x = y, y = <span class="number">1</span>] = [];     <span class="comment">// ReferenceError: y is not defined</span></span><br></pre></td></tr></table></figure>
 
@@ -575,7 +576,7 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2023/11/16/ES6%E8%AF%A6%E8%A7%A3(%E4%BA%8C)/">ES6详解(2)</a>
+                <a class="prev" rel="prev" href="/2023/11/16/ES6%E8%AF%A6%E8%A7%A3(%E4%BA%8C)/">ES6详解(二)</a>
             
             
             <a class="next" rel="next" href="/2023/11/13/HTML5+CSS3+LESS+JavaScript%E5%95%86%E5%9F%8E%E7%BD%91%E9%A1%B5%E5%AE%9E%E6%88%98/">HTML5+CSS3+LESS+JavaScript商城网页实战</a>

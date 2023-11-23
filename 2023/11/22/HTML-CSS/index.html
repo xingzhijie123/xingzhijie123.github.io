@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>HTML+CSS进阶 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">HTML+CSS进阶</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 22, 2023&nbsp;&nbsp;15:28:16</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/HTML-CSS/">HTML,CSS</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="1-表单进阶"><a href="#1-表单进阶" class="headerlink" title="1.表单进阶"></a>1.表单进阶</h2><p>注意点:</p>
+<p>当设置类似注册，登录的表单布局时，最外层的元素最好不要用div元素，而是用form元素，能实现表单的提交功能</p>
+<h3 id="表单标签"><a href="#表单标签" class="headerlink" title="表单标签:"></a>表单标签:</h3><p><img src="/../images/%E8%A1%A8%E5%8D%95.png"></p>
+<h3 id="布尔属性"><a href="#布尔属性" class="headerlink" title="布尔属性:"></a>布尔属性:</h3><p>布尔属性是控制元素的某一个状态，是一种比较特别的属性。布尔属性主要出现在表单元素上</p>
+<p>下面是分讲几个布尔属性的用法</p>
+<ul>
+<li>checked: 其实所有表单元素都有此属性，但只有radio, checkbox能在图形上表现出勾选的效果，一旦勾选上，其name及value就能提交</li>
+<li>selected: option的属性，一旦选上，就出现高亮状态，并将其name,value(没有就取其innerHTML)提交上去</li>
+<li>readonly: 用于输入性的控件，让用户只能看，不能修改</li>
+<li>disabled: 让表单元素蒙上一个灰白的色调，用户无法操作它，也不会提交其内容</li>
+<li>multiple：让下拉框变成多选形式，可以按着SHIFT进行多选</li>
+<li>hidden: 用于所有元素，这是HTML5新增的布尔属性，效果如同display:none，但其优先级低于CSS，因此没有大规范使用</li>
+<li>contentEditable： 应用于所有可见的非表单元素，让元素也像INPUT那样编辑它里面的内容</li>
+<li>async： 用于script标签，是近十年出现最有用的属性，让脚本不再堵塞页面加载</li>
+</ul>
+<h3 id="单选框"><a href="#单选框" class="headerlink" title="单选框"></a>单选框</h3><p>一个单选按钮组由具有相同 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/input#name"><code>name</code></a> 属性的单选按钮组成。一旦单选按钮组被建立，选择那按钮组的任何单选按钮将会自动取消同组当前选择的任何按钮。</p>
+<p>你可以在一个页面上创建多个单选按钮组，只要每一组拥有唯一的 <code>name</code> 属性即可。</p>
+<p><code>&lt;input type=&quot;radio&quot; name=&quot;1&quot;&gt;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>用户注册<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入11位手机号&quot;</span> <span class="attr">maxlength</span>=<span class="string">&quot;11&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请填写验证码&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span>发送验证码<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入密码&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请再次输入密码&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;&quot;</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">multiple</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span> <span class="attr">selected</span>&gt;</span>打搅<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>睡觉<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>吃饭<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>看番<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>上课<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>学习<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>冲浪<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>写作业<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>聊天<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;sex&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">span</span>&gt;</span>性别<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;sex2&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">id</span>=<span class="string">&quot;男&quot;</span>  <span class="attr">name</span>=<span class="string">&quot;1&quot;</span> <span class="attr">checked</span> /&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;男&quot;</span>&gt;</span>男<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">id</span>=<span class="string">&quot;女&quot;</span>  <span class="attr">name</span>=<span class="string">&quot;1&quot;</span>/&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;女&quot;</span>&gt;</span>女<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">textarea</span></span></span><br><span class="line"><span class="tag">            <span class="attr">name</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">id</span>=<span class="string">&quot;&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">placeholder</span>=<span class="string">&quot;请填写个人简介&quot;</span></span></span><br><span class="line"><span class="tag">          &gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">span</span>&gt;</span>同意台湾是中国领土不可分割的一部分<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span>&gt;</span>立即注册<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span>&gt;</span>重置表单<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="reset"><a href="#reset" class="headerlink" title="reset:"></a>reset:</h3><p>在HTML中，<code>&lt;button&gt;</code> 元素可以用来创建按钮，其中 <code>type</code> 属性指定按钮的类型。当 <code>type</code> 属性的值为 “reset” 时，这个按钮就成为了表单重置按钮。这样的按钮用于清除表单中的用户输入，将表单中的各个字段恢复到它们的初始值。</p>
+<h3 id="textarea"><a href="#textarea" class="headerlink" title="textarea"></a>textarea</h3><p><code>&lt;textarea&gt;</code> 是 HTML 中用于创建多行文本输入框的元素。它允许用户输入多行文本，比如用于评论、消息等需要多行输入的场景。</p>
+<p>基本的 <code>&lt;textarea&gt;</code> 元素看起来像这样：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">&quot;4&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;50&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入文本...&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="label-for"><a href="#label-for" class="headerlink" title="label for"></a>label for</h3><p><code>label</code> 元素的 <code>for</code> 属性用于关联标签与表单元素</p>
+<p>使用 <code>for</code> 属性将标签与相应的表单元素关联起来。这通常用于在用户单击标签时，浏览器将焦点自动设置到相关联的表单元素上。</p>
+<p><code>input type=&quot;radio&quot; id=&quot;女&quot;  name=&quot;1&quot;</code></p>
+<p>这里的id用来实现<code>label for</code>的关联效果，label for通过找id实现关联</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">*&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">box-sizing</span>: border-box;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">22</span>, <span class="number">32</span>, <span class="number">37</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#fff</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">30px</span> auto;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-tag">h1</span>&#123;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span>&#123;</span><br><span class="line">    <span class="attribute">margin-bottom</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.txt</span>&#123;</span><br><span class="line">    <span class="attribute">outline</span>: none;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="built_in">rgb</span>(<span class="number">202</span>, <span class="number">202</span>, <span class="number">202</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">input</span>&#123;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br><span class="line">select<span class="selector-class">.txt</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">textarea</span><span class="selector-class">.txt</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">resize</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">button</span>&#123;</span><br><span class="line">   <span class="attribute">width</span>:<span class="number">160px</span>;</span><br><span class="line">   <span class="attribute">height</span>: <span class="number">35px</span>;</span><br><span class="line">   <span class="attribute">outline</span>: none;</span><br><span class="line">   <span class="attribute">border</span>: <span class="number">#fff</span>;</span><br><span class="line">   <span class="attribute">border-radius</span>: <span class="number">3px</span>;</span><br><span class="line">   <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">   <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">73</span>, <span class="number">112</span>, <span class="number">195</span>);</span><br><span class="line">   <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">   <span class="attribute">cursor</span>: pointer ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> <span class="selector-class">.item</span> <span class="selector-class">.sex</span> <span class="selector-tag">span</span>&#123;</span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-class">.xiao</span>&#123;</span><br><span class="line"><span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line"><span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">179</span>, <span class="number">179</span>, <span class="number">179</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 调整行块和行内块高度的差 */</span></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-class">.gou</span>&#123;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -<span class="number">2px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 男女默认颜色 */</span></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">label</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#aaa</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 同意默认颜色 */</span></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">label</span> <span class="selector-tag">input</span>~<span class="selector-tag">span</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#aaa</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 同意选中颜色 */</span></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">label</span> <span class="selector-tag">input</span><span class="selector-pseudo">:checked</span>~<span class="selector-tag">span</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 男女选中颜色 */</span></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-tag">input</span><span class="selector-pseudo">:checked</span>~<span class="selector-tag">label</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>:<span class="number">#333</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.item</span> <span class="selector-class">.left</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">margin-right</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="text-indent"><a href="#text-indent" class="headerlink" title="text-indent"></a>text-indent</h3><p><code>text-indent</code> 是一个 CSS 属性，用于设置文本块中首行文本的缩进。该属性可以接受正数、负数、百分比、和长度值。</p>
+<h3 id="focus"><a href="#focus" class="headerlink" title=":focus"></a>:focus</h3><p><code>:focus</code> 是 CSS 伪类，用于选择当前获得焦点的元素。这通常在处理交互性元素时很有用，例如表单元素或可点击的元素。</p>
+<p>当用户点击页面上的一个可聚焦元素，比如输入框或按钮时，这个元素就会获得焦点。在这种情况下，<code>:focus</code> 伪类就可以用于为获得焦点的元素应用样式。</p>
+<p>以下是一个简单的例子，当输入框获得焦点时，边框颜色变为蓝色：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cssCopy codeinput<span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>resize</p>
+<p><code>resize</code> 是 CSS 中用于控制元素是否可被用户调整尺寸的属性。主要用于 <code>&lt;textarea&gt;</code> 和 <code>&lt;iframe&gt;</code> 元素，但一般也可以应用于其他可调整大小的元素。</p>
+<ol>
+<li><p><code>none</code>（默认值）：元素不能被调整大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cssCopy codetextarea &#123;</span><br><span class="line">  <span class="attribute">resize</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>both</code>：元素可以在水平和垂直方向上调整大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cssCopy codetextarea &#123;</span><br><span class="line">  <span class="attribute">resize</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>horizontal</code>：元素只能在水平方向上调整大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cssCopy codetextarea &#123;</span><br><span class="line">  <span class="attribute">resize</span>: horizontal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>vertical</code>：元素只能在垂直方向上调整大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cssCopy codetextarea &#123;</span><br><span class="line">  <span class="attribute">resize</span>: vertical;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>auto</code>：浏览器自动决定是否允许调整大小。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cssCopy codetextarea &#123;</span><br><span class="line">  <span class="attribute">resize</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="浏览器中计算样式的巧用"><a href="#浏览器中计算样式的巧用" class="headerlink" title="浏览器中计算样式的巧用"></a>浏览器中计算样式的巧用</h3><p>可以查看每一个元素的样式</p>
+<p><img src="/../images/%E8%AE%A1%E7%AE%97%E6%A0%B7%E5%BC%8F%E7%9A%84%E4%BD%BF%E7%94%A8.png"></p>
+<h3 id="清除浮动的方法"><a href="#清除浮动的方法" class="headerlink" title="清除浮动的方法"></a>清除浮动的方法</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-属性值的计算过程"><a href="#2-属性值的计算过程" class="headerlink" title="2.属性值的计算过程"></a>2.属性值的计算过程</h2><p><img src="/../images/%E5%B1%9E%E6%80%A7%E5%80%BC%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B.png"></p>
+<p><strong>浏览器最后渲染的元素样式结果由计算后的属性决定，而不是我们自己设置决定</strong></p>
+<h3 id="计算过程"><a href="#计算过程" class="headerlink" title="计算过程:"></a>计算过程:</h3><p><img src="/../images/%E7%A1%AE%E5%AE%9A%E5%A3%B0%E6%98%8E%E5%80%BC.png"></p>
+<p><strong>1.确定声明值：参考样式表中没有冲突的声明，作为CSS属性值</strong></p>
+<p><img src="/../images/%E5%B1%82%E5%8F%A0%E5%86%B2%E7%AA%81.png"></p>
+<p><strong>2.对于样式表有冲突(作者样式表和浏览器默认样式表有冲突)的属性</strong></p>
+<p><strong>先比较重要性，作者样式表重要性&gt;浏览器默认样式表重要性</strong></p>
+<p><strong>再比较特殊性，也就是权重值的比较</strong></p>
+<p><strong>最后比较源次序，后面操作的优先级高</strong></p>
+<p><img src="/../images/%E5%B1%82%E5%8F%A0%E5%86%B2%E7%AA%81.png"></p>
+<p><img src="/../images/%E7%BB%A7%E6%89%BF.png"></p>
+<p><strong>3.使用继承：对仍然没有值的属性，若可以继承，则继承父元素的值</strong></p>
+<p><img src="/../images/%E9%BB%98%E8%AE%A4%E5%80%BC.png"></p>
+<p><strong>4.使用默认值：对仍然没有值的属性，使用默认值</strong></p>
+<h3 id="inherit"><a href="#inherit" class="headerlink" title="inherit"></a>inherit</h3><p>如果要覆盖浏览器的默认样式，想继承父元素的样式，只需要在子元素的样式用上<code>inherit</code></p>
+<p><img src="/../images/inherit.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/22/HTML-CSS/">http://example.com/2023/11/22/HTML-CSS/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/CSS/"># CSS</a>
+                    
+                        <a href="/tags/HTML/"># HTML</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/23/ES6%E8%AF%A6%E8%A7%A3-%E5%9B%9B/">ES6详解(四)</a>
+            
+            
+            <a class="next" rel="next" href="/2023/11/21/ES6%E8%AF%A6%E8%A7%A3-%E4%B8%89/">ES6详解(三)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
