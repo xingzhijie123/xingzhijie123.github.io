@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>网络基础 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">网络基础</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 27, 2023&nbsp;&nbsp;23:05:38</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">编程基础</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="网络基本概念"><a href="#网络基本概念" class="headerlink" title="网络基本概念"></a>网络基本概念</h1><h2 id="客户端和服务端"><a href="#客户端和服务端" class="headerlink" title="客户端和服务端"></a>客户端和服务端</h2><p>1.不管是客户端，还是服务器，它们都是一个应用程序，而不是一台计算机。</p>
+<p>客户端和服务器可以分布在不同的计算机上，也可以在同一台计算机上，并不需要特殊看待。<br>比如我们之前接触的live server插件，就是一个服务器，它运行在本地的计算机上。<br>大部分后端开发的就是服务器程序，前端的Node技术也能开发服务器程序。</p>
+<p>2.客户端和服务器的这种交互模式称之为「经典C&#x2F;S结构」。在这种结构中，如果客户端是浏览器，则我们称<br>之为B&#x2F;S结构。</p>
+<p>3,服务器程序往往是为互联网产品提供服务，因此又称之为web服务器。</p>
+<p>4.一次完整的交互，总是从请求开始，响应结束。</p>
+<h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><p>要完成一次请求和响应，首先需要让客户端找到服务器，不仅如此，还要找到服务器上我们想要的资源。<br>在现实生活中，如果我们要找一个人，我们可以通过一个地址来找到他。</p>
+<p>和现实生活类似，在互联网中，我们可以通过一个叫URL地址的东西找到我们想要的资源。</p>
+<p>URL全称uniform resource locator,统一资源定位符。</p>
+<p>它是一个字符串，用于表达互联网中某个资源的位置。</p>
+<p>URL地址可以很长，也可以很短。</p>
+<p>通过URL地址可以找到互联网上的资源，它可以是页面、图片、视频、音频、css代码、js代码、可供下载的<br>文件、或者其他任何东西。<br>一个完整的URL地址由多个部分组成</p>
+<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=URL&spm=1001.2101.3001.7020">URL</a>一般由以下部分组成：</p>
+<ol>
+<li>协议（如http、https）：表示URL使用的协议。</li>
+<li>主机（IP地址和域名）（如<a target="_blank" rel="noopener" href="https://blog.csdn.net/">www.example.com）：表示服务器的域名。</a></li>
+<li>端口（如80）：表示服务器的端口号。</li>
+<li>路径（如&#x2F;index.html）：表示请求的路径。</li>
+<li>查询参数（如?param1&#x3D;value1&amp;param2&#x3D;value2）：表示请求的查询参数，用于传递附加信息。</li>
+<li>hash</li>
+</ol>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">完整的URL地址</span><br><span class="line">协议+主机+端口+路径+参数+hash</span><br><span class="line">例如:一个完整的URL可能如下:</span><br><span class="line">https://www.example.com:80/index.html?param1=value1&amp;param2=value2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">小知识：</span><br><span class="line">1.URL里不能出现非ASCII字符 </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>协议Protocal&#x2F;Schema<br>它表示客户端希望用什么方式和服务器沟通，经常固定写http或https即可</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">小知识：</span><br><span class="line">1.如果在浏览器的地址栏省略了协议，浏览器会自动为你补全</span><br><span class="line">2.可以在Chrome浏览器的地址栏点击右键，显示完整的地址</span><br><span class="line">3.https协议比http协议更安全，但往往出现在线上，本地的服务器通常不会是https</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="主机"><a href="#主机" class="headerlink" title="主机"></a>主机</h3><p>1,IP地址。</p>
+<p>IP地址是一个网络中计算机的唯一编号，通常，一个IP对应一台计算机。<br>记住特殊IP地址：127.0.0.1，它表示本机IP</p>
+<p>2.域名。域名类似IP地址的别名,把不容易记忆的数字变为容易记忆的单词。当使用域名访问时，会自动转<br>换为IP地址。<br>三2人2<br>记住特殊域名：1oca1host,它表示的IP地址是127.0.0.1</p>
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>端口Port</p>
+<p>它表示客户端希望在哪个应用程序中寻找资源<br>每个服务器程序，都会监听一个或多个端口，只有找到对应的端口，才能找到这个服务器程序。<br>端口号是可选的，若不填写，则：<br>1.如果使用的是http协议，默认端口号为80<br>2.如果使用的是https协议，默认端口号为443</p>
+<h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>路径Path<br>服务器上往往有许许多多的资源，每个资源都有自己的访问路径<br>路径是可选的，若不填写，则路径为&#x2F;</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>参数Query&#x2F;Param<br>某些资源可以根据需要呈现不同的内容，比如一篇新闻列表的页面，可以指定它呈现第几页的新闻，而「第几<br>页」就属于一些额外信息，这些额外信息可以通过参数传递<br>比如，我们访问一个新闻列表的页面，同时希望它展示第5页，每页展示10条新闻，我们可能得到下面的URL地<br>址：</p>
+<p><a target="_blank" rel="noopener" href="http://duyiedu.com/news?page=1&limit=10">http://duyiedu.com/news?page=1&amp;limit=10</a><br>上面这个URL地址中，page&#x3D;1&amp;limit:&#x3D;10就是参数部分，这部分可以包含多个参数，不同的参数之间使<br>用&amp;符号分割</p>
+<p><strong>参数是可选的</strong></p>
+<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><p>在网络通信中，hash没有什么用，它往往作为浏览器的锚链接出现</p>
+<h2 id="PostMan使用"><a href="#PostMan使用" class="headerlink" title="PostMan使用"></a>PostMan使用</h2><p><img src="/../images/postman%E7%94%A8%E6%B3%951.png"></p>
+<p>环境变量的设置</p>
+<p><img src="/../images/postman%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BE%E7%BD%AE.png"></p>
+<h2 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h2><p>通过URL地址，能够在茫茫互联网中准确的找到自己想要的服务。<br>但光找到服务还是不够，双方需要「用同一种语言」来对话，否则都听不懂对方在说什么。这个「语言」就是协议，而互联网中最常见的协议就是http协议<br>https是在http协议基础上发展起来的，它增加了安全性，其他和http协议完全一致<br>http是基于请求-响应的方式完成通信的，每一次通信都是由客户端向服务器发出请求，传递一些消息过去，然后经过服务器程序处理后，响应给客户端一些消息。<br>http协议规定：<br>1.每次请求-响应都是<strong>独立</strong>的，相互之间互不干扰。这种模式的协议我们称之为<strong>无状态协议</strong>，断开式连接http的无状态会带来一些问题，后续再讨论<br>2.每次请求-响应传递的消息都是<strong>纯文本（字符串）</strong>，而且文本格式必须按照http协议规定的格式书写。</p>
+<h3 id="请求的消息格式"><a href="#请求的消息格式" class="headerlink" title="请求的消息格式"></a>请求的消息格式</h3><ul>
+<li>请求行：高度概括了客户端想要干什么</li>
+<li>请求头：描述了请求的一些额外信息</li>
+<li>请求体：包含了要给服务器传递的正文数据。请求体是可以省略的</li>
+</ul>
+<p><img src="/../images/%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E6%A0%BC%E5%BC%8F.png"></p>
+<h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h4><p>请求行是整个http报文的第一行字符串，它包含三个部分：请求方法   路径+参数+hash  协议和版本</p>
+<p>重点关注请求方法</p>
+<p>请求方法是一个单词，它表达了客户端的「动作」，比如：</p>
+<ul>
+<li>GET:获取</li>
+<li>POST:提交</li>
+</ul>
+<p><strong>在http协议中，并没有规定</strong>只能使用上面两种动作，甚至没有规定每种动作会带来怎样的变化</p>
+<ul>
+<li>1.动作通常有：GET(获取资源)、POST(提交消息)、PUT(修改数据)、DELETE(删除数据)。其中，GET和POST最为常见。</li>
+<li>2.GET和DELETE请求不能有请求体，而POST和PUT请求可以有请求体</li>
+</ul>
+<p><strong>浏览器遵循了上面的规范</strong><br>这带来了GET和POST的诸多区别。比如，由于GET请求没有请求体，所以要传递数据只能把数据放到URL的参数中</p>
+<p>在浏览器中，获取数据一般使用的都是GET请求，比如：</p>
+<ul>
+<li>在地址栏输入地址并按下回车</li>
+<li>点击了某个a元素</li>
+<li>获取图片、音频、视频</li>
+<li>获取css、js、字体等文件</li>
+</ul>
+<p>事实上，浏览器自动发出的请求基本都是GET请求，而<strong>P0ST请求需要开发者手动处理</strong>，比如在<strong>form表单中设</strong><br><strong>置method为P0ST</strong></p>
+<p>下面是一个例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://www.baidu.com&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">账号：</span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>/</span></span><br><span class="line"><span class="tag">&lt;<span class="attr">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><p>全是键值对</p>
+<p>请求头是一系列的键值对，里面包含了诸多和业务无关的信息<br>浏览器每次请求服务器都会自动附带很多的请求头，其实这些请求头大部分服务器是不需要的</p>
+<p>我们只需关注下面几个请求头即可：</p>
+<ul>
+<li>1.Host:ur1地址中的主机</li>
+<li>2.User-Agent：客户端的信息描述</li>
+<li>3.Content-Type:</li>
+</ul>
+<p> 表示请求体的消息是什么格式，如果没有请嫌体，这个字段无意义<br> 该字段的常见取值为：</p>
+<ol>
+<li>application&#x2F;x-www-form-urlencoded<br>   表示请求体的数据格式和url地址中参数的格式一样，比如</li>
+</ol>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loginId=admin&amp;loginPwd=123123</span><br></pre></td></tr></table></figure>
+
+<p>   2.application&#x2F;json<br>          表示请求体的数据是json格式，比如</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;loginId&quot;:&quot;admin&quot;,&quot;loginPwd&quot;:&quot;123123&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>multipart&#x2F;form-data<br>一种特殊的请求体格式，上传文件一般选择该格式</li>
+</ol>
+<h4 id="请求体"><a href="#请求体" class="headerlink" title="请求体"></a>请求体</h4><p>包含业务数据的字符串<br>理论上，请求体可以是任意格式的字符串，但习惯上，服务器普遍能识别以下格式：<br>application&#x2F;x-www-form-urlencode   	属性名&#x3D;属性值&amp;属性名&#x3D;属性值.<br>application&#x2F;json										（”属性名”：”属性值”，”属性名”：”属性值)<br>multipart&#x2F;form-data: 		使用某个随机字符串作为属性之间的分隔符，通常用于文件上传</p>
+<p>由于请求体格式的多样性，服务器在分析请求体时可能无法知晓具体的格式，从而不知道如何解析请求体，因<br>此，服务器往往要求在请求头中附带一个属性Content-Type来描述请求体使用的格式</p>
+<h3 id="响应的消息格式"><a href="#响应的消息格式" class="headerlink" title="响应的消息格式"></a>响应的消息格式</h3><ul>
+<li><p>响应行</p>
+</li>
+<li><p>响应头</p>
+</li>
+<li><p>响应体</p>
+</li>
+</ul>
+<h4 id="响应行"><a href="#响应行" class="headerlink" title="响应行"></a>响应行</h4><p>响应行是整个响应字符串的第一行</p>
+<p>响应行包含两个部分：</p>
+<p>协议版本：表示服务器打算和客户端用什么协议通信</p>
+<p><strong>状态码、状态消息</strong>：表示服务器对当前请求的表态</p>
+<p><img src="/../images/%E5%93%8D%E5%BA%94.png"></p>
+<h5 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h5><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>分类描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1**</td>
+<td>信息，服务器收到请求，需要请求者继续执行操作</td>
+</tr>
+<tr>
+<td>2**</td>
+<td>成功，操作被成功接受并处理</td>
+</tr>
+<tr>
+<td>3**</td>
+<td>重定向，需要进一步的操作以完成请求</td>
+</tr>
+<tr>
+<td>4**</td>
+<td>客户端错误，请求包含语法错误或无法完成请求</td>
+</tr>
+<tr>
+<td>5**</td>
+<td>服务器错误，服务器在处理请求的过程中发生了错误</td>
+</tr>
+</tbody></table>
+<p>通常认为，0~399之间的状态码都是正常的，其他是不正常的</p>
+<h5 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h5><ul>
+<li>200 OK:   一切正常</li>
+<li>301 Moved Permanently：资源已被永久重定向，浏览器会发送两个请求，请求新的地址，新的地址被放到响应头的Location中</li>
+<li>302 Found：资源已被临时重定向，临时被移动到了一个新的地址，请求新的地址，新的地址被放到响应头的Location中</li>
+<li>304 Not Modified: 文档内容未修改，你的请求我收到了，你要的东西跟之前是一样的，没有任何的变化，所以我就不给你结果了，你自己就用以前的吧。啥？你没有缓存以前的内容，关我啥事</li>
+<li>400 Bad Request: 语义有误，当前请求无法被服务器理解。你给我发的是个啥啊，我听都听不懂</li>
+<li>403 Forbidden:服务器拒绝执行。你的请求我已收到，但是我就是不给你东西</li>
+<li>404 Not Found:资源不存在。你的请求我收到了，但我没有你要的东西</li>
+<li>500 Internal Server Error:服务器内部错误。你的请求我已收到，但这道题我不会，解不出来，先睡了</li>
+</ul>
+<h4 id="响应头"><a href="#响应头" class="headerlink" title="响应头"></a>响应头</h4><p>响应头header</p>
+<p>和请求头一样，响应头也是由很多个键值对组成的，具体有哪些键值对，完全取决于服务器程序<br>目前，对我们最重要的键值对是<code>Content-Type</code>,它有多种取值，表示响应体的数据类型。<br>在B&#x2F;S模式中，浏览器会自动根据响应头中<code>Content-Type</code>的取值，决定如何处理响应体。</p>
+<ul>
+<li>1.<code>text/plain</code>: 普通的纯文本，浏览器通常会将响应体原封不动的显示到页面上</li>
+<li>2.<code>text/html</code>:  html文档，浏览器通常会将响应体作为页面进行渲染</li>
+<li>3.<code>text/javascript</code>或<code>application/javascript</code>:  js代码，浏览器通常会使用JS执行引擎将它解析执行</li>
+<li>4<code>.text/css</code>:  css代码，浏览器会将它视为样式</li>
+<li>5.<code>image/jpeg</code>:  浏览器会将它视为jpg图片</li>
+<li>6.<code>attachment</code>:  附件，浏览器看到这个类型，通常会触发下载功能</li>
+<li>7.其他MIME类型</li>
+</ul>
+<h4 id="响应体"><a href="#响应体" class="headerlink" title="响应体"></a>响应体</h4><p>浏览器就是用户代理，也就是User-agent,帮助用户完成一些用户繁琐的操作，比如发送一个页面的请求，还会找到该页面所链接到的资源，然后发送对这些资源的请求</p>
+<p><img src="/../images/%E7%BD%91%E7%BB%9C1.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/27/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">http://example.com/2023/11/27/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"># 基础知识</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/28/Git/">Git</a>
+            
+            
+            <a class="next" rel="next" href="/2023/11/23/ES6%E8%AF%A6%E8%A7%A3-%E5%9B%9B/">ES6详解(四)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
