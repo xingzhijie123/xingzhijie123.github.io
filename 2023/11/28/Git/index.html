@@ -273,8 +273,100 @@
 </ul>
 <h2 id="gitignore说明"><a href="#gitignore说明" class="headerlink" title=".gitignore说明"></a>.gitignore说明</h2><p><img src="/../images/git1.png"></p>
 <p><img src="/../images/git2.png"></p>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>复习一下创建一个git和添加一个gitignore文件的过程</p>
+<p><img src="/../images/git10.png"></p>
+<p><img src="/../images/git9.png"></p>
+<h3 id="常用分支指令"><a href="#常用分支指令" class="headerlink" title="常用分支指令"></a>常用分支指令</h3><p>查看分支：<code>git branch</code></p>
+<p>列出所有本地分支和远程分支: <code>git branch -r</code></p>
+<p>创建分支：<code>git branch &lt;name&gt;</code></p>
+<p>切换分支并更新工作区：<code>git checkout &lt;name&gt;</code>或者<code>git switch &lt;name&gt;</code></p>
+<p>创建+切换分支：<code>git checkout -b &lt;name&gt;</code>或者<code>git switch -c &lt;name&gt;</code></p>
+<p>切换到上一个分支:  <code>git checkout -</code></p>
+<p>新建一个分支，与指定的远程分支建立追踪关系：<code>git branch --track [name] [remote-branch]</code></p>
+<p>建立追踪关系，在现有分支与指定的远程分支之间：<code>git branch --set -upstream [name] [remote-branch]</code></p>
+<p>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></p>
+<p>选择一个commit,合并进当前分支： <code>git cherry-pick [commit]</code></p>
+<p>删除分支：<code>git branch -d &lt;name&gt;</code></p>
+<p>删除远程分支: <code>git push origin --delete [branch-name]</code></p>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>下面是一个创建分支并合并分支的过程:</p>
+<p>创建分支并切换到该分支:</p>
+<p><img src="/../images/git11.png"></p>
+<p>在master和新分支都添加和提交了一个版本:</p>
+<p><img src="/../images/git12.png"></p>
+<p>在master进行和新分支的合并，并log出这个过程：</p>
+<p><img src="/../images/git13.png"></p>
+<p>在分支合并时，有时会遇到相同内容的冲突，这时需要手动选择删去某个内容还是两个内容都保留</p>
+<h3 id="远程分支"><a href="#远程分支" class="headerlink" title="远程分支"></a>远程分支</h3><h3 id="远程常用指令"><a href="#远程常用指令" class="headerlink" title="远程常用指令"></a>远程常用指令</h3><p>显示所有远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure>
+
+<p>显示某个远程仓库信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote show [remote]</span><br></pre></td></tr></table></figure>
+
+<p>添加一个新的远程仓库，并命名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add [name][url]</span><br></pre></td></tr></table></figure>
+
+<p>取回远程仓库的变化，并与本地分支合并</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git pull [remote] [branch]</span><br></pre></td></tr></table></figure>
+
+<p>上传本地指定分支到远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] [branch]</span><br></pre></td></tr></table></figure>
+
+<p>强行推送当前分支到远程仓库，即使有冲突</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] --force</span><br></pre></td></tr></table></figure>
+
+<p>推送所有分支到远程仓库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push [remote] --all</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><p>gitee新建一个远端仓库：</p>
+<p><img src="/../images/git14.png"></p>
+<p>创建后，创建SSH key：</p>
+<p><code>$ ssh -keygen -t rsa -C &quot;email&quot;</code></p>
+<p><img src="/../images/git15.png"></p>
+<p>在保存到目录下找到该文件：</p>
+<p><img src="/../images/git16.png"></p>
+<p>id_rsa代表私钥，id_rsa.pub代表公钥</p>
+<p>在vscode打开公钥，复制里面的内容，在gitee设置里的SSH公钥配置</p>
+<p><img src="/../images/git17.png"></p>
+<p>添加成功后通过<code>$ ssh -T git @gitee.com</code>指令测试SSH key是否配对成功</p>
+<p><img src="/../images/git18.png"></p>
+<p>接着用SSH下载远程仓库到当前文件夹</p>
+<p><code>git clone [远程仓库地址]</code></p>
+<p><img src="/../images/git19.png"></p>
+<p><img src="/../images/git20.png"></p>
+<p>可以看到已经下载好了</p>
+<p>在本地写好项目后推送给远端的master分支上</p>
+<p><code>$ git push origin master</code></p>
+<p><img src="/../images/git21.png"></p>
+<p>然后用分支来演示如何实现多人操作</p>
+<p>先创建一个分支，添加新的内容：</p>
+<p><img src="/../images/git22.png"></p>
+<p>推送到远程指定分支，不能无脑选master分支</p>
+<p><code>$ git push origin xzj_dev</code></p>
+<p><img src="/../images/git23.png"></p>
+<p>再拉取到本地仓库</p>
+<p><code>$ git pull origin xzj_dev</code></p>
+<p><img src="/../images/git24.png"></p>
+<p><img src="/../images/git25.png"></p>
+<h2 id="使用source-tree管理源码"><a href="#使用source-tree管理源码" class="headerlink" title="使用source tree管理源码"></a>使用source tree管理源码</h2><p>下载source tree</p>
+<p>配置SSH key密钥，(这里我的ssh key配置成功但source tree 总是检测不到我的clone地址是合法)，待解决</p>
+<p><strong>注释</strong>:</p>
+<p>已解决，在source tree 中将选项里的ssh客户端改为OpenSSH即可解决</p>
+<p><img src="/../images/git28.png"></p>
+<p>远程clone库到本地文件夹</p>
+<p>在source tree中操作(具体看操作手册)</p>
+<p><img src="/../images/git26.png"></p>
+<h2 id="部署git-pages"><a href="#部署git-pages" class="headerlink" title="部署git pages"></a>部署git pages</h2><p>在github上配置SSH公钥，然后用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>指令查看是否成功，</p>
+<p>在网页上部署时注意修改源码中连接到其它资源的路径（比如css，js等），要修改为相对路径，一般是.&#x2F;地址</p>
+<h2 id="git工作流-git-flow"><a href="#git工作流-git-flow" class="headerlink" title="git工作流(git flow)"></a>git工作流(git flow)</h2><p><strong>分支</strong>一般分为<strong>主分支(master&#x2F;main)<strong>和</strong>开发分支(developer)<strong>和</strong>功能分支(feature)</strong></p>
+<p>相关内容见下面链接</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/198066289">图解git flow开发流程 - 知乎 (zhihu.com)</a></p>
 <h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p><img src="/../images/git8.png"></p>
-<p>博客管理用的也是git的方式提交和管理</p>
+<p>该博客管理用的也是git的方式提交和管理</p>
 
         </div>
 
