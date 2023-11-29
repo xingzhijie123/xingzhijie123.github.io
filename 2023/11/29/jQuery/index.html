@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>jQuery | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">jQuery</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 29, 2023&nbsp;&nbsp;21:07:42</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JavaScript/">JavaScript</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h1><h2 id="JavaScript-库"><a href="#JavaScript-库" class="headerlink" title="JavaScript 库"></a>JavaScript 库</h2><p>用于开发软件的子程序集合。库和可执行文件的区别是，库不是独立程序，他们是向其他程序提供服务的代码库链接。</p>
+<p><strong>JavaScript</strong> 库：即 library，是一个<strong>封装</strong>好的特定的<strong>集合</strong>（方法和函数）。就是把各种常用的代码片段，组织起来放在一个 js 文件里，组成一个包，这个包就是 JavaScript 库。</p>
+<p>简单理解：就是一个 JS文件，里面对我们原生 JS代码进行了封装，存放到里面。这样我们就可以快速高效的使用这些封装好的功能了。</p>
+<p>对于第三方库，除了下载使用，还可以通过CDN在线使用，CDN称之为内容分发网络，简单来说，就是提供很多的服务器，用户访问时，自动就近选择服务器给用户提供资源</p>
+<p>国内使用广泛的免费CDN站点：<a target="_blank" rel="noopener" href="https://www.bootcdn.cn/">https://www.bootcdn.cn/</a></p>
+<h2 id="jQuery介绍"><a href="#jQuery介绍" class="headerlink" title="jQuery介绍"></a>jQuery介绍</h2><p>jQuery 是一个快速、简洁的 JavaScript 框架，是继 Prototype 之后又一个优秀的 JavaScript 代码库（ 或 JavaScript 框架 ）。 jQuery 设计的宗旨是 “write Less，Do More”，即倡导写更少的代码，做更多的事情。</p>
+<p>jQuery &#x3D; javascript Query（查询）。意思是查询 js，把 js 中的 DOM 操作做了封装，我们可以快速的查询使用里面的功能。</p>
+<p>它封装 JavaScript 常用的功能代码，提供一种简便的 JavaScript 设计模式，优化 HTML 文档操作、事件处理、动画设计和 Ajax 交互。</p>
+<p>一句话，jQuery让操作DOM更简便。</p>
+<h2 id="jQuery函数"><a href="#jQuery函数" class="headerlink" title="jQuery函数"></a>jQuery函数</h2><ul>
+<li><code>$</code>是 jQuery 的别称，在代码中可以使用 jQuery 代替<code>$</code>，但为了方便，通常都使用<code>$</code>。</li>
+</ul>
+<h3 id="jQuery-的入口函数"><a href="#jQuery-的入口函数" class="headerlink" title="jQuery 的入口函数"></a>jQuery 的入口函数</h3><ul>
+<li><p>Js 入口函数会在 DOM 元素加载完毕并且图片也加载完毕之后再执行</p>
+</li>
+<li><p>jQuery 入口函数会等到 DOM 元素加载完毕，但不会等到图片加载完毕再执行</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简化方式，推荐</span></span><br><span class="line">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;hi jquery&quot;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="冲突——多库共存"><a href="#冲突——多库共存" class="headerlink" title="冲突——多库共存"></a>冲突——多库共存</h3><p>原因：随着jQuery的流行，采用jQuery和$符为命名空间的 js 库越来越多，当然 jQuery 的$符也是参照的 Prototype库的，所以当多个库同时以$符或者 jQuery 为命名空间时，那么此时，就会产生冲突。</p>
+<p>解决方法：</p>
+<p>1.释放使用权</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jQuery.<span class="title function_">noConflict</span>();</span><br><span class="line"><span class="comment">//1.释放操作在其他函数之前</span></span><br><span class="line"><span class="comment">//2.释放后不能用$符</span></span><br></pre></td></tr></table></figure>
+
+<p>2.修改访问符号</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> suiBian = jQuery.<span class="title function_">noConflict</span>();</span><br><span class="line"><span class="comment">//此时suiBian为新的访问符号</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="DOM对象-和-jQuery-对象"><a href="#DOM对象-和-jQuery-对象" class="headerlink" title="DOM对象 和 jQuery 对象"></a>DOM对象 和 jQuery 对象</h3><p>DOM 对象：用原生 js 获取过来的对象就是 DOM 对象。</p>
+<p>jQuery 对象：用 jQuery 方式获取过来的对象就是 jQuery 对象。本质：通过 $ 把 DOM 元素进行了封装（<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%BC%AA%E6%95%B0%E7%BB%84&spm=1001.2101.3001.7020">伪数组</a>形式存储）。</p>
+<p>jQuery 对象只能使用 jQuery 方法，反之亦然。</p>
+<h4 id="相互转换"><a href="#相互转换" class="headerlink" title="相互转换"></a>相互转换</h4><ul>
+<li>DOM –&gt; jQuery</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;DOM对象&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>jQuery –&gt; DOM（两种方式）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;DOM对象&#x27;</span>)[index]; <span class="comment">// index 是索引号</span></span><br><span class="line">$(<span class="string">&#x27;DOM对象&#x27;</span>).<span class="title function_">get</span>(index);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="jQuery-常用-API"><a href="#jQuery-常用-API" class="headerlink" title="jQuery 常用 API"></a>jQuery 常用 API</h2><p>查询<a target="_blank" rel="noopener" href="https://jquery.cuishifeng.cn/toggle.html%E6%96%87%E6%A1%A3">https://jquery.cuishifeng.cn/toggle.html文档</a></p>
+<p><img src="/../images/jq1.png"></p>
+<p><img src="/../images/jq2.png"></p>
+<p><img src="/../images/jq3.png"></p>
+<h2 id="jQuery思路"><a href="#jQuery思路" class="headerlink" title="jQuery思路"></a>jQuery思路</h2><h4 id="排他思想"><a href="#排他思想" class="headerlink" title="排他思想"></a>排他思想</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">      $(<span class="variable language_">this</span>).<span class="title function_">css</span>();  <span class="comment">// 对自己设置变化</span></span><br><span class="line">      $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;button&quot;</span>).<span class="title function_">css</span>();  <span class="comment">// 给其他兄弟去掉变化</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="链式编程"><a href="#链式编程" class="headerlink" title="链式编程"></a>链式编程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  $(<span class="string">&quot;button&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">   	$(<span class="variable language_">this</span>).<span class="title function_">css</span>().<span class="title function_">siblings</span>(<span class="string">&quot;button&quot;</span>).<span class="title function_">css</span>();  <span class="comment">// 对自己设置变化,给其他兄弟去掉变化</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h4><p>① 获取属性语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">prop</span>(<span class="string">&quot;属性&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>② 设置属性语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">prop</span>(<span class="string">&quot;属性&quot;</span>,<span class="string">&quot;属性值&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置或获取元素自定义属性值-attr"><a href="#设置或获取元素自定义属性值-attr" class="headerlink" title="设置或获取元素自定义属性值 attr()"></a>设置或获取元素自定义属性值 attr()</h4><p>自定义属性就是用户自己给元素添加的属性。比如给<code>li</code>添加<code>index=&quot;1&quot;</code>。</p>
+<p>① 获取属性语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">attr</span>(<span class="string">&quot;属性&quot;</span>)</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>② 设置属性语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">attr</span>(<span class="string">&quot;属性&quot;</span>,<span class="string">&quot;属性值&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="jQuery-内容文本值"><a href="#jQuery-内容文本值" class="headerlink" title="jQuery 内容文本值"></a>jQuery 内容文本值</h4><h4 id="普通元素内容-html"><a href="#普通元素内容-html" class="headerlink" title="普通元素内容 html()"></a>普通元素内容 html()</h4><blockquote>
+<p>相当于原生 js 中的 innerHTML</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">html</span>()  <span class="comment">// 获取元素的内容</span></span><br><span class="line"><span class="title function_">html</span>(<span class="string">&quot;内容&quot;</span>)  <span class="comment">// 设置元素的内容</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="普通元素文本内容-text"><a href="#普通元素文本内容-text" class="headerlink" title="普通元素文本内容 text()"></a>普通元素文本内容 text()</h4><blockquote>
+<p>相当于原生 js 中的 innerText</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">text</span>()  <span class="comment">// 获取元素的内容</span></span><br><span class="line"><span class="title function_">text</span>(<span class="string">&quot;内容&quot;</span>)  <span class="comment">// 设置元素的内容</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="表单值-val"><a href="#表单值-val" class="headerlink" title="表单值 val()"></a>表单值 val()</h4><blockquote>
+<p>相当于原生 js 中的 value</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">val</span>()  <span class="comment">// 获取元素的内容</span></span><br><span class="line"><span class="title function_">val</span>(<span class="string">&quot;内容&quot;</span>)  <span class="comment">// 设置元素的内容</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="遍历元素"><a href="#遍历元素" class="headerlink" title="遍历元素"></a>遍历元素</h4><p>隐式迭代：对同一类元素做相同操作。如果做不同操作，需要使用遍历：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;div&quot;</span>).<span class="title function_">each</span>(<span class="keyword">function</span> (<span class="params">index, domEle</span>) &#123;xxx;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以写成</span></span><br><span class="line">$.<span class="title function_">each</span>($(<span class="string">&quot;div&quot;</span>),<span class="keyword">function</span> (<span class="params">index, domEle</span>) &#123;xxx;&#125;))</span><br><span class="line"><span class="comment">// 主要用于处理数据</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h4><p>① 内部添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul&quot;</span>).<span class="title function_">append</span>(li);<span class="comment">//放到最后面，类似原生 appendChild</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>② 外部添加</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">el.<span class="title function_">before</span>(内容);  <span class="comment">// 把内容放到目标元素前面</span></span><br><span class="line">el.<span class="title function_">after</span>(内容);  <span class="comment">// 把内容放到目标元素后面</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">el.<span class="title function_">remove</span>()  <span class="comment">// 删除匹配节点（本身）</span></span><br><span class="line">el.<span class="title function_">empty</span>()  <span class="comment">// 删除匹配节点的子节点</span></span><br><span class="line">el.<span class="title function_">html</span>(<span class="string">&quot;&quot;</span>)  <span class="comment">// 相当于 empty()</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="jQuery-事件"><a href="#jQuery-事件" class="headerlink" title="jQuery 事件"></a>jQuery 事件</h3><h4 id="事件注册"><a href="#事件注册" class="headerlink" title="事件注册"></a>事件注册</h4><p>单个事件注册</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">element.事件(<span class="keyword">function</span>);</span><br><span class="line">$(<span class="string">&quot;div&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123; 事件处理程序 &#125;)  <span class="comment">// 其他事件和原生事件基本一致</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h4><h4 id="事件处理-on-绑定事件"><a href="#事件处理-on-绑定事件" class="headerlink" title="事件处理 on() 绑定事件"></a>事件处理 on() 绑定事件</h4><ul>
+<li>语法规范</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">on</span>(events,[selector],[data],fn)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>概述</p>
+<ul>
+<li><p>在选择元素上绑定一个或多个事件的事件处理函数。</p>
+</li>
+<li><p>on() 方法绑定事件处理程序到当前选定的 jQuery 对象中的元素。</p>
+</li>
+</ul>
+</li>
+<li><p>显示参数</p>
+<ul>
+<li><p>events:一个或多个用空格分隔的事件类型和可选的命名空间，如”click”或”keydown.myPlugin” 。</p>
+</li>
+<li><p>selector:一个选择器字符串用于过滤器的触发事件的选择器元素的后代。如果选择的&lt; null或省略，当它到达选定的元素，事件总是触发。</p>
+</li>
+<li><p>data:当一个事件被触发时要传递event.data给事件处理函数。</p>
+</li>
+<li><p>fn:该事件被触发时执行的函数。 false 值也可以做一个函数的简写，返回false。</p>
+</li>
+</ul>
+</li>
+<li><p>优势1</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 同一对象不同操作不同回调</span></span><br><span class="line">$(<span class="string">&quot;div&quot;</span>).<span class="title function_">on</span>(&#123;</span><br><span class="line">  <span class="attr">mouseenter</span>:<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">css</span>(<span class="string">&quot;color&quot;</span>, <span class="string">&quot;red&quot;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">mouseleave</span>:<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="variable language_">this</span>).<span class="title function_">css</span>(<span class="string">&quot;color&quot;</span>, <span class="string">&quot;black&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 同一对象不同操作相同回调</span></span><br><span class="line">$(<span class="string">&quot;div&quot;</span>).<span class="title function_">on</span>(<span class="string">&quot;mouseenter mouseleave&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">toggleClass</span>(<span class="string">&quot;current&quot;</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优势2</li>
+</ul>
+<p>可以事件委派操作。事件委派的定义是：把原来子元素身上的事件绑定到父元素上，就是把事件委派给父元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&quot;ul&quot;</span>).<span class="title function_">on</span>(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;clicked li&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>优势3</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">动态创建的元素，<span class="title function_">click</span>() 没有办法绑定事件，<span class="title function_">on</span>() 可以给动态生成元素绑定事件。</span><br><span class="line"></span><br><span class="line">$(<span class="string">&quot;ul&quot;</span>).<span class="title function_">on</span>(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;clicked li&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">let</span> li = $(<span class="string">&quot;&lt;li&gt;click&lt;/li&gt;&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;ul&quot;</span>).<span class="title function_">append</span>(li);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="事件处理-off-解绑事件"><a href="#事件处理-off-解绑事件" class="headerlink" title="事件处理 off() 解绑事件"></a>事件处理 off() 解绑事件</h4><ul>
+<li>语法规范</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">off</span>(events,[selector],[fn])</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>概述</p>
+<ul>
+<li><p>在选择元素上移除一个或多个事件的事件处理函数。</p>
+</li>
+<li><p>off() 方法移除用 on() 绑定的事件处理程序。</p>
+</li>
+</ul>
+</li>
+<li><p>显示参数</p>
+<ul>
+<li><p>events:一个或多个空格分隔的事件类型和可选的命名空间，或仅仅是命名空间，比如”click”, “keydown.myPlugin”, 或者 “.myPlugin”。</p>
+</li>
+<li><p>selector:一个最初传递到 .on() 事件处理程序附加的选择器。</p>
+</li>
+<li><p>fn:事件处理程序函数以前附加事件上，或特殊值 false。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="事件处理-one-绑定一次性事件"><a href="#事件处理-one-绑定一次性事件" class="headerlink" title="事件处理 one() 绑定一次性事件"></a>事件处理 one() 绑定一次性事件</h4><ul>
+<li>语法规范</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">one</span>(type,[data],fn)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>概述<ul>
+<li>为每一个匹配元素的特定事件（像click）绑定一个一次性的事件处理函数。</li>
+</ul>
+</li>
+<li>显示参数<ul>
+<li><code>type</code>:添加到元素的一个或多个事件。由空格分隔多个事件。必须是有效的事件。</li>
+<li><code>data</code>:将要传递给事件处理函数的数据映射。</li>
+<li><code>fn</code>:每当事件触发时执行的函数。</li>
+</ul>
+</li>
+</ul>
+<h4 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h4><p>事件被触发，就会有事件对象的产生。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">on</span>(events,[selector],<span class="keyword">function</span>(<span class="params">even</span>) &#123; &#125;)</span><br><span class="line">even.<span class="title function_">preventDefault</span>()  <span class="comment">// 阻止默认行为 或者用 return false</span></span><br><span class="line">even.<span class="title function_">stopPropagation</span>()  <span class="comment">// 阻止冒泡</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/29/jQuery/">http://example.com/2023/11/29/jQuery/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/11/29/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">第三方库</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
