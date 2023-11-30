@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>Axios | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Axios</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 30, 2023&nbsp;&nbsp;19:32:09</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JS%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/">JS第三方库</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h1 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h1><h3 id="Axios是干什么的"><a href="#Axios是干什么的" class="headerlink" title="Axios是干什么的"></a>Axios是干什么的</h3><p>上古浏览器页面在向服务器请求数据时，因为返回的是整个页面的数据，页面都会强制刷新一下，这对于用户来讲并不是很友好。并且我们只是需要修改页面的部分数据，但是从服务器端发送的却是整个页面的数据，十分消耗网络资源。而我们只是需要修改页面的部分数据，也希望不刷新页面，因此异步网络请求就应运而生。</p>
+<p>Ajax(Asynchronous JavaScript and XML)：异步网络请求。Ajax能够让页面无刷新的请求数据。</p>
+<p>实现ajax的方式有多种，如jQuery封装的ajax，原生的XMLHttpRequest，以及axios。但各种方式都有利弊</p>
+<h3 id="为什么需要Axios"><a href="#为什么需要Axios" class="headerlink" title="为什么需要Axios"></a>为什么需要Axios</h3><ol>
+<li><p>原生的XMLHttpRequest的配置和调用方式都很繁琐，实现异步请求十分麻烦</p>
+<p>原生XMLHttpRequest实现ajax请求如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> request = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>(); <span class="comment">// 创建XMLHttpRequest对象</span></span><br><span class="line"><span class="comment">//ajax是异步的，设置回调函数</span></span><br><span class="line">request.<span class="property">onreadystatechange</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="comment">// 状态发生变化时，函数被回调</span></span><br><span class="line">    <span class="keyword">if</span> (request.<span class="property">readyState</span> === <span class="number">4</span>) &#123; <span class="comment">// 成功完成</span></span><br><span class="line">        <span class="comment">// 判断响应状态码</span></span><br><span class="line">        <span class="keyword">if</span> (request.<span class="property">status</span> === <span class="number">200</span>) &#123;</span><br><span class="line">            <span class="comment">// 成功，通过responseText拿到响应的文本:</span></span><br><span class="line">            <span class="keyword">return</span> <span class="title function_">success</span>(request.<span class="property">responseText</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 失败，根据响应码判断失败原因:</span></span><br><span class="line">            <span class="keyword">return</span> <span class="title function_">fail</span>(request.<span class="property">status</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// HTTP请求还在继续...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 发送请求:</span></span><br><span class="line">request.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;/api/categories&#x27;</span>);</span><br><span class="line">request.<span class="title function_">setRequestHeader</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>) <span class="comment">//设置请求头</span></span><br><span class="line">request.<span class="title function_">send</span>();<span class="comment">//到这一步，请求才正式发出</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>jQuery的ajax相对于原生的ajax是非常好用的，但是没有必要因为要用ajax异步网络请求而引用jQuery框架</p>
+</li>
+<li><p>Axios，本质上还是对原生XMLHttpRequest的封装，可用于浏览器和nodejs的HTTP客户端，只不过它是基于Promise的，符合最新的ES规范。</p>
+</li>
+</ol>
+<h3 id="Axios的特点"><a href="#Axios的特点" class="headerlink" title="Axios的特点"></a>Axios的特点</h3><ol>
+<li>在浏览器中创建XMLHttpRequest请求</li>
+<li>在node.js中发送http请求</li>
+<li>支持Promise API</li>
+<li>拦截请求和响应</li>
+<li>转换请求和响应数据</li>
+<li>取消要求</li>
+<li>自动转换JSON数据</li>
+<li>客户端支持防止CSRF&#x2F;XSRF(跨域请求伪造)</li>
+</ol>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>官网下载，说明文档：<a target="_blank" rel="noopener" href="https://axios-http.com/zh/">https://axios-http.com/zh/</a><br>引入CDN： <a target="_blank" rel="noopener" href="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js">https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js</a></p>
+<h3 id="axios请求案例"><a href="#axios请求案例" class="headerlink" title="axios请求案例"></a>axios请求案例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> &lt;script src=<span class="string">&quot; https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"> <span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">     axios.<span class="title function_">get</span>(<span class="string">&#x27;https://study.duyiedu.com/api/herolist&#x27;</span>).<span class="title function_">then</span>(<span class="function">(<span class="params">resp</span>)=&gt;</span>&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        <span class="variable language_">console</span>.<span class="title function_">log</span>(resp.<span class="property">data</span>);<span class="comment">//resp.data为响应体的数据，axios会自动解析JS0N格式</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        &#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>resp.data为响应体的数据，axios会自动解析JS0N格式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">async</span> <span class="keyword">function</span> (<span class="params"></span>)</span><br><span class="line"><span class="keyword">const</span> resp <span class="keyword">await</span> axios.<span class="title function_">get</span>(<span class="string">&#x27;https://study.duyiedu.com/api/herolist&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(resp.<span class="property">data</span>);</span><br><span class="line">&#125;)()；</span><br></pre></td></tr></table></figure>
+
+<p>由于axios.get返回的是一个promise，所以用async和await也可以实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">     axios</span><br><span class="line">       .<span class="title function_">get</span>(<span class="string">&quot;https://study.duyiedu.com/api/user/exists&quot;</span>, &#123;</span><br><span class="line">         <span class="attr">params</span>: &#123;</span><br><span class="line">           <span class="comment">//这里可以配置query(参数),axios:会自动将其进行Url编码</span></span><br><span class="line">           <span class="attr">loginId</span>: <span class="string">&quot;abc&quot;</span>,</span><br><span class="line">         &#125;,</span><br><span class="line">       &#125;)</span><br><span class="line">       .<span class="title function_">then</span>(<span class="function">(<span class="params">resp</span>) =&gt;</span> &#123;</span><br><span class="line">         <span class="variable language_">console</span>.<span class="title function_">log</span>(resp.<span class="property">data</span>);</span><br><span class="line">       &#125;);</span><br><span class="line"> &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>axios可以配置query(参数),axios:会自动将其进行Url编码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">      axios</span><br><span class="line">      .<span class="title function_">post</span>(<span class="string">&quot;https://study.duyiedu.com/api/user/reg&quot;</span>, &#123;</span><br><span class="line">        <span class="attr">loginId</span>: <span class="string">&quot;abc&quot;</span>,</span><br><span class="line">        <span class="attr">loginPwd</span>: <span class="string">&quot;123123&quot;</span>,</span><br><span class="line">        <span class="attr">nickname</span>: <span class="string">&quot;棒棒鸡&quot;</span>,</span><br><span class="line">      &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">resp</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(resp.<span class="property">data</span>); <span class="comment">//resp.data为响应体的数据，axios会自动解析JS0N格式</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>还会将响应头中的Content-Type自动转化为application&#x2F;json</p>
+<p><img src="/../images/axios/1.png" alt="image-20231130195907113"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//执行GET请求</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line">axios.<span class="property">default</span>.<span class="property">baseURL</span> = <span class="string">&#x27;http://localhost:3000/api/products&#x27;</span></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;/user?ID=12345&#x27;</span>)  <span class="comment">//返回的是一个Promise</span></span><br><span class="line">    .<span class="title function_">then</span>(<span class="function"><span class="params">res</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(res))</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(err));</span><br><span class="line"></span><br><span class="line"><span class="comment">//可配置参数的方式</span></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;/user&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">params</span>:&#123;</span><br><span class="line">        <span class="attr">ID</span>:<span class="number">12345</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(res))</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(err));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送post请求</span></span><br><span class="line">axios.<span class="title function_">post</span>(<span class="string">&#x27;/user&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">firstName</span>: <span class="string">&#x27;simon&#x27;</span>,</span><br><span class="line">    <span class="attr">lastName</span>:<span class="string">&#x27;li&#x27;</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(res))</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(err));</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Axios的请求方式"><a href="#Axios的请求方式" class="headerlink" title="Axios的请求方式"></a>Axios的请求方式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>axios.<span class="title function_">get</span>(urL地址，[请求配置])；</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>axios.<span class="title function_">post</span>(urL地址，[请求体对象]，[请求配置])；</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span><span class="title function_">axios</span>(请求配置)；<span class="comment">//或直接使用axios方法，在请求配置中填写请求方法</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.</span>axios.<span class="title function_">request</span>(config)</span><br><span class="line"></span><br><span class="line"><span class="number">5.</span>axios.<span class="title function_">put</span>(url [,data [,config]])</span><br><span class="line"></span><br><span class="line"><span class="number">6.</span>axios.<span class="title function_">delete</span>(url [,config])</span><br><span class="line"></span><br><span class="line"><span class="number">7.</span>axios.<span class="title function_">patch</span>(url [,data [,config]])</span><br><span class="line"></span><br><span class="line"><span class="number">8.</span>axios.<span class="title function_">head</span>(url [,config])</span><br></pre></td></tr></table></figure>
+
+<p><font color="red">注意： []里的内容表示可以忽略不写</font></p>
+<h3 id="Axios发送并发请求"><a href="#Axios发送并发请求" class="headerlink" title="Axios发送并发请求"></a>Axios发送并发请求</h3><p>通过axios.all(iterable)可实现发送多个请求，参数不一定是数组，只要有iterable接口就行，函数返回的是一个数组</p>
+<p>axios.spread(callback)可用于</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送多个请求(并发请求)，类似于promise.all，若一个请求出错，那就会停止请求</span></span><br><span class="line"><span class="keyword">const</span> get1 = axios.<span class="title function_">get</span>(<span class="string">&#x27;/user/12345&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> get2 = axios.<span class="title function_">get</span>(<span class="string">&#x27;/user/12345/permission&#x27;</span>);</span><br><span class="line">axios.<span class="title function_">all</span>([get1,get2]) <span class="comment">//发送多个请求</span></span><br><span class="line">    .<span class="title function_">then</span>(axios.<span class="title function_">spread</span>(<span class="function">(<span class="params">res1,res2</span>)=&gt;</span>&#123; <span class="comment">//将结果数组展开</span></span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(res1,res2);</span><br><span class="line">	&#125;))</span><br><span class="line">    .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(err))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="请求中config中的默认设置"><a href="#请求中config中的默认设置" class="headerlink" title="请求中config中的默认设置"></a>请求中config中的默认设置</h3><p>示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&#x27;http://localhost:3000/api/products&#x27;</span>,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">1000</span>,</span><br><span class="line">    <span class="attr">headers</span>: &#123;<span class="string">&#x27;X-Custom-Header&#x27;</span>:<span class="string">&#x27;foobar&#x27;</span>&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//instance的使用</span></span><br><span class="line">instance.<span class="title function_">get</span>(<span class="string">&#x27;/user&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">params</span>:&#123;<span class="attr">ID</span>:<span class="number">12345</span>&#125; <span class="comment">//请求中config中的默认设置</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(res))</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function"><span class="params">err</span>=&gt;</span><span class="variable language_">console</span>.<span class="title function_">log</span>(err))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建一个Axios实例-或称实例默认设置"><a href="#创建一个Axios实例-或称实例默认设置" class="headerlink" title="创建一个Axios实例(或称实例默认设置)"></a>创建一个Axios实例(或称实例默认设置)</h3><p><strong>axios允许开发者先创建一个实例，后续通过使用实例进行请求，这样做的好处是可以预先进行某些配置</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建实例</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line"><span class="attr">baseURL</span>: <span class="string">&#x27;https://study.duyiedu.com/&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送get请求到https://study.duyiedu.com/api/herolist,输出响应体的内容</span></span><br><span class="line">instance.<span class="title function_">get</span>(<span class="string">&quot;/api/herolist&quot;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">resp</span>=&gt;</span>&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title class_">Log</span>(resp.<span class="property">data</span>);<span class="comment">//resp.data为响应体的数据，axios会自动解析JS0N格式</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="全局默认设置"><a href="#全局默认设置" class="headerlink" title="全局默认设置"></a>全局默认设置</h3><p>全局默认设置是指给axios添加一些默认设置，如baseURL等，后面发送请求时，所有请求都会带上这些设置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line">axios.<span class="property">default</span>.<span class="property">baseURL</span> = <span class="string">&#x27;http://localhost/api/&#x27;</span>;</span><br><span class="line">axios.<span class="property">default</span>.<span class="property">headers</span>.<span class="property">common</span>[<span class="string">&#x27;Authorization&#x27;</span>] = <span class="variable constant_">AUTH_TOKEN</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置优先级"><a href="#设置优先级" class="headerlink" title="设置优先级"></a>设置优先级</h3><p><strong>设置是可以被覆盖的，设置包括了全局默认设置，实例默认设置以及请求中config中的默认设置，越往后，优先级越高，后面的会覆盖前面的设置</strong></p>
+<h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><p>概念：</p>
+<p>拦截器是指当发送请求或者得到响应被then或catch处理之前对它们进行拦截，拦截后可对数据做一些处理，比如给请求数据添加头部信息，或对响应数据进行序列化，然后再传给浏览器，这些都可以在拦截器中进行。</p>
+<p>示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//添加请求拦截器</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="keyword">function</span> (<span class="params">config</span>)&#123;</span><br><span class="line"><span class="comment">//config为当前的请求配置</span></span><br><span class="line"><span class="comment">//use表示在发送请求之前做些什么</span></span><br><span class="line"><span class="comment">//这里，我们添加一个请求头</span></span><br><span class="line"><span class="keyword">const</span> token = <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&#x27;token&#x27;</span>);<span class="comment">//token是授权码</span></span><br><span class="line"><span class="keyword">if</span>(token)&#123;</span><br><span class="line">	config.<span class="property">headers</span>.<span class="property">authorization</span>=token;</span><br><span class="line">&#125;</span><br><span class="line">	<span class="keyword">return</span> config;<span class="comment">//返回处理后的配置</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//添加响应拦截器</span></span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="keyword">function</span> (<span class="params">resp</span>)&#123;</span><br><span class="line"><span class="comment">//2x×范围内的状态码都会触发该函数。</span></span><br><span class="line"><span class="comment">//对响应数据做点什么</span></span><br><span class="line"><span class="keyword">return</span> resp.<span class="property">data</span>.<span class="property">data</span>;<span class="comment">//仅得到响应体中的data属性</span></span><br><span class="line">&#125;，<span class="keyword">function</span> (<span class="params">error</span>)&#123;</span><br><span class="line"><span class="comment">//超出2×范围的状态码都会触发该函数。</span></span><br><span class="line"><span class="comment">//对响应错误做点什么</span></span><br><span class="line"><span class="title function_">alert</span>(error.<span class="property">message</span>);<span class="comment">//弹出错误消息</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//移除拦截器</span></span><br><span class="line"><span class="keyword">const</span> myInterceptor = axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="function"><span class="params">config</span>=&gt;</span>&#123;<span class="keyword">return</span> cofig&#125;)</span><br><span class="line">axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">eject</span>(myInterceptor);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在一个axios实例中使用拦截器</span></span><br><span class="line"><span class="keyword">var</span> instance = axios.<span class="title function_">create</span>();</span><br><span class="line">instance.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="comment">/*...*/</span>&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="取消请求"><a href="#取消请求" class="headerlink" title="取消请求"></a>取消请求</h3><p>可以使用cancel token取消一个请求，当用户搜索时，可能需要频繁的发送数据查询请求，因此当发送下一个请求时 ，需要撤销上一个请求。因此需要取消请求。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CancelToken</span> = axios.<span class="property">CancelToken</span>;</span><br><span class="line"><span class="comment">//使用CancelToken.source工厂函数创建一个cancel token</span></span><br><span class="line"><span class="keyword">const</span> source = <span class="title class_">CancelToken</span>.<span class="title function_">source</span>(); </span><br><span class="line"></span><br><span class="line">axios.<span class="title function_">get</span>(<span class="string">&#x27;/user/12345&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">cancelToken</span>: source.<span class="property">token</span></span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">thrown</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(axios.<span class="title function_">isCancel</span>(thrown))&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Request canceled&#x27;</span>, thrown.<span class="property">message</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">//handle error</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取消请求</span></span><br><span class="line">source.<span class="title function_">cancel</span>(<span class="string">&#x27;操作被用户取消&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/30/Axios/">http://example.com/2023/11/30/Axios/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        <a href="/tags/JS%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/"># JS第三方库</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/11/30/Echarts/">Echarts</a>
+            
+            
+            <a class="next" rel="next" href="/2023/11/30/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">JavaScript原型和原型链</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
