@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>JavaScript原型和原型链 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">JavaScript原型和原型链</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 30, 2023&nbsp;&nbsp;17:51:02</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JavaScript/">JavaScript</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><img src="/../images/%E5%8E%9F%E5%9E%8B%E9%93%BE.png"></p>
+<p>原型链如上：</p>
+<h2 id="JavaScript原型"><a href="#JavaScript原型" class="headerlink" title="JavaScript原型"></a>JavaScript原型</h2><p>众所周知，JS的复杂类型都是对象类型（<strong>Object</strong>），而JS不是一门完全面向对象编程的语言，所以如何涉及继承机制，就是一个问题。</p>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>因为JS中没有类（<strong>Class</strong>）这个概念，所以JS的设计者使用了<code>构造函数</code>来实现继承机制。</p>
+<p><font color="red">ES6中的class可以看作只是一个语法糖，它的绝大部分的功能，ES5都可以做到，新的class写法只是让原型的写法更加的清晰、更像面向对象编程的语法而已。</font></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构造函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成实例</span></span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;zhangsan&#x27;</span>, <span class="number">18</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>JS通过<code>构造函数</code>来生成<code>实例</code>。但是又出现了一个新的问题，在<code>构造函数</code>中通过<code>this</code>赋值的属性或者方法，是每个实例的<code>实例属性</code>以及<code>实例方法</code>，无法共享公共属性。所以又设计出了一个<code>原型对象</code>，来存储这个<code>构造函数</code>的公共属性以及方法。</p>
+<h3 id="构造函数创建一个实例的过程"><a href="#构造函数创建一个实例的过程" class="headerlink" title="构造函数创建一个实例的过程"></a>构造函数创建一个实例的过程</h3><ol>
+<li>创建一个新对象</li>
+<li>将构造函数的作用域赋值给新对象（这样this就指向了新对象）</li>
+<li>执行构造函数中的代码（为新对象添加实例属性和实例方法）</li>
+<li>返回新对象</li>
+</ol>
+<h3 id="原型对象"><a href="#原型对象" class="headerlink" title="原型对象"></a>原型对象</h3><p>JS的每个函数在创建的时候，都会生成一个属性<code>prototype</code>，这个属性指向一个对象，这个对象就是此函数的<code>原型对象</code>。该<code>原型对象</code>中有个属性为<code>constructor</code>，指向该函数。这样<code>原型对象</code>和<code>它的函数</code>之间就产生了联系。</p>
+<p><img src="/../images/%E5%8E%9F%E5%9E%8B%E9%93%BE/1.png"></p>
+<h2 id="JS原型链"><a href="#JS原型链" class="headerlink" title="JS原型链"></a>JS原型链</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Preson构造函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Preson</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 所有实例共享的公共方法</span></span><br><span class="line"><span class="title class_">Preson</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">say</span> = <span class="keyword">function</span> (<span class="params">word</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;<span class="variable language_">this</span>.name&#125;</span>说：<span class="subst">$&#123;word&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> p1 = <span class="keyword">new</span> <span class="title class_">Preson</span>(<span class="string">&#x27;张三&#x27;</span>, <span class="number">18</span>); <span class="comment">// 创建一个Person实例对象</span></span><br><span class="line">p1.<span class="title function_">hasOwnProperty</span>(<span class="string">&#x27;say&#x27;</span>) <span class="comment">// false 说明不是定义在其本身上的</span></span><br><span class="line">p1.<span class="title function_">say</span>(<span class="string">&#x27;hello world&#x27;</span>); <span class="comment">// 调用公共方法 打印：张三说：hello world</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们构造的<code>p1</code>这个<code>实例对象</code>，它可以调用到<code>Person</code>这个<code>构造函数</code>的<code>原型对象</code>上的方法呢？明明只有在<code>构造函数</code>内部通过<code>this</code>来赋值的属性或者方法才会被实例所继承，为什么在<code>构造函数</code>的<code>原型对象</code>上定义的<code>say</code>方法也能通过实例来调用到呢?引出了<code>原型链</code> 这个概念.</p>
+<h3 id="proto"><a href="#proto" class="headerlink" title="proto"></a><em><em>proto</em></em></h3><p>原因是每个通过<code>构造函数</code>创建出来的<code>实例对象</code>，其本身有个属性<code>__proto__</code>，这个属性会指向该<code>实例对象</code>的<code>构造函数</code>的<code>原型对象</code></p>
+<p><img src="/../images/%E5%8E%9F%E5%9E%8B%E9%93%BE/2.png"></p>
+<p>我们可以使用 Object.getPrototypeOf 方法来获取实例对象的原型，然后再来为原型添加方法&#x2F;属性</p>
+<p>当访问一个<code>对象</code>的某个属性时，会先在这个对象本身属性上查找，如果没有找到，则会通过它的<code>__proto__</code>隐式属性，找到它的<code>构造函数</code>的<code>原型对象</code>，如果还没有找到就会再在其<code>构造函数</code>的<code>prototype</code>的<code>__proto__</code>中查找，这样一层一层向上查找就会形成一个链式结构，我们称为<code>原型链</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="property">__proto__</span> === <span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span> <span class="comment">// true</span></span><br><span class="line">因为<span class="title class_">Object</span>.<span class="property">_proto_</span> 指向<span class="title class_">Function</span>的原型</span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>也是指向<span class="title class_">Function</span>的原型</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意点</strong>：如果通过<code>p1实例对象</code>的<code>__proto__</code>属性赋值，则会改变其<code>构造函数</code>的<code>原型对象</code>，从而被所有实例所共享。</p>
+<p>所以，我们在开发的时候，要注意不要通过<code>实例对象</code>去改变其<code>构造函数</code>的<code>原型对象</code>，这样会对其他通过该<code>构造函数</code>生成的<code>实例对象</code>造成影响。</p>
+<h3 id="原型链的尽头-null"><a href="#原型链的尽头-null" class="headerlink" title="原型链的尽头-null"></a>原型链的尽头-null</h3><p><code>p1实例对象</code>有<code>__proto__</code>属性指向其<code>构造函数</code>的<code>原型对象</code>，那么该<code>构造函数</code>的<code>原型对象</code>有这个<code>__proto__</code>属性吗？如果有，那么其又指向谁呢？</p>
+<p><strong>所有的<code>原型对象</code>的<code>__proto__</code>属性都是指向<code>function Object</code>的<code>原型对象</code>。</strong> 而<code>function Object</code>的<code>原型对象</code>是不存在<code>__proto__</code>这个属性的，它指向了<code>null</code>。我们就得知了<code>原型链</code>的尽头是<code>null</code>。</p>
+<h3 id="函数对象的原型链"><a href="#函数对象的原型链" class="headerlink" title="函数对象的原型链"></a>函数对象的原型链</h3><p>函数作为一个<code>对象</code>，是否也存在<code>原型链</code>呢？</p>
+<p>我们自定义的构造函数的<code>__proto__</code>属性指向了一个<code>function Function</code>的<code>原型对象</code>，该<code>原型对象</code>为JS中所有函数的<code>原型对象</code>，而其<code>__proto__</code>属性也还是指向了<code>function Object</code>的<code>原型对象</code></p>
+<p>验证了<code>原型链</code>的尽头为<code>null</code>这一说法。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/11/30/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">http://example.com/2023/11/30/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/11/30/Tomasulo%E7%AE%97%E6%B3%95/">Tomasulo算法</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
