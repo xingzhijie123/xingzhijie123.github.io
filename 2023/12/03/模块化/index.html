@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>模块化 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">模块化</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 3, 2023&nbsp;&nbsp;14:19:20</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JS%E5%B7%A5%E7%A8%8B%E5%8C%96/">JS工程化</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>m</p>
+<p><img src="/../images/%E6%A8%A1%E5%9D%97%E5%8C%96/1.png"></p>
+<p><strong>模块化在这个学习过程的位置</strong>如上：</p>
+<h2 id="JS没有模块化时会产生的问题："><a href="#JS没有模块化时会产生的问题：" class="headerlink" title="JS没有模块化时会产生的问题："></a><strong>JS没有模块化时会产生的问题：</strong></h2><p>1.经常容易造成全局变量的污染</p>
+<p>2.容易发生JS的依赖混乱</p>
+<h2 id="模块化的标准"><a href="#模块化的标准" class="headerlink" title="模块化的标准"></a><strong>模块化的标准</strong></h2><p>1.CommonJS  社区标准</p>
+<p>2.ES Module   官方标准</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><h3 id="Common-JS-规范："><a href="#Common-JS-规范：" class="headerlink" title="Common JS 规范："></a><strong>Common JS 规范：</strong></h3><p>1.所有的js文件均是一个模块，运行的模块入口模块<br>2.所有的模块中的全局变量、函数，均不会产生污染<br>3.当一个模块需要提供一些东西给别的函数使用时，需要把这些东西「导出」<br>4.当一个模块需要用到别的模块的东西的时候，需要「导入」（模块路径必须以&#x2F;或.&#x2F;开头）<br>5.模块有缓存，第一次运行模块后，导出结果会被缓存，之后再使用该模块，直接使用缓存结果</p>
+<p>标准类型：社区规范</p>
+<p>支持环境：node</p>
+<p>依赖类型：动态依赖</p>
+<h3 id="Common-JS-导出和导入"><a href="#Common-JS-导出和导入" class="headerlink" title="Common JS 导出和导入"></a>Common JS 导出和导入</h3><h4 id="导出："><a href="#导出：" class="headerlink" title="导出："></a>导出：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">export</span> = 导出的值</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="导入："><a href="#导入：" class="headerlink" title="导入："></a>导入：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&quot;模块路径&quot;</span>)<span class="comment">//函数返回模块导出的值</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="Common-JS例子："><a href="#Common-JS例子：" class="headerlink" title="Common JS例子："></a><strong>Common JS例子：</strong></h3><p><code>config.js:</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">wordDuration</span>: <span class="number">300</span>,<span class="comment">//打印每个字的时间间隔</span></span><br><span class="line">    <span class="attr">text</span>:  <span class="string">`到乡翻似烂柯人，</span></span><br><span class="line"><span class="string">沉舟侧畔千帆过，</span></span><br><span class="line"><span class="string">病树前头万木春，</span></span><br><span class="line"><span class="string">雄关漫道真如铁，</span></span><br><span class="line"><span class="string">而今迈步从头越。`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>delay.js:</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = delay;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">delay</span>(<span class="params">ms</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>)=&gt;</span><span class="built_in">setTimeout</span>(resolve,ms));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>main.js:</code>这个是主入口</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">&#x27;./config&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> delay = <span class="built_in">require</span>(<span class="string">&#x27;./delay&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> print = <span class="built_in">require</span>(<span class="string">&#x27;./print&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">run</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (index &lt; config.<span class="property">text</span>.<span class="property">length</span>) &#123;</span><br><span class="line">        <span class="title function_">print</span>(index);</span><br><span class="line">        <span class="keyword">await</span> <span class="title function_">delay</span>(config.<span class="property">wordDuration</span>);</span><br><span class="line">        index++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title function_">run</span>();</span><br></pre></td></tr></table></figure>
+
+<p><code>print.js:</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config =<span class="built_in">require</span>(<span class="string">&#x27;./config&#x27;</span>);</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> =  print;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">print</span>(<span class="params">index</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">clear</span>();</span><br><span class="line">    <span class="keyword">const</span> txt = config.<span class="property">text</span>.<span class="title function_">substring</span>(<span class="number">0</span>,index+<span class="number">1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(txt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+
+
+<p>以上 CMJS 模块化程序实现了给定延迟的输出文章的每个字符，这样做的好处是便于维护和修改。</p>
+<h2 id="ES-Module"><a href="#ES-Module" class="headerlink" title="ES Module"></a>ES Module</h2><p>标准类型：官方标准</p>
+<p>支持类型：node，浏览器</p>
+<p>依赖类型：静态依赖，动态依赖</p>
+<h3 id="ES-Module导出和导入"><a href="#ES-Module导出和导入" class="headerlink" title="ES Module导出和导入"></a>ES Module导出和导入</h3><h4 id="导出：-1"><a href="#导出：-1" class="headerlink" title="导出："></a>导出：</h4><p>一个模块可以同时存在两种导出方式，最终会合并为一个【对象】导出</p>
+<p><strong>注意：导出代码必须为顶级代码，即不可放到代码块中</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">一、export const a=l;//具名，常用</span><br><span class="line">   export function b()&#123;)/具名，常用</span><br><span class="line">   export function c()[)/具名，常用</span><br><span class="line">   </span><br><span class="line">二、const d = 2;</span><br><span class="line">   export&#123;d&#125;//具名</span><br><span class="line">   </span><br><span class="line">三、const k =10</span><br><span class="line">   export&#123;k as temp&#125;/具名</span><br><span class="line"></span><br><span class="line">一、export default 3//默认，常用</span><br><span class="line">   export default function()&#123;&#125;//默认，常用</span><br><span class="line">   </span><br><span class="line">二、const e = 4;</span><br><span class="line">   export&#123;e as default&#125;/默认</span><br><span class="line">   </span><br><span class="line">三、const f = 4,g = 5,h = 6</span><br><span class="line">   export&#123;f,g,h as default)/基本+默认，这里是f = 4,g = 5 ,default = 6</span><br></pre></td></tr></table></figure>
+
+<h4 id="导入：-1"><a href="#导入：-1" class="headerlink" title="导入："></a>导入：</h4><p>针对具名导出和默认导出，有不同的导入语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//仅运行一次该模块，不导入任何内容</span><br><span class="line">import&quot;模块路径&quot;</span><br><span class="line"></span><br><span class="line">//常用，导入属性a、b,放到变量a、b中。a-&gt;a,b-&gt;b</span><br><span class="line">import &#123;a,b&#125; from&quot;模块路径”</span><br><span class="line"></span><br><span class="line">//常用，导入属性default,放入变量c中。default-&gt;c</span><br><span class="line">import c from &quot;模块路径&quot;</span><br><span class="line"></span><br><span class="line">//常用，default-&gt;c,a-&gt;a,b-&gt;b</span><br><span class="line">import c,&#123;a,b&#125; from &quot;模块路径&quot;</span><br><span class="line"></span><br><span class="line">//常用，将模块对象放入到变量obj中</span><br><span class="line">import*as obj from &quot;模块路径&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//导入属性a、b,放到变量temp1、temp2中</span><br><span class="line">import &#123;a as templ,b as temp2) from&quot;模块路径&quot;</span><br><span class="line"></span><br><span class="line">//导入属性default,放入变量a中，default是关键字，不能作为变量名，必须定义别的变量</span><br><span class="line">import &#123;default as a&#125;from&quot;模块路径&quot;</span><br><span class="line"></span><br><span class="line">//导入属性default、b,放入变量a、b中</span><br><span class="line">import &#123;default as a,b) from&quot;模块路径&quot;</span><br><span class="line">//以上均为静态导入</span><br><span class="line"></span><br><span class="line">import(&quot;模块路径&quot;)//动态导入，返回一个Promise,完成时的数据为模块对象</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态导入例子："><a href="#动态导入例子：" class="headerlink" title="动态导入例子："></a>动态导入例子：</h3><p><img src="/../images/%E6%A8%A1%E5%9D%97%E5%8C%96/2.png"></p>
+<p>因为返回的是一个Promise对象，所以也可以用下面这种形式动态导入处理</p>
+<p><img src="/../images/%E6%A8%A1%E5%9D%97%E5%8C%96/3.png"></p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><p>书写一个ESM模块，查阅文档，导出下面的模块对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	a:1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以写出多少种导出的方式？</p>
+<p>再书写一个ESM模块，查阅文档，导入上面的模块对象，你可以写出多少种导入的方式？</p>
+<h4 id="导出的方式"><a href="#导出的方式" class="headerlink" title="导出的方式"></a>导出的方式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">    <span class="attr">a</span>:<span class="number">1</span></span><br><span class="line">&#125;<span class="comment">//默认导出</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;a <span class="keyword">as</span> b&#125;<span class="comment">//具名</span></span><br><span class="line"><span class="keyword">export</span> &#123;a <span class="keyword">as</span> <span class="keyword">default</span>&#125;<span class="comment">//默认</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="导入的方式"><a href="#导入的方式" class="headerlink" title="导入的方式"></a>导入的方式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;a&#125; <span class="keyword">from</span> <span class="string">&quot;./test.js&quot;</span>;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(a);	<span class="comment">// 导入属性a,放到变量a中。a-&gt;a</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> c <span class="keyword">from</span> <span class="string">&quot;./test.js&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c); <span class="comment">//导入属性default,放入变量c中。default-&gt;c，所以这个只能对导出是默认导出使用</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> test <span class="keyword">from</span> <span class="string">&quot;./test.js&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(test.<span class="property">a</span>); <span class="comment">////常用，将模块对象放入到变量test中</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/03/%E6%A8%A1%E5%9D%97%E5%8C%96/">http://example.com/2023/12/03/%E6%A8%A1%E5%9D%97%E5%8C%96/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript%EF%BC%8CJS%E5%B7%A5%E7%A8%8B%E5%8C%96/"># JavaScript，JS工程化</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/11/30/Echarts/">Echarts</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
