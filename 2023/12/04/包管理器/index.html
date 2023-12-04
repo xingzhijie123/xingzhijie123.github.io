@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>包管理器 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">包管理器</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 4, 2023&nbsp;&nbsp;16:02:16</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/JS%E5%B7%A5%E7%A8%8B%E5%8C%96/">JS工程化</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>1.什么是包？<br>包 (package) 是一个或多个JS模块的集合，它们共同完成某一类功能,可以简单的认为每一个工程就是一个包</p>
+<p>有些包是为了给别人用的，这种包也叫第三方库</p>
+<p>2.什么是包管理器？</p>
+<p>包管理器是一个管理包的工具，前端常见的包管理器有npm、yarn、cnpm、pnpm等</p>
+<p>包管理器具备以下能力：</p>
+<ul>
+<li>让开发者可以轻松的下载包</li>
+<li>让开发者可以轻松的升级和卸载包</li>
+<li>能够自动管理包的依赖</li>
+</ul>
+<p>3.什么是cli?</p>
+<p>cli是一个命令行工具，它提供一个终端命令，通过该命令可以完成一些功能</p>
+<h2 id="node查找包的顺序"><a href="#node查找包的顺序" class="headerlink" title="node查找包的顺序"></a>node查找包的顺序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&quot;a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>1.查找是否有内置模块a</p>
+<p>2.查找当前目录的node_modules中是否有a</p>
+<p>3.依次查找上级目录的node-modules中是否有a,直到根目录</p>
+<h2 id="配置源"><a href="#配置源" class="headerlink" title="配置源"></a>配置源</h2><h3 id="查看源"><a href="#查看源" class="headerlink" title="查看源"></a>查看源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置淘宝镜像源"><a href="#配置淘宝镜像源" class="headerlink" title="配置淘宝镜像源"></a>配置淘宝镜像源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置官方源"><a href="#配置官方源" class="headerlink" title="配置官方源"></a>配置官方源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init	<span class="comment">#初始化工程，帮助生成package.json文件</span></span><br><span class="line">npm init-y	<span class="comment">#初始化工程，全部使用默认配置生成package.json文件</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;dependencies&quot;:&#123;		//本地普通依赖</span><br><span class="line">	&quot;grcode&quot;:&quot;^1.4.4&quot;//依赖包grcode,版本1.4.4</span><br><span class="line">  &#125;,</span><br><span class="line">&quot;devDenpendencies&quot;:&#123;	//开发依赖</span><br><span class="line">	&quot;webpack&quot;:&quot;5.0.0&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="本地安装"><a href="#本地安装" class="headerlink" title="本地安装"></a>本地安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install 包名</span><br><span class="line">npm install 包名@版本号</span><br><span class="line">#install可以替换为i</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g 包名</span><br><span class="line">npm install -g 包名@版本号</span><br><span class="line">#install可以替换为i</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="若仅作为开发依赖，则添加参数-D"><a href="#若仅作为开发依赖，则添加参数-D" class="headerlink" title="若仅作为开发依赖，则添加参数 -D"></a>若仅作为开发依赖，则添加参数 -D</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -D 包名</span><br><span class="line">npm install -D 包名@版本号</span><br><span class="line">#install可以替换为i</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="若要还原安装"><a href="#若要还原安装" class="headerlink" title="若要还原安装"></a>若要还原安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install </span><br><span class="line">npm install -production #仅还原dependencies中的依赖</span><br><span class="line">#install可以替换为i</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h2><h3 id="本地卸载"><a href="#本地卸载" class="headerlink" title="本地卸载"></a>本地卸载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall 包名</span><br><span class="line">#uninstall可以替换为un</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="全局卸载"><a href="#全局卸载" class="headerlink" title="全局卸载"></a>全局卸载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g 包名</span><br><span class="line">#uninstall可以替换为un</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="查看包信息"><a href="#查看包信息" class="headerlink" title="查看包信息"></a>查看包信息</h2><h3 id="查看包所有的版本"><a href="#查看包所有的版本" class="headerlink" title="查看包所有的版本"></a>查看包所有的版本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm view 包名 versions</span><br><span class="line">#view 可以替换为v</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="npm脚本"><a href="#npm脚本" class="headerlink" title="npm脚本"></a>npm脚本</h2><h3 id="什么是-npm-脚本？"><a href="#什么是-npm-脚本？" class="headerlink" title="什么是 npm 脚本？"></a>什么是 npm 脚本？</h3><p>npm 允许在<code>package.json</code>文件里面，使用<code>scripts</code>字段定义脚本命令。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;build&quot;</span>: <span class="string">&quot;node build.js&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面代码是<code>package.json</code>文件的一个片段，里面的<code>scripts</code>字段是一个对象。它的每一个属性，对应一段脚本。比如，<code>build</code>命令对应的脚本是<code>node build.js</code>。</p>
+<p>命令行下使用<code>npm run</code>命令，就可以执行这段脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm run build</span><br><span class="line"><span class="comment"># 等同于执行</span></span><br><span class="line">$ node build.js</span><br></pre></td></tr></table></figure>
+
+<p>这些定义在<code>package.json</code>里面的脚本，就称为 npm 脚本。它的<strong>优点</strong>很多。</p>
+<ul>
+<li>项目的相关脚本，可以集中在一个地方。</li>
+<li>不同项目的脚本命令，只要功能相同，就可以有同样的对外接口。用户不需要知道怎么测试你的项目，只要运行<code>npm run test</code>即可。</li>
+<li>可以利用 npm 提供的很多辅助功能。</li>
+</ul>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/04/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/">http://example.com/2023/12/04/%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript%EF%BC%8CJS%E5%B7%A5%E7%A8%8B%E5%8C%96/"># JavaScript，JS工程化</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/12/04/less/">Less</a>
+            
+            
+            <a class="next" rel="next" href="/2023/12/03/%E6%A8%A1%E5%9D%97%E5%8C%96/">模块化</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
