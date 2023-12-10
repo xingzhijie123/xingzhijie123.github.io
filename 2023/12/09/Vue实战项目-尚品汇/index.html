@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>Vue实战项目_尚品汇 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Vue实战项目_尚品汇</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 9, 2023&nbsp;&nbsp;18:27:50</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Project/">Project</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="尚品汇"><a href="#尚品汇" class="headerlink" title="尚品汇"></a>尚品汇</h2><h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><p><img src="/../images/Vue_shp/1.png"></p>
+<h3 id="在后面加-–open可以使网页自动打开"><a href="#在后面加-–open可以使网页自动打开" class="headerlink" title="在后面加 –open可以使网页自动打开"></a>在后面加 –open可以使网页自动打开</h3><p><img src="/../images/Vue_shp/2.png"></p>
+<h3 id="项目的其他配置"><a href="#项目的其他配置" class="headerlink" title="项目的其他配置"></a>项目的其他配置</h3><p><img src="/../images/Vue_shp/3.png"></p>
+<p><img src="/../images/Vue_shp/4.png" alt="![](../images/Vue_shp/3.png)"></p>
+<p><img src="/../images/Vue_shp/.png"></p>
+<h3 id="v-if和v-show选择"><a href="#v-if和v-show选择" class="headerlink" title="v-if和v-show选择"></a>v-if和v-show选择</h3><p>v-show和v-if是Vue中用于条件渲染的两个指令，它们的作用是根据条件来控制元素的显示和隐藏。虽然它们最终都能实现类似的效果，但它们的工作原理有所不同。</p>
+<p>v-show指令会根据条件来切换元素的CSS属性”display”，当条件为true时，元素显示；当条件为false时，元素隐藏。这意味着无论条件如何变化，元素始终保留在DOM中，只是通过改变CSS属性来控制显示和隐藏。</p>
+<p>v-if指令则是真正的条件渲染，当条件为true时，元素被渲染到DOM中；当条件为false时，元素从DOM中移除。这意味着当条件变化时，v-if会销毁或重新创建元素，而不仅仅是改变CSS属性。</p>
+<p>一般来说，如果需要频繁切换元素的显示和隐藏，可以使用v-show；如果条件在运行时不经常变化，可以使用v-if。另外，v-if还可以与v-else和v-else-if结合，实现更复杂的条件逻辑。</p>
+<h3 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h3><p><img src="/../images/Vue_shp/5.png"></p>
+<p><img src="/../images/Vue_shp/8.png"></p>
+<p><img src="/../images/Vue_shp/7.png"></p>
+<h3 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h3><p>在 Vue Router 中，有两种主要的参数传递方式：<code>params</code> 参数和 <code>query</code> 参数。</p>
+<h3 id="1-params-参数："><a href="#1-params-参数：" class="headerlink" title="1. params 参数："></a>1. <code>params</code> 参数：</h3><p><code>params</code> 参数是通过路由的路径中的占位符来传递的。例如，在以下路由配置中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123; </span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">UserProfile</span>,</span><br><span class="line">            <span class="attr">props</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>:id</code> 是一个动态参数，它会被作为 <code>params</code> 参数传递给 <code>UserProfile</code> 组件。在组件中，你可以通过 <code>this.$route.params.id</code> 访问这个参数。</p>
+<h3 id="2-query-参数："><a href="#2-query-参数：" class="headerlink" title="2. query 参数："></a>2. <code>query</code> 参数：</h3><p><code>query</code> 参数是通过 URL 查询字符串传递的，通常在 URL 中以 <code>?</code> 开头。例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123; </span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/search&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">SearchResults</span>,</span><br><span class="line">            <span class="attr">props</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，你可以通过 <code>this.$route.query</code> 访问查询参数。例如，如果你的 URL 是 <code>/search?keyword=vue&amp;category=programming</code>，那么在组件中可以通过 <code>this.$route.query.keyword</code> 和 <code>this.$route.query.category</code> 访问这两个查询参数。</p>
+<p>总结一下：</p>
+<ul>
+<li><code>params</code> 是通过路由路径中的占位符传递的，可以通过 <code>this.$route.params</code> 访问。</li>
+<li><code>query</code> 是通过 URL 查询字符串传递的，可以通过 <code>this.$route.query</code> 访问。</li>
+</ul>
+<h4 id="路由传递参数（对象写法）path是否可以结合params参数一起使用"><a href="#路由传递参数（对象写法）path是否可以结合params参数一起使用" class="headerlink" title="路由传递参数（对象写法）path是否可以结合params参数一起使用?"></a>路由传递参数（对象写法）path是否可以结合params参数一起使用?</h4><p>不可以，在对象写法中，path不能和params一起使用，必须使用name来代替path</p>
+<h4 id="如何指定params参数可传可不传"><a href="#如何指定params参数可传可不传" class="headerlink" title="如何指定params参数可传可不传?"></a>如何指定params参数可传可不传?</h4><p>对于可选params参数，可以在路由路径中使用问号（<code>?</code>），例如</p>
+<p> <code>/user-with-optional/:id?</code>，这样 <code>id</code> 就成了可选的参数。</p>
+<h4 id="params参数可以传递也可以不传递，但是如果传递是空串，如何解决？"><a href="#params参数可以传递也可以不传递，但是如果传递是空串，如何解决？" class="headerlink" title="params参数可以传递也可以不传递，但是如果传递是空串，如何解决？"></a>params参数可以传递也可以不传递，但是如果传递是空串，如何解决？</h4><p>通过给params参数赋值underfined,例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">id</span>: route.<span class="property">params</span>.<span class="property">id</span> !== <span class="literal">undefined</span> ? route.<span class="property">params</span>.<span class="property">id</span> : <span class="string">&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>无论用户传递了空串还是没有传递参数，组件都会接收到一个 <code>id</code> 属性，并且在没有提供参数时，默认为一个空串。</p>
+<h4 id="路由组件能不能传递props数据"><a href="#路由组件能不能传递props数据" class="headerlink" title="路由组件能不能传递props数据?"></a>路由组件能不能传递props数据?</h4><p>是的，路由组件可以通过 <code>props</code> 属性接收来自路由的数据。在 Vue Router 中，你可以使用不同的方式传递数据给组件的 <code>props</code>。</p>
+<p><strong>布尔模式 (<code>props: true</code>)：</strong></p>
+<p>当你在路由配置中将 <code>props</code> 设置为 <code>true</code> 时，路由会把所有的路由参数注入到组件的 <code>props</code> 中。(只有<code>params</code>参数)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123; </span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">UserProfile</span>,</span><br><span class="line">            <span class="attr">props</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">props</span>: [<span class="string">&#x27;id&#x27;</span>],</span><br><span class="line">   </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>函数模式 (<code>props: route =&gt; (&#123; id: route.params.id &#125;)</code>)：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123; </span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">UserProfile</span>,</span><br><span class="line">            <span class="attr">props</span>: <span class="function"><span class="params">route</span> =&gt;</span> (&#123; <span class="attr">id</span>: route.<span class="property">params</span>.<span class="property">id</span> &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// UserProfile.vue</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">props</span>: [<span class="string">&#x27;id&#x27;</span>],</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>更加<strong>推荐使用函数模式</strong>。</p>
+<p><strong>对象模式</strong>：<strong>少用</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由配置</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123; </span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="title class_">UserProfile</span>,</span><br><span class="line">            <span class="attr">props</span>: &#123;</span><br><span class="line">                <span class="attr">id</span>: &#123;</span><br><span class="line">                    <span class="attr">type</span>: <span class="title class_">Number</span>, <span class="comment">// 设置类型验证</span></span><br><span class="line">                    <span class="attr">default</span>: <span class="number">1</span>    <span class="comment">// 设置默认值</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">isAdmin</span>: &#123;</span><br><span class="line">                    <span class="attr">type</span>: <span class="title class_">Boolean</span>,</span><br><span class="line">                    <span class="attr">default</span>: <span class="literal">false</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// UserProfile.vue</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="attr">props</span>: &#123;</span><br><span class="line">        <span class="attr">id</span>: &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="title class_">Number</span>,</span><br><span class="line">            <span class="attr">default</span>: <span class="number">1</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">isAdmin</span>: &#123;</span><br><span class="line">            <span class="attr">type</span>: <span class="title class_">Boolean</span>,</span><br><span class="line">            <span class="attr">default</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="重写push和replace方法"><a href="#重写push和replace方法" class="headerlink" title="重写push和replace方法"></a>重写push和replace方法</h3>
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/09/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE-%E5%B0%9A%E5%93%81%E6%B1%87/">http://example.com/2023/12/09/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE-%E5%B0%9A%E5%93%81%E6%B1%87/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Project%EF%BC%8CVue/"># Project，Vue</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/12/06/Vue-%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">Vue_信贷管理系统</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

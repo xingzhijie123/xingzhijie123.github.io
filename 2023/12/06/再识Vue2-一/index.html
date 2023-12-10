@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>再识Vue2(一) | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/about">生活</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">再识Vue2(一)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 6, 2023&nbsp;&nbsp;15:32:34</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Vue/">Vue</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id><a href="#" class="headerlink" title></a></h2><h2 id="虚拟DOM树"><a href="#虚拟DOM树" class="headerlink" title="虚拟DOM树"></a>虚拟DOM树</h2><p>直接操作真实的DOM会引发严重的效率问题，vue使用DOM (vnode) 的方式来描述要渲染的内容</p>
+<p>vnode 是一个普通的JS对象,用于描述界面上应该有什么,比如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vnode = &#123;</span><br><span class="line">	<span class="attr">tag</span>:<span class="string">&quot;h1&quot;</span>,</span><br><span class="line">	<span class="attr">children</span>:[</span><br><span class="line">	 &#123; <span class="attr">tag</span>:<span class="literal">undefined</span>, <span class="attr">text</span>:<span class="string">&quot;第一个vue应用：Hello World&quot;</span>&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的对象描述了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有一个标签名为h1的节点，它有一个子节点，该子节点是一个文本，内容为「第一个vue应用：Hello World」</span><br></pre></td></tr></table></figure>
+
+<p><strong>vue模板并不是真实的DOM,它会被编译为虚拟DOM</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot;&gt;</span><br><span class="line">	&lt;h1&gt;第一个vue应用：&#123;&#123;tit1e&#125;&#125;&lt;/h1&gt;</span><br><span class="line">	&lt;p&gt;作者：&#123;&#123;author&#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：虚拟节点树必须是单根的</strong></p>
+<h2 id="完整流程"><a href="#完整流程" class="headerlink" title="完整流程"></a>完整流程</h2><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/5.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/1.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/.png"></p>
+<h3 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/4.png"></p>
+<p>vue会将以下配置注入到vue实例：</p>
+<ul>
+<li>data: 和界面相关的数据</li>
+<li>computed: 通过已有数据计算得来的数据，将来详细讲解</li>
+<li>methods: 方法</li>
+</ul>
+<h3 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/2.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/7.png"></p>
+<p><strong>虚拟DOM树会最终生成为真实的DOM树</strong></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/6.png"></p>
+<p>当数据变化后，将引发重新渲染，vue会比较新旧两棵vnode tree,找出差异，然后仅把差异部分应用到真实dom tree中</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/8.png"></p>
+<h3 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h3><p>将生成的真实DOM树，放置到某个元素位置，称之为挂载<br>挂载的方式：</p>
+<ol>
+<li>通过el:”css选择器”进行配置</li>
+<li>通过vue实例.$mount(“css选择器”)进行配置</li>
+</ol>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/9.png"></p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>组件的出现是为了实现以下两个目标:</p>
+<ol>
+<li>降低整体复杂度，提升代码的可读性和可维护性</li>
+<li>提升局部代码的可复用性</li>
+</ol>
+<p>绝大部分情况下，一个组件就是页面中某个区域，组件包含该区域的:</p>
+<ul>
+<li><p>功能   (JS代码)</p>
+</li>
+<li><p>内容（模板代码）</p>
+</li>
+<li><p>样式  (CSS代码)</p>
+<p>要在组件中包含样式，需要构建工具的支撑</p>
+</li>
+</ul>
+<h2 id="组件开发"><a href="#组件开发" class="headerlink" title="组件开发"></a>组件开发</h2><h3 id="创建组件"><a href="#创建组件" class="headerlink" title="创建组件"></a>创建组件</h3><p>组件是根据一个普通的配置对象创建的，所以要开发一个组件，只需要写一个配置对象即可</p>
+<p>该配置对象和vue实例的配置是几乎一样的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//组件配置对象</span></span><br><span class="line"><span class="keyword">var</span> myComp =</span><br><span class="line"> <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">	&#125;</span><br><span class="line">  &#125;,</span><br><span class="line"><span class="attr">template</span>: <span class="string">`....`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，组件配置对象和vue实例有以下几点差异：</p>
+<ul>
+<li>无<code>el</code></li>
+<li><code>data</code>必须是一个函数，该函数返回的对象作为数据</li>
+<li>由于没有<code>el</code>配置，组件的虚拟DOM树必须定义在<code>template</code>或<code>render</code>中</li>
+</ul>
+<h3 id="注册组件"><a href="#注册组件" class="headerlink" title="注册组件"></a>注册组件</h3><p>注册组件分为两种方式，一种是全局注册，一种是局部注册</p>
+<h4 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h4><p>一旦全局注册了一个组件，整个应用中任何地方都可以使用该组件</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/10.png"></p>
+<p>全局注册的方式是：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//参数1：组件名称，将来在模板中使用组件时，会使用该名称</span></span><br><span class="line"><span class="comment">//参数2：组件配置对象</span></span><br><span class="line"><span class="comment">//该代码运行后，即可在模板中使用组件</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;my-comp&#x27;</span>,myComp)</span><br></pre></td></tr></table></figure>
+
+<p>在模板中，可以使用组件了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-comp /&gt;</span><br><span class="line">&lt;!-或--&gt;</span><br><span class="line">&lt;my-comp&gt;&lt;/my-comp&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但在一些工程化的大型项目中，很多组件都不需要全局使用。</p>
+<p>比如一个登录组件，只有在登录的相关页面中使用，如果全局注册，将导致构建工具无法优化打包</p>
+<p><strong>因此，除非组件特别通用，否则不建议使用全局注册</strong></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/15.png"></p>
+<h4 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h4><p>局部注册就是哪里要用到组件，就在哪里注册</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/11.png"></p>
+<p>局部注册的方式是，在要使用组件的组件或实例中加入一个配置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是另一个要使用my-comp的组件</span></span><br><span class="line"><span class="keyword">var</span> otherComp = &#123;</span><br><span class="line">  <span class="attr">components</span>: &#123;</span><br><span class="line"><span class="comment">//属性名为组件名称，模板中将使用该名称</span></span><br><span class="line"><span class="comment">//属性值为组件配置对象</span></span><br><span class="line"><span class="string">&quot;my-comp&quot;</span>:myComp</span><br><span class="line">&#125;，</span><br><span class="line"><span class="attr">template</span>:<span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">	&lt;!--该组件的其他内容 --&gt;</span></span><br><span class="line"><span class="string">	 &lt;my-comp&gt;&lt;/my-comp&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="应用组件"><a href="#应用组件" class="headerlink" title="应用组件"></a>应用组件</h3><p>在模板中使用组件特别简单，把组件名当作HTML元素名使用即可。</p>
+<p>但要注意以下几点：</p>
+<p><strong>1.组件必须有结束</strong></p>
+<p>组件可以自结束，也可以用结束标记结束，但必须要有结束</p>
+<p>下面的组件使用是错误的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-comp&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.组件的命名</strong></p>
+<p>无论你使用哪种方式注册组件，组件的命名需要遵循规范。</p>
+<p>组件可以使用<code>kebab-case</code>短横线命名法，也可以使用<code>PascalCase</code>大驼峰命名法</p>
+<p>下面两种命名均是可以的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> otherComp = &#123;</span><br><span class="line">  <span class="attr">components</span>:&#123;</span><br><span class="line">   <span class="string">&quot;my-comp&quot;</span>:myComp, <span class="comment">//方式1</span></span><br><span class="line">	<span class="title class_">MyComp</span>:myComp<span class="comment">//方式2</span></span><br></pre></td></tr></table></figure>
+
+<p>实际上，使用小驼峰命名法<code>camelcase</code>也是可以识别的，只不过不符合官方要求的规范</p>
+<p><strong>使用<code>PascalCase</code>方式命名还有一个额外的好处，即可以在模板中使用两种组件名</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> otherComp = &#123;</span><br><span class="line"> <span class="attr">components</span>:&#123;</span><br><span class="line">   <span class="title class_">MyComp</span>:myComp</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用特定样式和约定的基础组件 (也就是展示类的、无逻辑的或无状态的组件) 应该全部以一个特定的前缀开头，比如 <code>Base</code>、<code>App</code> 或 <code>V</code>。像button icon 这类的</strong></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/16.png"></p>
+<h3 id="组件树"><a href="#组件树" class="headerlink" title="组件树"></a>组件树</h3><p>一个组件创建好后，往往会在各种地方使用它。它可能多次出现在Vu实例中，也可能出现在其他组件中<br>于是就形成了一个组件树</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/12.png"></p>
+<p><strong>注意：在组件中，属性是只读的，绝不可以更改，这叫做单向数据流</strong></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/13.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/14.png"></p>
+<h2 id="第一个应用-动态渲染"><a href="#第一个应用-动态渲染" class="headerlink" title="第一个应用_动态渲染"></a>第一个应用_动态渲染</h2><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/3.png"></p>
+<h2 id="工程版本一致性"><a href="#工程版本一致性" class="headerlink" title="工程版本一致性"></a>工程版本一致性</h2><h3 id="node版本一致"><a href="#node版本一致" class="headerlink" title="node版本一致"></a>node版本一致</h3><p>node版本切换如下</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/17.png"></p>
+<h3 id="vue的版本全局安装一致性"><a href="#vue的版本全局安装一致性" class="headerlink" title="vue的版本全局安装一致性"></a>vue的版本全局安装一致性</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/18.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/19.png"></p>
+<h2 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h2><p>vue-cIi是一个脚手架工具，用于搭建vue工程</p>
+<p>它内部使用了<code>webpack</code>,并预置了诸多插件（<code>plugin</code>)和加载器（<code>loader</code>)，以达到开箱即用的效果<br>除了基本的插件和加载器外，<code>vue-cli</code>还预置了：</p>
+<ul>
+<li>babel</li>
+<li>webpack-dev-server</li>
+<li>eslint</li>
+<li>postcss</li>
+<li>less-loader</li>
+</ul>
+<p>创建工程时遇到问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\xzj\Desktop\学习\vue\再识Vue2\再识Vue2_项目&gt;vue create my_site</span><br><span class="line">D:\nvm\v12.17.0\node_modules\@vue\cli\node_modules\vue-codemod\node_modules\@vue\compiler-sfc\dist\compiler-sfc.cjs.js:361</span><br><span class="line">            this.signal.onabort?.(reason);</span><br><span class="line">                                ^</span><br><span class="line"></span><br><span class="line">SyntaxError: Unexpected token <span class="string">&#x27;.&#x27;</span></span><br><span class="line">    at wrapSafe (internal/modules/cjs/loader.js:1054:16)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:1102:27)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:986:32)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:879:14)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:1026:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:72:18)</span><br><span class="line">    at Object.&lt;anonymous&gt; (D:\nvm\v12.17.0\node_modules\@vue\cli\node_modules\vue-codemod\dist\src\run-transformation.js:9:24)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:1138:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>要解决这个问题:</p>
+<p>需要</p>
+<p><strong>1.更新 Node.js：</strong> 确保你使用的是支持 ECMAScript 2020（ES11）或更新版本的 Node.js。你可以将 Node.js 更新到更高版本，最好使用 LTS（长期支持）版本。</p>
+<p><strong>2.更新或修改代码：</strong> 如果更新 Node.js 不可行，可以修改代码以使用更传统的方法，而不使用可选链。例如，将：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.signal.onabort?.(reason);</span><br></pre></td></tr></table></figure>
+
+<p>替换为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (this.signal.onabort) &#123;</span><br><span class="line">    this.signal.onabort(reason);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="SFC"><a href="#SFC" class="headerlink" title="SFC"></a>SFC</h2><p>单文件组件，Single File Component,即一个文件就包含了一个组件所需的全部代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">&lt;!--组件模板代码--&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="comment">//组件配置</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"><span class="comment">/*组件样式*/</span></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="Vue打包运行的过程"><a href="#Vue打包运行的过程" class="headerlink" title="Vue打包运行的过程"></a>Vue打包运行的过程</h2><p><strong>源代码 &#x3D;&gt; 打包 &#x3D;&gt; 运行</strong></p>
+<h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><p>当vue-cli进行打包时，会直接把组件中的模板转换为render函数，这叫做模板预编译</p>
+<p>这样做的好处在于：</p>
+<ol>
+<li>运行时就不再需要编译模板了，提高了运行效率</li>
+<li>打包结果中不再需要vue的编译代码，减少了打包体积</li>
+</ol>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/20.png"></p>
+<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>完整的计算属性书写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">computed</span>:&#123;</span><br><span class="line">  <span class="attr">propName</span>:&#123;</span><br><span class="line">	<span class="title function_">get</span>(<span class="params"></span>)&#123;</span><br><span class="line">	<span class="comment">//getter</span></span><br><span class="line">&#125;,</span><br><span class="line">	<span class="title function_">set</span>(<span class="params">val</span>)&#123;</span><br><span class="line">	 <span class="comment">//setter</span></span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只包含getter的计算属性简写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">computed</span>:&#123;</span><br><span class="line">  <span class="title function_">propName</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="comment">//getter</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><p>计算属性和方法有什么区别？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">计算属性本质上是包含getter和setter的方法</span><br><span class="line">当获取计算属性时，实际上是在调用计算属性的getter方法。vue会收集计算属性的依赖，并缓存计算属性的返回结果。只</span><br><span class="line">有当依赖变化后才会重新进行计算。</span><br><span class="line">方法没有缓存，每次调用方法都会导致重新执行。</span><br><span class="line">计算属性的getter和setter参数固定，getter没有参数，setter只有一个参数。而方法的参数不限。</span><br><span class="line">由于有以上的这些区别，因此计算属性通常是根据已有数据得到其他数据，并在得到数据的过程中不建议使用异步、当前时</span><br><span class="line">间、随机数等副作用操作。</span><br><span class="line">实际上，他们最重要的区别是含义上的区别。计算属性含义上也是一个数据，可以读取也可以赋值；方法含义上是一个操</span><br><span class="line">作，用于处理一些事情。</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用当前时间反例子：</strong></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/21.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/06/%E5%86%8D%E8%AF%86Vue2-%E4%B8%80/">http://example.com/2023/12/06/%E5%86%8D%E8%AF%86Vue2-%E4%B8%80/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        <a href="/tags/Vue%EF%BC%8C%E6%A1%86%E6%9E%B6/"># Vue，框架</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/12/06/Vue-%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">Vue_信贷管理系统</a>
+            
+            
+            <a class="next" rel="next" href="/2023/12/04/less/">Less</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
