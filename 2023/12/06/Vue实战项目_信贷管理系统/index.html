@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>Vue_信贷管理系统 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Vue_信贷管理系统</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 6, 2023&nbsp;&nbsp;21:43:02</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Project/">Project</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="1-学习目的"><a href="#1-学习目的" class="headerlink" title="1.学习目的"></a>1.学习目的</h2><p><img src="/../images/Vue_%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/1.png"></p>
+<h2 id="2-创建vue项目，安装依赖并引入Element-UI"><a href="#2-创建vue项目，安装依赖并引入Element-UI" class="headerlink" title="2.创建vue项目，安装依赖并引入Element-UI"></a>2.创建vue项目，安装依赖并引入Element-UI</h2><p>1.使用 vue create vue-project 创建项目</p>
+<p>2.选择第三个自选</p>
+<p>3.选择Babel，Router和Vuex</p>
+<p>4.选择vue2</p>
+<p>5.选择In package.json</p>
+<p>6.安装依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i -S element-ui@2.15.5</span><br><span class="line">npm i -D sass@1.26.5</span><br><span class="line">npm i -D sass-loader@8.0.2</span><br></pre></td></tr></table></figure>
+
+<p>7.在main.js文件引入element-ui</p>
+<h2 id="3-配置路由"><a href="#3-配置路由" class="headerlink" title="3.配置路由"></a>3.配置路由</h2><h3 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h3><p>路由懒加载就是给路由器配置组件时使用动态引入，转跳到某个路由的时候才会加载相应组件，可以减少首页加载渲染白屏的时间，提升用户体验。</p>
+<p><img src="/../images/Vue_%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/2.png"></p>
+<h3 id="路由重定向redirect"><a href="#路由重定向redirect" class="headerlink" title="路由重定向redirect"></a>路由重定向redirect</h3><p>路由重定向设置进入项目页面时默认访问的路由</p>
+<p><img src="/../images/Vue_%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/3.png"></p>
+<p>先在view文件夹下创建Login.vue，然后添加一个登录页面的路由和重定向</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="attr">path</span>:<span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    <span class="attr">redirect</span>:<span class="string">&#x27;/login&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/login&#x27;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Login&#x27;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;../views/Login.vue&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="4-样式的引入"><a href="#4-样式的引入" class="headerlink" title="4.样式的引入"></a>4.样式的引入</h2><p>1.把课件中的normalize.css和bg2.jpg放到assets文件夹中</p>
+<p>2.然后在main.js中引入样式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;@/assets/normalize.css&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>3.在登录界面中引入样式 	语言是scss</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/06/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE_%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">http://example.com/2023/12/06/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE_%E4%BF%A1%E8%B4%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Project%EF%BC%8CVue/"># Project，Vue</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/12/09/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE_%E5%B0%9A%E5%93%81%E6%B1%87/">Vue实战项目_尚品汇</a>
+            
+            
+            <a class="next" rel="next" href="/2023/12/06/%E5%86%8D%E8%AF%86Vue2(%E4%B8%80)/">再识Vue2(一)</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

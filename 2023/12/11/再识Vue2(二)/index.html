@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>再识Vue2(二) | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">再识Vue2(二)</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 11, 2023&nbsp;&nbsp;21:38:40</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Vue/">Vue</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h2><p>​	</p>
+<blockquote>
+<p>​       在vue中,我们想要实现父子组件中的传值,通过props和自定义事件可以可轻松的办到,如果是两个没有关联的组件,通过$bus事件公交也能实现兄弟子件的传值,但是在大型项目中,使用$bus容易导致代码繁琐,且不容易阅读.这个时候,vuex的出现可以很好的帮助我们解决我们这种问题</p>
+<p>vuex是一个专为 Vue.js 应用程序开发的<strong>状态管理模式</strong>， 采用<strong>集中式存储</strong>管理应用的所有组件的状态，解决多组件数据通信。(简单来说就是管理数据的,相当于一个仓库,里面存放着各种需要共享的数据,所有组件都可以拿到里面的数据)</p>
+</blockquote>
+<blockquote>
+<p>​	   Vuex的核心概念包括state（状态）、getters（获取器）、mutations（突变）和actions（动作）。State代表应用程序的状态数据，Getters用于从state中派生出一些新的状态，Mutations是用于修改state的方法，而Actions则是用于提交mutations的方法，可以包含任意异步操作。</p>
+</blockquote>
+<blockquote>
+<p>​	使用Vuex的好处在于，它可以帮助开发者更好地组织和管理应用程序的状态，避免了状态分散在各个组件中导致的混乱和难以维护的问题。此外，Vuex还 提供了一些高级特性，如严格模式、插件等，以及开发工具的支持，帮助开发者更好地调试和监控状态的变化。</p>
+</blockquote>
+<blockquote>
+<p>  总之，Vuex是一个强大的状态管理工具，适用于中大型的Vue.js应用程序，能够提高应用程序的可维护性和可扩展性。</p>
+</blockquote>
+<p>要点:</p>
+<p>1.vue官方搭配,专属,有专门的调试工具</p>
+<p>2.数据变化是可预测的(响应式)</p>
+<p>3.<strong>集中式</strong>管理数据状态方案</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/1.webp"></p>
+<p>1.state 统一定义管理公共数据</p>
+<p>2.mutations: 使用它来修改数据</p>
+<p>3.getters: 类似于vue中的计算属性</p>
+<p>4.actions: 类似于methods,用于发起异步请求,比如axios</p>
+<p>5.modules: 模块拆分</p>
+<p>其中最重要的内容为<strong>state</strong>和<strong>mutations</strong></p>
+<h2 id="搭建vue环境"><a href="#搭建vue环境" class="headerlink" title="搭建vue环境"></a>搭建vue环境</h2><p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/2.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/3.png"></p>
+<h3 id="在组件中使用store"><a href="#在组件中使用store" class="headerlink" title="在组件中使用store"></a>在组件中使用store</h3><p>在任意组件中，通过<code>this.$store.state.属性名</code> 来获取公共数据。</p>
+<p>在模块中,则可以直接省略this而直接写成：<code>&#123;&#123;$store.state.属性名&#125;&#125;</code></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/2.webp"></p>
+<h3 id="在组件中修改state使用mutations"><a href="#在组件中修改state使用mutations" class="headerlink" title="在组件中修改state使用mutations"></a>在组件中修改state使用mutations</h3><p>通过<code>this.$store.commit(&#39;mutation事件名&#39;,mapper参数)</code>可以修改state里面的数据</p>
+<p>注意点</p>
+<ol>
+<li>要修改vuex中的数据,就要使用mutations去修改</li>
+<li>在methods里面$store.state.xxx &#x3D; xxx这种方式虽然可以直接修改数据,但是vue不推荐,并且在严格模式下通过这种方式修改数据,会直接报错</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">  <span class="attr">state</span>: &#123;</span><br><span class="line">    <span class="attr">num</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">userinfo</span>: &#123;</span><br><span class="line">      <span class="attr">name</span>:<span class="string">&#x27;柚子&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">mutations</span>: &#123;</span><br><span class="line">    <span class="title function_">setname</span>(<span class="params">state, newval</span>) &#123;</span><br><span class="line">      state.<span class="property">num</span> = newval</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">btn</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="property">state</span>.<span class="property">num</span> = <span class="number">200</span> <span class="comment">//不推荐这种写法,vuex所有修改数据都要写在mutations里</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">btnmutation</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="title function_">commit</span>(<span class="string">&#x27;setbooks&#x27;</span>,<span class="number">200</span>) <span class="comment">// 点击按钮 然后通过commit触发mutation事件</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="vuex中用getters的派生状态"><a href="#vuex中用getters的派生状态" class="headerlink" title="vuex中用getters的派生状态"></a>vuex中用getters的派生状态</h3><p>作用:在state中的数据的基础上，进一步对数据进行加工得到新数据。(与组件中computed一样)</p>
+<p>在vuex中配置getters</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">javascript复制代码<span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title function_">store</span>(&#123;</span><br><span class="line">  <span class="comment">// 省略其他...</span></span><br><span class="line">  <span class="attr">getters</span>: &#123;</span><br><span class="line">    <span class="comment">// state 就是上边定义的公共数据state</span></span><br><span class="line">    getter的名字<span class="number">1</span>: <span class="keyword">function</span>(<span class="params">state</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> 要返回的值</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>在组件中用<code>this.$store.getters.xxx</code>来获取getters派生后的的值</p>
+<p>注意: getter定义的时候,第一个参数是state,不能传第二个参数,派生的值通过return返回</p>
+<h3 id="Vuex-state-mutation-getters-小结"><a href="#Vuex-state-mutation-getters-小结" class="headerlink" title="Vuex-state-mutation-getters 小结"></a>Vuex-state-mutation-getters 小结</h3><p>vuex中维护公共数据主要有两个要点</p>
+<p>1.定义数据</p>
+<p>2.提供获取&#x2F;修改数据的方法</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/3.webp"></p>
+<h2 id="vuex中发起异步请求"><a href="#vuex中发起异步请求" class="headerlink" title="vuex中发起异步请求"></a>vuex中发起异步请求</h2><p>前面我们已经讲过了修改数据和定义数据,那当我们想要从服务器发起请求拿数据的时候,就不可避免的要发起异步请求来获取数据,这个时候actions就可以很好的帮助我们,它可以包含任意异步请求的操作.</p>
+<p>定义格式:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">javascript复制代码<span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title function_">store</span>(&#123;</span><br><span class="line">  <span class="comment">// 省略其他...</span></span><br><span class="line">  <span class="attr">actions</span>: &#123;</span><br><span class="line">    <span class="comment">// context对象会自动传入，它与store实例具有相同的方法和属性</span></span><br><span class="line">    action的名字: <span class="keyword">function</span>(<span class="params">context, 载荷</span>) &#123;</span><br><span class="line">      <span class="comment">// 1. 发异步请求, 请求数据</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 2. commit调用mutation来修改/保存数据</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">// context.commit(&#x27;mutation名&#x27;, 载荷)</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用Action来修改state，这一点是类似于 mutation的，不同在于：</p>
+<ul>
+<li>action中可以通过调用 mutation来修改state，而不是直接变更状态。</li>
+<li>action 可以包含<strong>任意异步</strong>(例如ajax请求)操作。</li>
+</ul>
+<p>调用格式</p>
+<ul>
+<li>在组件中通过<code>this.$store.dispatch(&#39;actions的名字&#39;, 参数)</code>来调用action</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">javascript复制代码<span class="comment">// 发ajax请求，从后端获取数据，再来去修改state中的数据</span></span><br><span class="line">    <span class="attr">actions</span>: &#123;</span><br><span class="line">      getBooks (context, params) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getbooks的查询参数是&#x27;</span>, params)</span><br><span class="line">        <span class="title function_">axios</span>(&#123;</span><br><span class="line">          <span class="attr">url</span>: <span class="string">&#x27;https://www.fastmock.site/mock/37d3b9f13a48d528a9339fbed1b81bd5/book/api/books&#x27;</span>,</span><br><span class="line">          <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span></span><br><span class="line">        &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">          context.<span class="title function_">commit</span>(<span class="string">&#x27;setBooks&#x27;</span>, res.<span class="property">data</span>.<span class="property">data</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>小结</p>
+<p>将ajax请求放在actions中有两个好处：</p>
+<ol>
+<li>代码得到了进一步封装。将发ajax和保存数据到vuex绑定在一起。</li>
+<li>逻辑更通顺。如果数据需要保存在Vuex的state中，那从接口处获取数据的操作就定义在Vuex的actions中。</li>
+</ol>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/4.webp"></p>
+<h2 id="Vuex-用modules来拆分复杂业务"><a href="#Vuex-用modules来拆分复杂业务" class="headerlink" title="Vuex-用modules来拆分复杂业务"></a>Vuex-用modules来拆分复杂业务</h2><h4 id="问题导入"><a href="#问题导入" class="headerlink" title="问题导入"></a>问题导入</h4><p>随着项目越来越大，需要放在vuex中的数据越来越多，整个store&#x2F;index.js中代码会越来越长，怎么办呢？</p>
+<h4 id="modules的作用"><a href="#modules的作用" class="headerlink" title="modules的作用"></a>modules的作用</h4><p>拆分模板，把复杂的场景按模块来拆开</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">php复制代码export <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title function_ invoke__">Store</span>(&#123;</span><br><span class="line">  // <span class="attr">state</span>: 用来保存所有的公共数据</span><br><span class="line">  <span class="attr">state</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">getters</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">mutations</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">actions</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">modules</span>: &#123;</span><br><span class="line">  	模块名<span class="number">1</span>： &#123;</span><br><span class="line">    		// namespaced为<span class="literal">true</span>，则在使用mutations时，就必须要加上模块名</span><br><span class="line">      	<span class="attr">namespaced</span>: <span class="literal">true</span>, </span><br><span class="line">  		  <span class="attr">state</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">getters</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">mutations</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">actions</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">modules</span>: &#123;&#125;</span><br><span class="line">  	&#125;，</span><br><span class="line">    模块名<span class="number">2</span>： &#123;</span><br><span class="line">        // namespaced不写，默认为<span class="literal">false</span>，则在使用mutations时，不需要加模块名</span><br><span class="line">  		  <span class="attr">state</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">getters</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">mutations</span>: &#123;&#125;,</span><br><span class="line">  			<span class="attr">actions</span>: &#123;&#125;,</span><br><span class="line">         <span class="attr">modules</span>: &#123;&#125;</span><br><span class="line">  	&#125;  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>也可以进一步对文件进行拆分</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lua复制代码|<span class="comment">--store /</span></span><br><span class="line">|<span class="comment">------- index.js # 引入模块</span></span><br><span class="line">|<span class="comment">------- modules</span></span><br><span class="line">|<span class="comment">-------------- / mod1.js # 模块1</span></span><br><span class="line">|<span class="comment">-------------- / mod2.js # 模块2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="访问数据和修改数据的调整"><a href="#访问数据和修改数据的调整" class="headerlink" title="访问数据和修改数据的调整"></a>访问数据和修改数据的调整</h4><ul>
+<li>访问模块中的数据，要加上模块名</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash复制代码获取数据项：  &#123;&#123;<span class="variable">$store</span>.state.模块名.数据项名&#125;&#125;</span><br><span class="line">获取getters： &#123;&#123;<span class="variable">$store</span>.getters[<span class="string">&#x27;模块名/getters名&#x27;</span>]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问模块中的mutations&#x2F;actions:</p>
+<ul>
+<li>如果namespaced为true，则需要额外去补充模块名</li>
+<li>如果namespaced为false，则不需要额外补充模块名</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash复制代码<span class="variable">$store</span>.commit(<span class="string">&#x27;mutations名&#x27;</span>)        // namespaced为<span class="literal">false</span></span><br><span class="line"><span class="variable">$store</span>.commit(<span class="string">&#x27;模块名/mutations名&#x27;</span>)  // namespaced为<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>使用了modules之后，在访问数据时就要额外添加modules的名字了。</p>
+<p>结论： 在使用modules时，建议都给加上namespaced!</p>
+<h2 id="Vuex-辅助函数mapState来使用公共数据"><a href="#Vuex-辅助函数mapState来使用公共数据" class="headerlink" title="Vuex-辅助函数mapState来使用公共数据"></a>Vuex-辅助函数mapState来使用公共数据</h2><p>有的时候,当访问某个数据项嵌套太深了，用$store访问数据太麻烦,并且不方便修改和阅读,我们能不能优化一下代码的格式? 这个时候 map辅助函数可以很好的帮我们做这件事</p>
+<ul>
+<li>当然,不用map函数我们也可以完全使用vuex,这只是一个拔尖的过程,可了解或不阅读,对使用vuex也无关紧要</li>
+</ul>
+<p>用mapState把公共数据（vuex.store） 映射 到本组件内部的<strong>计算属性</strong>中</p>
+<h4 id="mapState的使用步骤"><a href="#mapState的使用步骤" class="headerlink" title="mapState的使用步骤"></a>mapState的使用步骤</h4><h4 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">javascript复制代码<span class="comment">// 1. 导入辅助函数mapState，它是在vuex中定义的一个工具函数。</span></span><br><span class="line"><span class="comment">//  es6 按需导入 import &#123; mapState &#125; from &#x27;vuex&#x27; </span></span><br><span class="line"><span class="keyword">import</span> &#123; mapState &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">   <span class="comment">// 说明1： ...对象 是把对象展开，合并到computed</span></span><br><span class="line">   <span class="comment">// 说明2： mapState是一个函数 </span></span><br><span class="line">   <span class="comment">//  [&#x27;数据项1&#x27;， &#x27;数据项2&#x27;]</span></span><br><span class="line">   ...<span class="title function_">mapState</span>([<span class="string">&#x27;xxx&#x27;</span>])，</span><br><span class="line">   ...<span class="title function_">mapState</span>(&#123;<span class="string">&#x27;新名字&#x27;</span>: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">javascript复制代码<span class="comment">// 步骤</span></span><br><span class="line"><span class="comment">// 1. 导入辅助函数mapState，它是在vuex中定义的一个工具函数。</span></span><br><span class="line"><span class="comment">//  es6 按需导入 import &#123; mapState &#125; from &#x27;vuex&#x27; </span></span><br><span class="line"><span class="keyword">import</span> &#123; mapState &#125; <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 在computed中使用 ...mapState([&#x27;books&#x27;])</span></span><br><span class="line"><span class="comment">// const res = mapState([&#x27;books&#x27;])</span></span><br><span class="line"><span class="comment">// res的结果是一个对象： &#123; books: function() &#123;&#125;&#125;</span></span><br><span class="line"><span class="comment">// console.log(&#x27;mapState&#x27;, res)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">computed</span>: &#123;</span><br><span class="line">    c1 () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&#x27;c1&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// books: function() &#123;&#125;</span></span><br><span class="line">    <span class="comment">// ..res： 把res这个对象合并到computed对象中</span></span><br><span class="line">    <span class="comment">// ...res</span></span><br><span class="line">    ...<span class="title function_">mapState</span>([<span class="string">&#x27;books&#x27;</span>])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><ol>
+<li><p>mapState是辅助函数，将vuex中的数据投射到组件内部；</p>
+</li>
+<li><p>computed:{ …mapState() } 这里的…是对象的展开运算符，整体来看是对象的合并。</p>
+</li>
+</ol>
+<h2 id="Vuex-辅助函数mapState对数据重命名"><a href="#Vuex-辅助函数mapState对数据重命名" class="headerlink" title="Vuex-辅助函数mapState对数据重命名"></a>Vuex-辅助函数mapState对数据重命名</h2><p>掌握mapState对数据重命名的用法。</p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>vuex中的数据与本组件内的数据名相同,我们可以使用<code>...mapState(&#123;&#39;新名字&#39;: &#39;xxx&#39;&#125;)</code>对数据重命名</p>
+<h2 id="Vuex-map函数用法汇总"><a href="#Vuex-map函数用法汇总" class="headerlink" title="Vuex-map函数用法汇总"></a>Vuex-map函数用法汇总</h2><h3 id="如何使用全局state"><a href="#如何使用全局state" class="headerlink" title="如何使用全局state"></a>如何使用全局state</h3><ul>
+<li><p>直接使用： this.$store.state.xxx;</p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">css复制代码computed: &#123; </span><br><span class="line">  ..<span class="selector-class">.mapState</span>(<span class="selector-attr">[<span class="string">&#x27;xxx&#x27;</span>]</span>), </span><br><span class="line">  ..<span class="selector-class">.mapState</span>(&#123;&#x27;新名字&#x27;: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用modules中的state"><a href="#如何使用modules中的state" class="headerlink" title="如何使用modules中的state"></a>如何使用modules中的state</h3><ul>
+<li><p>直接使用： this.$store.state.模块名.xxx;</p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arduino复制代码computed: &#123; </span><br><span class="line">  ...<span class="built_in">mapState</span>(<span class="string">&#x27;模块名&#x27;</span>, [<span class="string">&#x27;xxx&#x27;</span>]), </span><br><span class="line">  ...<span class="built_in">mapState</span>(<span class="string">&#x27;模块名&#x27;</span>, &#123;<span class="string">&#x27;新名字&#x27;</span>: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用全局getters"><a href="#如何使用全局getters" class="headerlink" title="如何使用全局getters"></a>如何使用全局getters</h3><ul>
+<li><p>直接使用：<code>this.$store.getters.xxx</code></p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">css复制代码computed: &#123; </span><br><span class="line">  ..<span class="selector-class">.mapGetters</span>(<span class="selector-attr">[<span class="string">&#x27;xxx&#x27;</span>]</span>), </span><br><span class="line">  ..<span class="selector-class">.mapGetters</span>(&#123;&#x27;新名字&#x27;: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用modules中的getters"><a href="#如何使用modules中的getters" class="headerlink" title="如何使用modules中的getters"></a>如何使用modules中的getters</h3><ul>
+<li><p>直接使用： <code>this.$store.getters.模块名.xxx</code></p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arduino复制代码computed: &#123; </span><br><span class="line">  ...<span class="built_in">mapGetters</span>(<span class="string">&#x27;模块名&#x27;</span>, [<span class="string">&#x27;xxx&#x27;</span>]), </span><br><span class="line">  ...<span class="built_in">mapGetters</span>(<span class="string">&#x27;模块名&#x27;</span>,&#123;<span class="string">&#x27;新名字&#x27;</span>: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用全局mutations"><a href="#如何使用全局mutations" class="headerlink" title="如何使用全局mutations"></a>如何使用全局mutations</h3><ul>
+<li><p>直接使用：<code>this.$store.commit(&#39;mutation名&#39;, 参数)</code></p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">css复制代码methods: &#123; </span><br><span class="line">  ..<span class="selector-class">.mapMutations</span>(<span class="selector-attr">[<span class="string">&#x27;mutation名&#x27;</span>]</span>), </span><br><span class="line">  ..<span class="selector-class">.mapMutations</span>(&#123;&#x27;新名字&#x27;: <span class="string">&#x27;mutation名&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用modules中的mutations（namespaced-true）"><a href="#如何使用modules中的mutations（namespaced-true）" class="headerlink" title="如何使用modules中的mutations（namespaced:true）"></a>如何使用modules中的mutations（namespaced:true）</h3><ul>
+<li><p>直接使用： <code>this.$store.commit(&#39;模块名/mutation名&#39;, 参数)</code></p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">matlab复制代码<span class="keyword">methods</span>: &#123; </span><br><span class="line">  ...mapMutations(<span class="string">&#x27;模块名&#x27;</span>, [<span class="string">&#x27;xxx&#x27;</span>]), </span><br><span class="line">  ...mapMutations(<span class="string">&#x27;模块名&#x27;</span>,&#123;<span class="string">&#x27;新名字&#x27;</span>: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用全局actions"><a href="#如何使用全局actions" class="headerlink" title="如何使用全局actions"></a>如何使用全局actions</h3><ul>
+<li><p>直接使用：<code>this.$store.dispatch(&#39;action名&#39;, 参数)</code></p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">css复制代码methods: &#123; </span><br><span class="line">  ..<span class="selector-class">.mapActions</span>(<span class="selector-attr">[<span class="string">&#x27;actions名&#x27;</span>]</span>), </span><br><span class="line">  ..<span class="selector-class">.mapActions</span>(&#123;&#x27;新名字&#x27;: <span class="string">&#x27;actions名&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="如何使用modules中的actions（namespaced-true）"><a href="#如何使用modules中的actions（namespaced-true）" class="headerlink" title="如何使用modules中的actions（namespaced:true）"></a>如何使用modules中的actions（namespaced:true）</h3><ul>
+<li><p>直接使用： <code>this.$store.dispatch(&#39;模块名/action名&#39;, 参数)</code></p>
+</li>
+<li><p>map辅助函数：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">matlab复制代码<span class="keyword">methods</span>: &#123; </span><br><span class="line">  ...mapActions(<span class="string">&#x27;模块名&#x27;</span>, [<span class="string">&#x27;xxx&#x27;</span>]), </span><br><span class="line">  ...mapActions(<span class="string">&#x27;模块名&#x27;</span>,&#123;<span class="string">&#x27;新名字&#x27;</span>: <span class="string">&#x27;xxx&#x27;</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="核心api小结"><a href="#核心api小结" class="headerlink" title="核心api小结"></a>核心api小结</h3><p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/5.webp"></p>
+<h3 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略:"></a>同源策略:</h3><p>同源策略是浏览器中的一个重要的安全策略，同源策略的作用就是为了限制不同源之间的交互，从而能够有效避免XSS、CSFR等浏览器层面的攻击。<br>同源指的是两个请求接口URL的协议（protocol）、域名（host）和端口（port）一致。</p>
+<h3 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理:"></a>配置代理:</h3><p>解决跨域问题：</p>
+<p>1.cors  </p>
+<p>2.jsonp(只能解决get请求的跨域问题，解决不了post请求和其他请求的跨域问题)</p>
+<p>3.代理服务器</p>
+<p>nginx:反向代理服务器</p>
+<p>vue-cli 也能开启代理服务器(四行代码)（主要内容）</p>
+<h5 id="配置代理服务器"><a href="#配置代理服务器" class="headerlink" title="配置代理服务器"></a>配置代理服务器</h5><blockquote>
+<p>扩展: ajax是前端技术，node.js无法使用XMLHttpRequest</p>
+</blockquote>
+<blockquote>
+<p>public文件夹里的都是8080端口有的</p>
+</blockquote>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/4.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/5.png"></p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2(%E4%BA%8C)/6.png"></p>
+<p>不完美：</p>
+<p>1.不能设置多个代理，不灵活</p>
+<p>2.本地有的先访问本地，就没法通过代理得到目标端口的文件</p>
+<p>&#x2F;api 请求前缀(可以自定义)</p>
+<p><img src="/../images/%E5%86%8D%E8%AF%86vue2/29.png"></p>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 对axios进行二次包装</span></span><br><span class="line"><span class="comment">1. 配置通用的基础路径和超时</span></span><br><span class="line"><span class="comment">2. 显示请求进度条</span></span><br><span class="line"><span class="comment">3. 成功返回的数据不再是response, 而直接是响应体数据response.data</span></span><br><span class="line"><span class="comment">4. 统一处理请求错误, 具体请求也可以选择处理或不处理*/</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">NProgress</span> <span class="keyword">from</span> <span class="string">&#x27;nprogress&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;nprogress/nprogress.css&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 配置不显示右上角的旋转进度条, 只显示水平进度条</span></span><br><span class="line"><span class="title class_">NProgress</span>.<span class="title function_">configure</span>(&#123; <span class="attr">showSpinner</span>: <span class="literal">false</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> service = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">    <span class="attr">baseURL</span>: <span class="string">&quot;/api&quot;</span>,<span class="comment">// 基础路径</span></span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">5000</span><span class="comment">// 连接请求超时时间</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">service.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 显示请求中的水平进度条</span></span><br><span class="line">    <span class="title class_">NProgress</span>.<span class="title function_">start</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 必须返回配置对象</span></span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">service.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">response</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 隐藏进度条</span></span><br><span class="line">    <span class="title class_">NProgress</span>.<span class="title function_">done</span>()</span><br><span class="line">    <span class="comment">// 返回响应体数据</span></span><br><span class="line">    <span class="keyword">return</span> response.<span class="property">data</span></span><br><span class="line">&#125;, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 隐藏进度条</span></span><br><span class="line">    <span class="title class_">NProgress</span>.<span class="title function_">done</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统一处理一下错误</span></span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">`请求出错:<span class="subst">$&#123;error.message || <span class="string">&#x27;未知错误&#x27;</span>&#125;</span>`</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 后面可以选择不处理或处理</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> service</span><br></pre></td></tr></table></figure>
+
+<p>用请求前缀通过代理服务器会导致目标服务器也找带有前缀的目标文件，可能会造成错误，</p>
+<p>但也可以简化很多路径</p>
+<h3 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(pathRewrite):&#123;<span class="string">&#x27;^/atguigu&#x27;</span>:<span class="string">&#x27; &#x27;</span>&#125; <span class="comment">//路径重写</span></span><br><span class="line"></span><br><span class="line"><span class="attr">ws</span>:<span class="literal">true</span><span class="comment">//  用于支持websocket</span></span><br><span class="line"></span><br><span class="line"><span class="attr">changeOrigin</span>:<span class="literal">true</span> 表示不告诉服务器真实来源(说谎来源为目的服务器)，<span class="literal">false</span>表示告诉服务器真实来源  用于控制请求头中的host值</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/11/%E5%86%8D%E8%AF%86Vue2(%E4%BA%8C)/">http://example.com/2023/12/11/%E5%86%8D%E8%AF%86Vue2(%E4%BA%8C)/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/JavaScript/"># JavaScript</a>
+                    
+                        <a href="/tags/Vue%EF%BC%8C%E6%A1%86%E6%9E%B6/"># Vue，框架</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2023/12/11/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80(%E4%BA%8C)/">网络基础(二)</a>
+            
+            
+            <a class="next" rel="next" href="/2023/12/11/%E4%B8%80%E4%BA%9B%E6%9D%82%E5%BF%B5/">一些杂念</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
