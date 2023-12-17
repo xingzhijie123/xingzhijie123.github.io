@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="黑板擦">
+
+
+
+
+
+<title>Vue实战项目_Github案例 | 我在看着你</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">黑板擦&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">黑板擦&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">文章</a>
+                
+                    <a class="menu-item" href="/category">分类</a>
+                
+                    <a class="menu-item" href="/tag">标签</a>
+                
+                    <a class="menu-item" href="/bangumis/">Bangumis</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Vue实战项目_Github案例</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">黑板擦</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">December 18, 2023&nbsp;&nbsp;1:01:07</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Project/">Project</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p><strong>组织结构</strong>：</p>
+<p>1.Search组件</p>
+<p>2.List列表组件</p>
+<p><img src="/../images/github%E6%A1%88%E4%BE%8B/1.png"></p>
+<p>源码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">List</span>.<span class="property">vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="comment">&lt;!-- 展示用户列表 --&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">v-show</span>=<span class="string">&quot;info.users.length&quot;</span> <span class="attr">class</span>=<span class="string">&quot;card&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;user in info.users&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;user.login&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">a</span> <span class="attr">:href</span>=<span class="string">&quot;user.html_url&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">				<span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">&quot;user.avatar_url&quot;</span> <span class="attr">style</span>=<span class="string">&#x27;width: 100px&#x27;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>&#123;&#123;user.login&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="comment">&lt;!-- 展示欢迎词 --&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-show</span>=<span class="string">&quot;info.isFirst&quot;</span>&gt;</span>欢迎使用！<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="comment">&lt;!-- 展示加载中 --&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-show</span>=<span class="string">&quot;info.isLoading&quot;</span>&gt;</span>加载中....<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="comment">&lt;!-- 展示错误信息 --&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">h1</span> <span class="attr">v-show</span>=<span class="string">&quot;info.errMsg&quot;</span>&gt;</span>&#123;&#123;info.errMsg&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="attr">name</span>:<span class="string">&#x27;List&#x27;</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			<span class="keyword">return</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				<span class="attr">info</span>:&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					<span class="attr">isFirst</span>:<span class="literal">true</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					<span class="attr">isLoading</span>:<span class="literal">false</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					<span class="attr">errMsg</span>:<span class="string">&#x27;&#x27;</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					<span class="attr">users</span>:[]</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		&#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			<span class="variable language_">this</span>.<span class="property">$bus</span>.$on(<span class="string">&#x27;updateListData&#x27;</span>,<span class="function">(<span class="params">dataObj</span>)=&gt;</span>&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				<span class="variable language_">this</span>.<span class="property">info</span> = &#123;...<span class="variable language_">this</span>.<span class="property">info</span>,...dataObj&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			&#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		&#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	<span class="selector-class">.album</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">min-height</span>: <span class="number">50rem</span>; <span class="comment">/* Can be removed; just added for demo purposes */</span></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">padding-top</span>: <span class="number">3rem</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">padding-bottom</span>: <span class="number">3rem</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">background-color</span>: <span class="number">#f7f7f7</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	<span class="selector-class">.card</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">float</span>: left;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">width</span>: <span class="number">33.333%</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">padding</span>: .<span class="number">75rem</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">margin-bottom</span>: <span class="number">2rem</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#efefef</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">text-align</span>: center;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	<span class="selector-class">.card</span> &gt; <span class="selector-tag">img</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">margin-bottom</span>: .<span class="number">75rem</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">border-radius</span>: <span class="number">100px</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	<span class="selector-class">.card-text</span> &#123;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">		<span class="attribute">font-size</span>: <span class="number">85%</span>;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Search</span>.<span class="property">vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;jumbotron&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">&quot;jumbotron-heading&quot;</span>&gt;</span>Search Github Users<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;enter the name you search&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;keyWord&quot;</span>/&gt;</span><span class="symbol">&amp;nbsp;</span></span></span><br><span class="line"><span class="language-xml">			<span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;searchUsers&quot;</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">	<span class="tag">&lt;/<span class="name">section</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	<span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="attr">name</span>:<span class="string">&#x27;Search&#x27;</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="title function_">data</span>(<span class="params"></span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			<span class="keyword">return</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				<span class="attr">keyWord</span>:<span class="string">&#x27;&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		&#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="attr">methods</span>: &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			<span class="title function_">searchUsers</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				<span class="comment">//请求前更新List的数据</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				<span class="variable language_">this</span>.<span class="property">$bus</span>.$emit(<span class="string">&#x27;updateListData&#x27;</span>,&#123;<span class="attr">isLoading</span>:<span class="literal">true</span>,<span class="attr">errMsg</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">users</span>:[],<span class="attr">isFirst</span>:<span class="literal">false</span>&#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				axios.<span class="title function_">get</span>(<span class="string">`https://api.github.com/search/users?q=<span class="subst">$&#123;<span class="variable language_">this</span>.keyWord&#125;</span>`</span>).<span class="title function_">then</span>(</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">						<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求成功了&#x27;</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">						<span class="comment">//请求成功后更新List的数据</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">						<span class="variable language_">this</span>.<span class="property">$bus</span>.$emit(<span class="string">&#x27;updateListData&#x27;</span>,&#123;<span class="attr">isLoading</span>:<span class="literal">false</span>,<span class="attr">errMsg</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">users</span>:response.<span class="property">data</span>.<span class="property">items</span>&#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					&#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">						<span class="comment">//请求后更新List的数据</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">						<span class="variable language_">this</span>.<span class="property">$bus</span>.$emit(<span class="string">&#x27;updateListData&#x27;</span>,&#123;<span class="attr">isLoading</span>:<span class="literal">false</span>,<span class="attr">errMsg</span>:error.<span class="property">message</span>,<span class="attr">users</span>:[]&#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">					&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">				)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">			&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		&#125;,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">App</span>.<span class="property">vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">Search</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">		<span class="tag">&lt;<span class="name">List</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	<span class="keyword">import</span> <span class="title class_">Search</span> <span class="keyword">from</span> <span class="string">&#x27;./components/Search&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	<span class="keyword">import</span> <span class="title class_">List</span> <span class="keyword">from</span> <span class="string">&#x27;./components/List&#x27;</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	<span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="attr">name</span>:<span class="string">&#x27;App&#x27;</span>,</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">		<span class="attr">components</span>:&#123;<span class="title class_">Search</span>,<span class="title class_">List</span>&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">	&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">main.<span class="property">js</span></span><br><span class="line"><span class="comment">//引入Vue</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">//引入App</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="comment">//关闭Vue的生产提示</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">productionTip</span> = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建vm</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">	<span class="attr">el</span>:<span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">	<span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> <span class="title function_">h</span>(<span class="title class_">App</span>),</span><br><span class="line">	<span class="title function_">beforeCreate</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$bus</span> = <span class="variable language_">this</span></span><br><span class="line">	&#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三方资源引用：</strong></p>
+<p>这里用到了bootstrap样式文件的第三方资源，这时用<code>import</code>引入不是好选择，可以选择放在public文件夹里，再用<code>&lt;link&gt;</code>引入，这时引入<code>href</code>属性为<code>&lt;%=BASE_URL %&gt;</code>前缀</p>
+<p><strong>请求和跨域：</strong></p>
+<p>引入axios来请求 </p>
+<p><img src="/../images/github%E6%A1%88%E4%BE%8B/5.png"></p>
+<p>这个项目的跨域问题由于github给的接口已经由后端通过cors方式解决了跨域问题，所以不用我们解决。</p>
+<p><strong>组件通信：</strong></p>
+<p>用全局事件总线<code>$bus</code></p>
+<p><img src="/../images/github%E6%A1%88%E4%BE%8B/6.png"></p>
+<p><strong>实现效果：</strong></p>
+<p><img src="/../images/github%E6%A1%88%E4%BE%8B/3.png"></p>
+<p><strong>项目完善：加上第一次加载主页，正在加载提示，以及报错提示：</strong></p>
+<p><img src="/../images/github%E6%A1%88%E4%BE%8B/4.png"></p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2023/12/18/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE-Github%E6%A1%88%E4%BE%8B/">http://example.com/2023/12/18/Vue%E5%AE%9E%E6%88%98%E9%A1%B9%E7%9B%AE-Github%E6%A1%88%E4%BE%8B/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>黑板擦</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>扣1送小布丁</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Project%EF%BC%8CVue/"># Project，Vue</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2023/12/14/Swiper/">Swiper</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© 黑板擦 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

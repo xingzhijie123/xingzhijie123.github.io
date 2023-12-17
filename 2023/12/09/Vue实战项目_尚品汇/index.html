@@ -485,6 +485,26 @@
 <p><strong>这样，即使是对组件传不同数据，也可以简单的通过自定义组件的props传递数据，实现功能</strong></p>
 <p><img src="/../images/Vue_shp/48.png"></p>
 <p><img src="/../images/Vue_shp/49.png"></p>
+<h3 id="Search组件开发"><a href="#Search组件开发" class="headerlink" title="Search组件开发"></a>Search组件开发</h3><p><strong>步骤:</strong><br>1:先把静态页面+静态组件拆分出来<br>2:发请求(API)<br>3:vuex(三连环)<br>4:组件获取仓库数据，动态展示数据</p>
+<p><strong>发请求(API)_API的封装：</strong></p>
+<p><img src="/../images/Vue_shp/51.png"></p>
+<p><strong>vuex：</strong></p>
+<p><img src="/../images/Vue_shp/52.png"></p>
+<p><strong>组件获取仓库数据，动态展示数据：</strong></p>
+<p><strong>getters计算属性简化仓库数据，这里没有设置命名空间，所以getters是所有组件公共的</strong></p>
+<p><img src="/../images/Vue_shp/53.png"></p>
+<p><img src="/../images/Vue_shp/54.png"></p>
+<p><strong>动态展示数据</strong></p>
+<p><img src="/../images/Vue_shp/55.png"></p>
+<p><strong>Search模块根据不同的参数获取数据展示：</strong></p>
+<p><img src="/../images/Vue_shp/56.png"></p>
+<p><img src="/../images/Vue_shp/57.png"></p>
+<h3 id="SearchSelector模块中子组件的动态开发"><a href="#SearchSelector模块中子组件的动态开发" class="headerlink" title="SearchSelector模块中子组件的动态开发"></a><strong>SearchSelector模块中子组件的动态开发</strong></h3><p>这里在Search的SearchSelector子组件中使用getters计算数据，并将它动态渲染到模板中</p>
+<p><img src="/../images/Vue_shp/59.png"></p>
+<p><img src="/../images/Vue_shp/60.png"></p>
+<h4 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h4><p>这里我写好了模板却始终展示不出来数据。我检查vuex发现子组件也已经有收到getters数据了，而且数据也不是空数据，所以我以为是组件没有注册或者引用的问题，但检查了半天，发现没有什么问题，后面，我检查了一下控制台的输出，发现报错在attr上，我检查代码，才发现v-for被我写成了v-fro，导致整个组件根本没有渲染出来，特此提醒今日的错误。</p>
+<h3 id="监听路由的变化再次发请求获取数据"><a href="#监听路由的变化再次发请求获取数据" class="headerlink" title="监听路由的变化再次发请求获取数据"></a>监听路由的变化再次发请求获取数据</h3><p>通过数据监听实现，这里要将一些不会变的参数（categoryid）恢复为空，否则影响搜索</p>
+<p><img src="/../images/Vue_shp/58.png"></p>
 
         </div>
 
