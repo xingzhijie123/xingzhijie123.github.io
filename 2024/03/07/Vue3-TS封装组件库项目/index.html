@@ -243,6 +243,11 @@
 <li>npm create vue@3</li>
 <li>Vite+Vue3+Typescript+ESlint</li>
 </ul>
+<h4 id="–save-dev-的作用"><a href="#–save-dev-的作用" class="headerlink" title="–save-dev 的作用"></a>–save-dev 的作用</h4><p>使用命令 –save 或者说不写命令 –save  ,都会把信息记录到 dependencies   中；</p>
+<p>dependencies 中记录的都是项目在运行时需要的文件；</p>
+<p>使用命令 –save-dev 则会把信息记录到 devDependencies  中；</p>
+<p>devDependencies 中记录的是项目在开发过程中需要使用的一些文件，在项目最终运行时是不需要的；</p>
+<p>也就是说我们开发完成后，最终的项目中是不需要这些文件的；</p>
 <h2 id="3-Button组件"><a href="#3-Button组件" class="headerlink" title="3.Button组件"></a>3.Button组件</h2><h3 id="1-需求分析"><a href="#1-需求分析" class="headerlink" title="(1)需求分析"></a>(1)需求分析</h3><p>Button组件大部分关注样式，没有交互。</p>
 <p>根据分析可以得到具体的属性列表:</p>
 <ul>
@@ -423,6 +428,403 @@ Transition</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 将 InjectionKey 定义的数据类型放到 keys/index.ts 下维护</span></span><br><span class="line"><span class="comment">// keys/index.ts</span></span><br><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">InjectionKey</span>, <span class="title class_">Ref</span> &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line"><span class="comment">// 限制了 provide 导出的数据必须是 ref 且 boolean 类型</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="attr">showPopupKey</span>: <span class="title class_">InjectionKey</span>&lt;<span class="title class_">Ref</span>&lt;<span class="built_in">boolean</span>&gt;&gt; = <span class="title class_">Symbol</span>()</span><br><span class="line"><span class="comment">// 限制了 provide 导出的数据必须是 string</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="attr">titleKey</span>: <span class="title class_">InjectionKey</span>&lt;<span class="built_in">string</span>&gt; = <span class="title class_">Symbol</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 在 A .vue 文件中调用 provide 导出数据，第一个参数则是我们上面定义好的数据类型，第二个参数是对应数据类型的值</span></span><br><span class="line"><span class="keyword">import</span> &#123; provide, <span class="title class_">InjectionKey</span>, <span class="title class_">Ref</span> &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; showPopupKey &#125; <span class="string">&#x27;@/keys&#x27;</span></span><br><span class="line"><span class="keyword">const</span> showPopup = <span class="title function_">ref</span>(<span class="literal">false</span>)</span><br><span class="line"><span class="comment">// 正确</span></span><br><span class="line"><span class="title function_">provide</span>(showPopupKey, showPopup) </span><br><span class="line"><span class="comment">// TS 报错： &#x27;Hello&#x27; 是字符串，与 showPopupKey 不匹配</span></span><br><span class="line"><span class="title function_">provide</span>(showPopupKey, <span class="string">&#x27;Hello&#x27;</span>)</span><br><span class="line"><span class="comment">// 正确</span></span><br><span class="line"><span class="title function_">provide</span>(titleKey, <span class="string">&#x27;Hello&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 在 B.vue 文件中导入数据</span></span><br><span class="line"><span class="keyword">import</span> &#123; showPopupKey &#125; <span class="keyword">from</span> <span class="string">&#x27;@/keys&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; inject &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="title function_">inject</span>(showPopupKey) <span class="comment">// 现在获取到的数据类型是安全的</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>有了 <code>InjectionKey</code> 函数后就不用再担心 provide&amp;<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=inject&spm=1001.2101.3001.7020">inject</a> 之间的数据类型问题了，我们只需找到 InjectionKey 关联的 key即可</p>
+<h4 id="6-Transition"><a href="#6-Transition" class="headerlink" title="6.Transition"></a>6.Transition</h4><p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/28.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/29.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/30.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/31.png"></p>
+<p>7.Transition JavaScript钩子</p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/32.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/33.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/34.png"></p>
+<h4 id="7-Record"><a href="#7-Record" class="headerlink" title="7.Record"></a>7.Record</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Record&lt;K,T&gt;</span><br></pre></td></tr></table></figure>
+
+<p>构造一个对象类型，<code>Keys</code> 表示对象的属性键 、<code>Type</code> 表示对象的属性值，用于将一种类型属性映射到另一种类型</p>
+<p>理解为：将 K 的每一个值都定义为 T 类型</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="title class_">Record</span>&lt;K <span class="keyword">extends</span> keyof <span class="built_in">any</span>, T&gt; = &#123;</span><br><span class="line">    [P <span class="keyword">in</span> K]: T;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>即将K中的每个属性([P in K]),都转为T类型</p>
+<p><strong>结合项目的代码</strong></p>
+<p>使用 <code>Record&lt;string, (el: HTMLElement) =&gt; void&gt;</code> 主要是为了明确指定了对象的结构，即对象的键是字符串类型，而值是一个函数，这个函数接受一个参数 <code>el</code>，类型为 <code>HTMLElement</code>，并且不返回任何值。这样的明确定义可以提高代码的可读性和可维护性。</p>
+<p>使用 <code>Record</code> 这样的类型定义有以下几个优点：</p>
+<ol>
+<li><strong>类型约束</strong>: <code>Record</code> 提供了对对象结构的明确约束，确保了对象的键和值符合预期的类型。</li>
+<li><strong>静态类型检查</strong>: 使用 <code>Record</code> 可以让 TypeScript 在编译时进行静态类型检查，确保代码的类型安全性。</li>
+<li><strong>自文档化</strong>: 通过明确指定对象结构，使得代码更易于理解和维护，同时也可以作为文档来阐明代码的预期行为。</li>
+<li><strong>代码提示</strong>: 使用 <code>Record</code> 可以使得编辑器对对象的键和值进行更好的代码提示，帮助开发人员编写正确的代码。</li>
+</ol>
+<h3 id="3-Collapse总结"><a href="#3-Collapse总结" class="headerlink" title="(3)Collapse总结"></a>(3)Collapse总结</h3><p>当遇到类似列表结构组件，两种常用的实现组件的组织结构</p>
+<p><strong>方案一:传入数组</strong></p>
+<p>特点:1.实现起来相对简单 2.展示复杂类型节点比较麻烦 3.语义化稍差</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;Collapse items=&quot;items&quot;&gt;</span><br><span class="line">&lt;/Collapse&gt;</span><br><span class="line">const items =[</span><br><span class="line">	&#123;</span><br><span class="line">name:&#x27;a&#x27;,</span><br><span class="line">title:&#x27;title a&#x27;,</span><br><span class="line">content:&#x27;&#x27;</span><br><span class="line">	&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p><strong>方案二:语义化展示</strong></p>
+<p>特点: 1.语义化更好 2.复杂节点使用slot展示简单 3.实现起来更复杂</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Collapse&gt; //父组件</span><br><span class="line">	&lt;CollapseItem name=&quot;a&quot;title=&quot;title a&quot;&gt; //子组件</span><br><span class="line">		&lt;div&gt;</span><br><span class="line">		&lt;h1&gt;复杂样式&lt;/h1&gt;</span><br><span class="line">		&lt;p&gt;He11o~&lt;/p&gt;</span><br><span class="line">		&lt;/div&gt;</span><br><span class="line">	&lt;/CollapseItem&gt;</span><br><span class="line">&lt;/Collapse&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>语义化展示，父子属性传递的常规方式:</p>
+<ul>
+<li><p>数据状态以及处理放在父组件</p>
+</li>
+<li><p>使用Provide&#x2F;Inject 传递给子组件</p>
+</li>
+</ul>
+</li>
+<li><p>v-model的实现</p>
+<ul>
+<li>是属性modelValue</li>
+<li>事件update:modelValue的语法糖</li>
+<li>特别注意属性赋值给内部响应式对象的更新问题(使用watch)</li>
+</ul>
+</li>
+<li><p>使用内置的Transition实现动画效果</p>
+<ul>
+<li><p>并不提供任何动画</p>
+</li>
+<li><p>提供一系列的classes标示整个动画过程</p>
+</li>
+<li><p>提供javascript钩子函数支持高级的自定功能</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-Icon组件"><a href="#5-Icon组件" class="headerlink" title="5.Icon组件"></a>5.Icon组件</h2><h3 id="1-需求分析-2"><a href="#1-需求分析-2" class="headerlink" title="(1)需求分析"></a>(1)需求分析</h3><h3 id="2-代码编写-2"><a href="#2-代码编写-2" class="headerlink" title="(2)代码编写"></a>(2)代码编写</h3><h4 id="1-Inline-SVG-vs-Font-Icon"><a href="#1-Inline-SVG-vs-Font-Icon" class="headerlink" title="1.Inline SVG vs Font Icon"></a>1.Inline SVG vs Font Icon</h4><ul>
+<li>svg完全可以控制，font icon只能控制字符相关的属性</li>
+<li>font icon需要下载的字体文件较大，除非自己切割打包。</li>
+<li>font icon会遇到一些比较奇怪的问题</li>
+<li>矢量图标有很大的优势：可调整大小而不失品质，在视网膜屏幕上也可以清晰显示，文件尺寸也非常小。<ul>
+<li>icon font：<br>浏览器认为这是文本，所以会对其使用抗锯齿。这可能导致图标不如你想象的那么锐利。</li>
+<li>inline SVG：<br>真正的矢量</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-现成的图标库"><a href="#2-现成的图标库" class="headerlink" title="2.现成的图标库"></a>2.现成的图标库</h4><ul>
+<li><p>Bootstrap Icons</p>
+</li>
+<li><p>Fontawesome</p>
+</li>
+<li><p>Ionicon</p>
+</li>
+</ul>
+<h4 id="3-安装svg"><a href="#3-安装svg" class="headerlink" title="3.安装svg"></a>3.安装svg</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//安装svg core</span><br><span class="line">npm i --save @fortawesome/fontawesome-svg-core</span><br><span class="line">//安装图标库</span><br><span class="line">npm i --save @fortawesome/free-solid-svg-icons</span><br><span class="line">//安装基于vue3的包装</span><br><span class="line">npm i --save @fortawesome/vue-fontawesome@latest-3</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-导入组件库"><a href="#4-导入组件库" class="headerlink" title="4.导入组件库"></a>4.导入组件库</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入组件svg core</span></span><br><span class="line"><span class="keyword">import</span> &#123; library &#125; <span class="keyword">from</span> <span class="string">&#x27;@fortawesome/fontawesome-svg-core&#x27;</span></span><br><span class="line"><span class="comment">//导入组件库</span></span><br><span class="line"><span class="keyword">import</span> &#123; fas &#125; <span class="keyword">from</span> <span class="string">&#x27;@fortawesome/free-solid-svg-icons&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-禁用透传"><a href="#5-禁用透传" class="headerlink" title="5.禁用透传"></a>5.禁用透传</h4><p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/37.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/38.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/39.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/40.png"></p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/41.png"></p>
+<h4 id="6-导入lodash-es的omit用作过滤器"><a href="#6-导入lodash-es的omit用作过滤器" class="headerlink" title="6.导入lodash-es的omit用作过滤器"></a>6.导入lodash-es的omit用作过滤器</h4><p>做到精益求精，要过滤传值时自己添加的属性</p>
+<p>安装lodash-es要安装es稳定版本和声明文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install lodash-es --save</span><br><span class="line"></span><br><span class="line">npm install @types/lodash-es --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>omit<br>_.omit(object, <em>keys)<br>函数返回一个没有列入排除key属性的对象。其中，参数object为JSON格式的对象，</em>keys表示多个需要排除掉的key属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> _ = <span class="built_in">require</span>(<span class="string">&#x27;lodash/object&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> originObject = &#123;</span><br><span class="line">  <span class="attr">A</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">B</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">C</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="attr">D</span>: <span class="number">4</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> newObject = _.<span class="title function_">omit</span>(originObject, <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;C&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(originObject);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newObject);</span><br><span class="line"></span><br><span class="line">&#123; <span class="attr">A</span>: <span class="number">1</span>, <span class="attr">B</span>: <span class="number">2</span>, <span class="attr">C</span>: <span class="number">3</span>, <span class="attr">D</span>: <span class="number">4</span> &#125;</span><br><span class="line">&#123; <span class="attr">A</span>: <span class="number">1</span>, <span class="attr">D</span>: <span class="number">4</span> &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-Icon总结"><a href="#3-Icon总结" class="headerlink" title="(3)Icon总结"></a>(3)Icon总结</h3><p><strong>一些图标库解决方案</strong></p>
+<ul>
+<li>Bootstrap Icon</li>
+<li>Fontawesome</li>
+<li>Ionicon</li>
+</ul>
+<p><strong>二次开发组件</strong></p>
+<p>第一步:支持组件的原始属性</p>
+<ul>
+<li>inheritAttrs:false 不继承属性</li>
+<li>使用$props访问所有属性</li>
+<li>要注意不继承以后一些默认属性失效的问题$attrs</li>
+</ul>
+<p>第二步扩充组件属性</p>
+<ul>
+<li><p>我们添加的type&#x2F;color属性</p>
+</li>
+<li><p>过滤传递的属性 lodash omit</p>
+</li>
+</ul>
+<h2 id="6-Alert组件"><a href="#6-Alert组件" class="headerlink" title="6.Alert组件"></a>6.Alert组件</h2><h3 id="1-需求分析-3"><a href="#1-需求分析-3" class="headerlink" title="(1)需求分析"></a>(1)需求分析</h3><ul>
+<li><p>展示一个对应的条目，有几种不同的type,和我们应用的类型是一一对应</p>
+</li>
+<li><p>有两种主题，一种深色，一种浅色</p>
+</li>
+<li><p>点击右侧按钮可以关闭对应的条目</p>
+</li>
+<li><p>可以定义按钮是否显示</p>
+</li>
+<li><p>可以自定义里面的文本为复杂的结构</p>
+</li>
+</ul>
+<h2 id="7-组件测试"><a href="#7-组件测试" class="headerlink" title="7.组件测试"></a>7.组件测试</h2><h3 id="为什么要有测试"><a href="#为什么要有测试" class="headerlink" title="为什么要有测试"></a>为什么要有测试</h3><h4 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h4><ul>
+<li>新建一堆不同属性的组件，肉眼观测不靠谱</li>
+<li>更新代码，要再次进行手动测试</li>
+</ul>
+<h4 id="测试在国内被严重忽视"><a href="#测试在国内被严重忽视" class="headerlink" title="测试在国内被严重忽视"></a>测试在国内被严重忽视</h4><ul>
+<li><p>没有时间</p>
+</li>
+<li><p>需求一直修改</p>
+</li>
+<li><p>不知道怎么测试</p>
+</li>
+</ul>
+<h4 id="测试的优点"><a href="#测试的优点" class="headerlink" title="测试的优点"></a>测试的优点</h4><ul>
+<li>自动化完成流程，保证代码的运行结果</li>
+<li>更早发现Bug</li>
+<li>重构和升级更加容易和可靠</li>
+</ul>
+<h3 id="组件化的框架-Vue，React-非常适合写单元测试"><a href="#组件化的框架-Vue，React-非常适合写单元测试" class="headerlink" title="组件化的框架(Vue，React)非常适合写单元测试"></a>组件化的框架(Vue，React)非常适合写单元测试</h3><ul>
+<li>组件化，独立单元，互不影响</li>
+<li>属性和界面的映射，固定输入，固定输出</li>
+<li>单向数据流</li>
+<li>状态管理工具的store可以单独写测试</li>
+</ul>
+<h3 id="测试框架Vitest简介"><a href="#测试框架Vitest简介" class="headerlink" title="测试框架Vitest简介"></a>测试框架Vitest简介</h3><h4 id="需要选取两种测试工具"><a href="#需要选取两种测试工具" class="headerlink" title="需要选取两种测试工具"></a>需要选取两种测试工具</h4><ul>
+<li>通用的测试框架</li>
+<li>针对对应库(React或者Vue)的测试库</li>
+</ul>
+<h4 id="通用测试框架"><a href="#通用测试框架" class="headerlink" title="通用测试框架"></a>通用测试框架</h4><ul>
+<li>Mocha</li>
+<li>Jest</li>
+<li>Vitest （采用）</li>
+</ul>
+<h4 id="Vitest的优点"><a href="#Vitest的优点" class="headerlink" title="Vitest的优点"></a>Vitest的优点</h4><ul>
+<li>基于Vite而生，和Vite完美配合，共享一个生态系统</li>
+<li>兼容Jest语法</li>
+<li>HMR for tests</li>
+<li>ESM，TS，JSX 原生支持</li>
+</ul>
+<h4 id="测试框架的几大功能"><a href="#测试框架的几大功能" class="headerlink" title="测试框架的几大功能"></a>测试框架的几大功能</h4><ul>
+<li><p>断言</p>
+<ul>
+<li>内置Chai以及兼容Jest expect的 API</li>
+</ul>
+</li>
+<li><p>Mock</p>
+</li>
+<li><p>代码覆盖率</p>
+</li>
+<li><p>Snapshot –兼容Jest</p>
+</li>
+</ul>
+<h4 id="安装Vitest"><a href="#安装Vitest" class="headerlink" title="安装Vitest"></a>安装Vitest</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D vitest</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h4><p>控制台输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx vitest 文件名</span><br></pre></td></tr></table></figure>
+
+<p>文件名不需要完全一样，会模糊查询并作用全部文件</p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/42.png"></p>
+<h4 id="Vitest的vi用法"><a href="#Vitest的vi用法" class="headerlink" title="Vitest的vi用法"></a>Vitest的vi用法</h4><p><code>vi</code> 是 <code>vitest</code> 测试框架提供的一个辅助工具，用于创建测试桩（mocks）和模拟对象（spies）。它可以让你在测试中模拟函数的行为，以便更容易地进行单元测试。</p>
+<p>下面是 <code>vi</code> 的一些常见用法：</p>
+<ol>
+<li><code>vi.fn()</code>: 创建一个模拟函数，可以用于跟踪函数的调用情况，判断是否被调用以及被调用的参数等。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myFunction = vi.<span class="title function_">fn</span>();</span><br><span class="line"><span class="title function_">myFunction</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="title function_">expect</span>(myFunction).<span class="title function_">toHaveBeenCalled</span>(); <span class="comment">// 断言函数被调用过</span></span><br><span class="line"><span class="title function_">expect</span>(myFunction).<span class="title function_">toHaveBeenCalledWith</span>(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 断言函数被以特定参数调用过</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>vi.spyOn(obj, methodName)</code>: 对对象的指定方法进行监视，可以跟踪该方法的调用情况。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">method</span>: <span class="function">() =&gt;</span> &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> spy = vi.<span class="title function_">spyOn</span>(obj, <span class="string">&#x27;method&#x27;</span>);</span><br><span class="line">obj.<span class="title function_">method</span>();</span><br><span class="line"><span class="title function_">expect</span>(spy).<span class="title function_">toHaveBeenCalled</span>(); <span class="comment">// 断言方法被调用过</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>vi.mock(&#39;moduleName&#39;)</code>: 对指定的模块进行模拟，可以控制模块的行为，例如模拟模块的函数返回值等。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi.<span class="title function_">mock</span>(<span class="string">&#x27;axios&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> mockedAxios = axios <span class="keyword">as</span> <span class="title class_">Mocked</span>&lt;<span class="keyword">typeof</span> axios&gt;;</span><br><span class="line">mockedAxios.<span class="property">get</span>.<span class="title function_">mockResolvedValue</span>(&#123; <span class="attr">data</span>: <span class="string">&#x27;mocked data&#x27;</span> &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Vitest的describe用法"><a href="#Vitest的describe用法" class="headerlink" title="Vitest的describe用法"></a>Vitest的describe用法</h4><p><code>describe</code> 是 <code>vitest</code> 测试框架提供的一个函数，用于描述一个测试套件，通常用来组织一系列相关的测试用例。在描述中，可以包含多个测试用例，并且可以进行嵌套描述以更好地组织测试。</p>
+<p>下面是 <code>describe</code> 函数的基本用法：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">describe</span>(description, callback);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>description</code>: 描述测试套件的字符串，通常是一个简短的描述性文字，用来说明该测试套件包含的是哪些测试用例。</li>
+<li><code>callback</code>: 一个回调函数，包含了测试用例的定义和实现。在该回调函数内部，可以使用 <code>test</code> 函数定义多个测试用例。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">describe</span>(<span class="string">&#x27;Math operations&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="title function_">test</span>(<span class="string">&#x27;Addition&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(<span class="number">1</span> + <span class="number">2</span>).<span class="title function_">toBe</span>(<span class="number">3</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">test</span>(<span class="string">&#x27;Subtraction&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">expect</span>(<span class="number">5</span> - <span class="number">3</span>).<span class="title function_">toBe</span>(<span class="number">2</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上面的例子中，我们描述了一个名为 “Math operations” 的测试套件，其中包含了两个测试用例： “Addition” 和 “Subtraction”。每个测试用例都通过 <code>test</code> 函数来定义，并包含了相应的测试逻辑。</p>
+<h4 id="Vitest的expect用法"><a href="#Vitest的expect用法" class="headerlink" title="Vitest的expect用法"></a>Vitest的expect用法</h4><p><code>expect</code> 是 <code>vitest</code> 测试框架提供的一个函数，用于对测试结果进行断言，判断实际结果是否符合预期。它通常与各种匹配器（matchers）一起使用，用于对值、对象、函数等进行断言。</p>
+<p>下面是 <code>expect</code> 函数的基本用法：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">expect</span>(value);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>value</code>: 要进行断言的值或表达式。</li>
+</ul>
+<p><code>expect</code> 函数返回一个包含一系列断言方法的对象，可以通过链式调用来对值进行不同类型的断言。常见的断言方法包括：</p>
+<ul>
+<li><code>.toBe(expected)</code>: 断言值等于 <code>expected</code>。</li>
+<li><code>.toEqual(expected)</code>: 断言值深度等于 <code>expected</code>，即值的内容与结构都相同。</li>
+<li><code>.toBeDefined()</code>: 断言值已定义且不为 <code>undefined</code>。</li>
+<li><code>.toBeUndefined()</code>: 断言值为 <code>undefined</code>。</li>
+<li><code>.toBeNull()</code>: 断言值为 <code>null</code>。</li>
+<li><code>.toBeTruthy()</code>: 断言值为真值，即可以转换为 <code>true</code> 的值。</li>
+<li><code>.toBeFalsy()</code>: 断言值为假值，即可以转换为 <code>false</code> 的值。</li>
+<li><code>.toHaveBeenCalled()</code>: 断言函数已被调用过。</li>
+<li><code>.toHaveBeenCalledWith(arg1, arg2, ...args)</code>: 断言函数被以指定参数调用过。</li>
+</ul>
+<p>等等。</p>
+<p>例如：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="title function_">add</span>(<span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line"><span class="title function_">expect</span>(result).<span class="title function_">toBe</span>(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>expect</code> 函数用于断言函数 <code>add</code> 的返回值是否等于 <code>3</code>。</p>
+<h3 id="单元测试实用工具库-Vue-test-utils"><a href="#单元测试实用工具库-Vue-test-utils" class="headerlink" title="单元测试实用工具库 Vue-test-utils"></a>单元测试实用工具库 Vue-test-utils</h3><p><a target="_blank" rel="noopener" href="https://v1.test-utils.vuejs.org/zh/">介绍 | Vue Test Utils (vuejs.org)</a></p>
+<p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ npm install --save-dev @vue/test-utils</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Vnode以及Render-Function"><a href="#Vnode以及Render-Function" class="headerlink" title="Vnode以及Render Function"></a>Vnode以及Render Function</h3><p><strong>Virtual DOM</strong>: 一种虚拟的，保存在内存中的数据结构，用来代表UI的表现，和真实DOM节点保持同步。Virtual DOM 是由一系列的Vnode组成的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模拟一个简单的 Vnode</span></span><br><span class="line"><span class="keyword">const</span> vnode = &#123;</span><br><span class="line"><span class="attr">type</span>:<span class="string">&#x27;div&#x27;</span>,</span><br><span class="line"><span class="attr">props</span>:&#123;</span><br><span class="line"><span class="attr">id</span>:<span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="attr">children</span>: [</span><br><span class="line">]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="虚拟DOM的优点"><a href="#虚拟DOM的优点" class="headerlink" title="虚拟DOM的优点"></a>虚拟DOM的优点</h4><ul>
+<li>可以使用一种更方便的方式，供开发者操控UI的状态和结构，不必和真实的DOM节点打交道</li>
+<li>更新效率更高，计算需要的最小化操作，并完成更新</li>
+</ul>
+<h4 id="创建Vnode"><a href="#创建Vnode" class="headerlink" title="创建Vnode"></a>创建Vnode</h4><p><strong>h和createVnode</strong>都可以创建vnode,h是hyperscript的缩写，意思就是”JavaScript that produces<br>HTML(hypertext markup language)”,很多virtualDOM的实现都使用这个函数名称。还有一个函数称之<br>为createVnode,更形象，两个函数的用法几乎是一样的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; h,createVnode&#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">const</span> vnode =<span class="title function_">h</span>(</span><br><span class="line"><span class="string">&#x27;div&#x27;</span>,<span class="comment">//type</span></span><br><span class="line">&#123;<span class="attr">id</span>:<span class="string">&#x27;foo&#x27;</span>,<span class="attr">class</span>:<span class="string">&#x27;bar&#x27;</span>&#125;,<span class="comment">//props</span></span><br><span class="line">[</span><br><span class="line"><span class="comment">/*children */</span></span><br><span class="line">]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="测试事件"><a href="#测试事件" class="headerlink" title="测试事件"></a>测试事件</h4><p>触发事件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> firstHeader.<span class="title function_">trigger</span>(<span class="string">&#x27;click&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>观测事件是否触发</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方案一jsx渲染组件：</span></span><br><span class="line"><span class="keyword">const</span> onchange vi.<span class="title function_">fn</span>()</span><br><span class="line"><span class="title function_">expect</span>(onChange).<span class="title function_">toHaveBeenCalledwith</span>([])</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方案二普通方式mount组件：</span></span><br><span class="line"><span class="keyword">const</span> changeEvent wrapper.<span class="title function_">emitted</span>(<span class="string">&#x27;change&#x27;</span>)</span><br><span class="line"><span class="title function_">expect</span>(changeEvent[<span class="number">1</span>]).<span class="title function_">toEqual</span>([[<span class="string">&#x27;b&#x27;</span>]]</span><br><span class="line"><span class="title function_">expect</span>(changeEvent[<span class="number">0</span>]).<span class="title function_">toEqual</span>([[]]</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Render-Pipeline"><a href="#Render-Pipeline" class="headerlink" title="Render Pipeline"></a>Render Pipeline</h3><p><strong>Compile</strong>,Vue组件的Template会被编译成<code>render function</code>,一个可以返回Virtual DOM树的函<br>数。<br><strong>Mount</strong>,执行render function,遍历虚拟DOM树，生成真正的DOM节点。<br><strong>Patch</strong>,当组件中任何响应式对象（依赖）发生变化的时候，执行更新操作。生成新的虚拟节点树，<br>Vue内部会遍历新的虚拟节点树，和旧的树做对比，然后执行必要的更新。</p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/43.png"></p>
+<h3 id="组件测试总结"><a href="#组件测试总结" class="headerlink" title="组件测试总结"></a>组件测试总结</h3><h4 id="Vue测试框架-vue-test-utils"><a href="#Vue测试框架-vue-test-utils" class="headerlink" title="Vue测试框架-vue-test-utils"></a>Vue测试框架-vue-test-utils</h4><ul>
+<li>挂载-mount<ul>
+<li>修改vitest的配置，支持dom</li>
+<li>environment:’jsdom’</li>
+</ul>
+</li>
+<li>query<ul>
+<li>find()&#x2F;get()</li>
+<li>findAll()</li>
+<li>findComponent()</li>
+</ul>
+</li>
+<li>内容&#x2F;属性<ul>
+<li>text()&#x2F;html()</li>
+<li>classes()</li>
+<li>attributes()</li>
+</ul>
+</li>
+<li>stub模拟子组件</li>
+</ul>
+<h4 id="VNode以及Render"><a href="#VNode以及Render" class="headerlink" title="VNode以及Render"></a>VNode以及Render</h4><ul>
+<li>VNode的概念</li>
+<li>使用render function写vue组件</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setup</span>(<span class="params">props</span>)&#123;</span><br><span class="line"><span class="keyword">const</span> count <span class="title function_">ref</span>(<span class="number">1</span>)</span><br><span class="line">/<span class="keyword">return</span> render <span class="keyword">function</span></span><br><span class="line"><span class="title function_">return</span> ()=<span class="title function_">h</span>(<span class="string">&#x27;h1&#x27;</span>,props.<span class="property">msg</span> count.<span class="property">value</span>)</span><br><span class="line"><span class="variable constant_">JSX</span>-语法糖</span><br><span class="line"><span class="keyword">return</span> ()&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>(props.msg)<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;count.value)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="vitest钩子函数及其他"><a href="#vitest钩子函数及其他" class="headerlink" title="vitest钩子函数及其他"></a>vitest钩子函数及其他</h4><ul>
+<li>beforeEach&#x2F;beforeAll</li>
+<li>test.skip&#x2F;test.only</li>
+</ul>
+<h4 id="可进步的"><a href="#可进步的" class="headerlink" title="可进步的"></a>可进步的</h4><p>为手风琴模式的Collapse写测试用例</p>
+<ul>
+<li>需要在用例中单独mount组件</li>
+<li>关键是它行为的不同</li>
+</ul>
+<h2 id="8-Tooltip组件"><a href="#8-Tooltip组件" class="headerlink" title="8.Tooltip组件"></a>8.Tooltip组件</h2><h3 id="1-需求分析-4"><a href="#1-需求分析-4" class="headerlink" title="(1)需求分析"></a>(1)需求分析</h3><ul>
+<li>通用组件</li>
+<li>Tooltip</li>
+<li>Dropdown</li>
+<li>Select等等</li>
+</ul>
+<h4 id="功能分析"><a href="#功能分析" class="headerlink" title="功能分析"></a>功能分析</h4><p>根本功能，两块区域</p>
+<ul>
+<li>​	触发区</li>
+<li>​	展示区</li>
+</ul>
+<p>触发方式</p>
+<ul>
+<li>hover</li>
+<li>点击</li>
+<li>手动</li>
+</ul>
+<p>重点就是触发区发生特定事件的时候，展示区的展示与隐藏</p>
+<h4 id="展示方案"><a href="#展示方案" class="headerlink" title="展示方案"></a>展示方案</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//content 字符串</span><br><span class="line">&lt;Tooltip content=&quot;this is the tooltip&quot;&gt;</span><br><span class="line">&lt;Button size=&quot;large&quot;&gt;Trigger me&lt;/Button&gt;</span><br><span class="line">&lt;/Tooltip&gt;</span><br><span class="line">//content 复杂slot</span><br><span class="line">&lt;Tooltip&gt;</span><br><span class="line">&lt;Button size=&quot;large&quot;&gt;Trigger me&lt;/Button&gt;</span><br><span class="line">&lt;template #content&gt;</span><br><span class="line">&lt;h1&gt;He11o!&lt;/h1&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;/Tooltip&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">TooltipProps</span>&#123;</span><br><span class="line">content?:<span class="built_in">string</span>;</span><br><span class="line"><span class="attr">trigger</span>:<span class="string">&#x27;hover&#x27;</span>|<span class="string">&#x27;click&#x27;</span>;</span><br><span class="line">manual?:<span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">TooltipEmits</span></span><br><span class="line">(e:&#x27;visible-change&#x27;,value:<span class="built_in">boolean</span>):<span class="built_in">void</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">TooltipInstance</span>&#123;</span><br><span class="line"><span class="attr">show</span>:<span class="function">()=&gt;</span><span class="built_in">void</span>;</span><br><span class="line"><span class="attr">hide</span>:<span class="function">()=&gt;</span><span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="动态事件的解决方案"><a href="#动态事件的解决方案" class="headerlink" title="动态事件的解决方案"></a>动态事件的解决方案</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方案一，使用DOM标准来绑定事件--不推荐</span></span><br><span class="line"><span class="comment">//click</span></span><br><span class="line">domNode.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,callback)</span><br><span class="line"><span class="comment">//hover</span></span><br><span class="line">domNode.<span class="title function_">addEventListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>,callback)</span><br><span class="line"><span class="comment">//要注意事件的清除</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//方案二，使用v-on来完成--推荐</span></span><br><span class="line"><span class="comment">//@click = v-on:click  缩写形式</span></span><br><span class="line"><span class="comment">//v-on还可以接受一个object作为参数，对object中的每一项都可以作为对应的事件回调</span></span><br><span class="line"><span class="keyword">const</span> events =<span class="string">&#x27;click&#x27;</span>:callback,<span class="string">&#x27;mouseenter&#x27;</span>:callback2</span><br><span class="line">&lt;div v-on=<span class="string">&quot;events&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-代码编写-3"><a href="#2-代码编写-3" class="headerlink" title="(2)代码编写"></a>(2)代码编写</h3><h4 id="1-Tooltip开发计划"><a href="#1-Tooltip开发计划" class="headerlink" title="1.Tooltip开发计划"></a>1.Tooltip开发计划</h4><ul>
+<li><p>最基本的实现</p>
+</li>
+<li><p>支持click&#x2F;hover两种触发方式</p>
+</li>
+<li><p>支持clickoutside的时候隐藏</p>
+</li>
+<li><p>支持手动触发</p>
+</li>
+<li><p>支持popper参数</p>
+</li>
+<li><p>动画</p>
+</li>
+<li><p>支持延迟显示</p>
+</li>
+<li><p>样式</p>
+</li>
+</ul>
+<h4 id="2-使用第三方库-popper-js"><a href="#2-使用第三方库-popper-js" class="headerlink" title="2.使用第三方库 popper.js"></a>2.使用第三方库 popper.js</h4><p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/44.png"></p>
+<h4 id="3-defineProps-和-defineEmits"><a href="#3-defineProps-和-defineEmits" class="headerlink" title="3.defineProps() 和 defineEmits()"></a>3.defineProps() 和 defineEmits()</h4><p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/45.png"></p>
+<h4 id="4-slot"><a href="#4-slot" class="headerlink" title="4.slot"></a>4.slot</h4><p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/46.png"></p>
+<p>5.watchEffect()</p>
+<p><img src="/../images/Vue3_%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E5%BA%93%E9%A1%B9%E7%9B%AE/47.png"></p>
+<h3 id="3-Tooltip总结"><a href="#3-Tooltip总结" class="headerlink" title="(3)Tooltip总结"></a>(3)Tooltip总结</h3><h4 id="Tooltip分析"><a href="#Tooltip分析" class="headerlink" title="Tooltip分析"></a>Tooltip分析</h4><p>基础组件</p>
+<ul>
+<li>触发层</li>
+<li>展示层</li>
+</ul>
+<p>开发复杂组件的时候</p>
+<ul>
+<li>需求分析</li>
+<li>设立开发计划</li>
+</ul>
+<h4 id="Tooltip开发"><a href="#Tooltip开发" class="headerlink" title="Tooltip开发"></a>Tooltip开发</h4><ul>
+<li><p>使用popper,.js来完成位置的展示</p>
+</li>
+<li><p>动态事件的添加–使用v-on</p>
+</li>
+<li><p>实现外侧点击的功能</p>
+</li>
+<li><p>手动触发的功能</p>
+<p>​       组件实例实现对应的方法</p>
+</li>
+<li><p>支持Popper参数</p>
+<p>​       使用第三方库的时候必不可少的功能</p>
+</li>
+<li><p>添加延时</p>
+<p>​       使用debouce来整合短时间内多次触发的回调</p>
+<p>​	   debouce可以使用cancel方法来取消</p>
+</li>
+<li><p>添加样式</p>
+<p>​	   三角箭头的实现</p>
+<p>​	   正方形旋转45度，加特定的位移，再加边框</p>
+</li>
+</ul>
+<h4 id="添加测试"><a href="#添加测试" class="headerlink" title="添加测试"></a>添加测试</h4><ul>
+<li>注意定时器的影响<ul>
+<li>vi.useFakeTimers()</li>
+<li>vi.runAllTimers()</li>
+</ul>
+</li>
+<li>注意点击到外侧区域的测试</li>
+</ul>
 
         </div>
 
@@ -473,6 +875,8 @@ Transition</p>
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2024/03/12/express%E5%AD%A6%E4%B9%A0/">express学习</a>
             
             
             <a class="next" rel="next" href="/2024/03/07/Vue3%E5%AD%A6%E4%B9%A0-%E7%BB%93%E5%90%88TS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">Vue3学习(结合TS基础知识)</a>
