@@ -33,7 +33,7 @@
     
     <script src="/js/script.js"></script>
     
-    <script src="/js/tocbot.min.js%20/js/sakura.js"></script>
+    <script src="/js/tocbot.min.js"></script>
     
 
 
@@ -233,9 +233,8 @@
 
 <p><strong>注意：虚拟节点树必须是单根的</strong></p>
 <h2 id="完整流程"><a href="#完整流程" class="headerlink" title="完整流程"></a>完整流程</h2><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/5.png"></p>
-<p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/1.png"></p>
 <h3 id="注入"><a href="#注入" class="headerlink" title="注入"></a>注入</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/4.png"></p>
-<p>vue会将以下配置注入到vue实例：</p>
+<p>Vue会将以下配置注入到vue实例：</p>
 <ul>
 <li>data: 和界面相关的数据</li>
 <li>computed: 通过已有数据计算得来的数据，将来详细讲解</li>
@@ -382,10 +381,17 @@
 
 <p>在上述代码中，我们通过props中的default属性为message设置了一个默认值”Hello, World!”。如果在父组件中没有传递message数据，Child组件会使用该默认值来进行操作。</p>
 <p>这些例子涵盖了Vue中props的一些常见使用方式。通过props，我们可以在Vue中实现组件之间的数据传递和解耦，从而让我们的应用更加灵活和可维护。</p>
-<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p>ref 有三种用法：<br>　　1、ref 加在普通的元素上，用this.$refs.（ref值） 获取到的是dom元素</p>
-<p>　　2、ref 加在子组件上，用this.$refs.（ref值） 获取到的是组件实例，可以使用组件的所有方法。在使用方法的时候直接this.$refs.（ref值）.方法（） 就可以使用了。</p>
-<p>　　3、如何利用 v-for 和 ref 获取一组数组或者dom 节点</p>
-<p>应注意的坑：<br>1、如果通过v-for 遍历想加不同的ref时记得加 :号，即 :ref &#x3D;某变量 ;<br>这点和其他属性一样，如果是固定值就不需要加 :号，如果是变量记得加 :号。（加冒号的，说明后面的是一个变量或者表达式；没加冒号的后面就是对应的字符串常量（String））</p>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><p>ref 有三种用法：</p>
+<ul>
+<li><p>ref 加在普通的元素上，用this.$refs.（ref值） 获取到的是dom元素</p>
+</li>
+<li><p>ref 加在子组件上，用this.$refs.（ref值） 获取到的是组件实例，可以使用组件的所有方法。在使用方法的时候直接this.$refs.（ref值）.方法（） 就可以使用了。</p>
+</li>
+<li><p>利用 v-for 和 ref 获取一组数组或者dom 节点</p>
+</li>
+</ul>
+<p>应注意的坑：</p>
+<p>1、如果通过v-for 遍历想加不同的ref时记得加 :号，即 :ref &#x3D;某变量 ;<br>这点和其他属性一样，如果是固定值就不需要加 :号，如果是变量记得加 :号。（加冒号的，说明后面的是一个变量或者表达式；没加冒号的后面就是对应的字符串常量（String））</p>
 <p>2、通过 :ref &#x3D;某变量 添加ref（即加了:号） ,如果想获取该ref时需要加 [0]，如this.$refs[refsArrayItem] [0]；如果不是:ref &#x3D;某变量的方式而是 ref &#x3D;某字符串时则不需要加，如this.$refs[refsArrayItem]。</p>
 <h2 id="mixin："><a href="#mixin：" class="headerlink" title="mixin："></a>mixin：</h2><p>一个 Mixin 对象可以包含任意组件选项。当组件使用 Mixin 对象时，所有 Mixin 对象的选项将被“混合”进入该组件本身的选项。</p>
 <p>Mixin的特点可以复用逻辑，并且变量是独立的，在组件中是独立的不会相互影响。</p>
@@ -399,9 +405,9 @@
 
 <h3 id="选项合并"><a href="#选项合并" class="headerlink" title="选项合并"></a>选项合并</h3><p>当组件和混入对象含有同名选项时，这些选项将以恰当的方式进行“合并”。数据对象在内部会进行递归合并，并在发生冲突时<strong>以组件数据优先。</strong></p>
 <p>如下，我们在Home.vue中定义与混入对象中同名的选项</p>
-<p>mixin.js</p>
+<p><code>mixin.js</code></p>
 <p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/23.png"></p>
-<p>Home.vue</p>
+<p><code>Home.vue</code></p>
 <p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/24.png"></p>
 <h3 id="全局混入"><a href="#全局混入" class="headerlink" title="全局混入"></a>全局混入</h3><p>混入也可以进行全局注册。使用时格外小心！一旦使用全局混入，它将影响<strong>每一个</strong>之后创建的 Vue 实例。使用恰当时，这可以用来为自定义选项注入处理逻辑。</p>
 <p>在main.js中通过Vue.mixin()引入混入对象即可全局使用（作用于该Vue实例下的所有组件）</p>
@@ -409,7 +415,7 @@
 <h2 id="第一个应用-动态渲染"><a href="#第一个应用-动态渲染" class="headerlink" title="第一个应用_动态渲染"></a>第一个应用_动态渲染</h2><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/3.png"></p>
 <h2 id="工程版本一致性"><a href="#工程版本一致性" class="headerlink" title="工程版本一致性"></a>工程版本一致性</h2><h3 id="node版本一致"><a href="#node版本一致" class="headerlink" title="node版本一致"></a>node版本一致</h3><p>node版本切换如下</p>
 <p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/17.png"></p>
-<h3 id="vue的版本全局安装一致性"><a href="#vue的版本全局安装一致性" class="headerlink" title="vue的版本全局安装一致性"></a>vue的版本全局安装一致性</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/18.png"></p>
+<h3 id="Vue的版本全局安装一致性"><a href="#Vue的版本全局安装一致性" class="headerlink" title="Vue的版本全局安装一致性"></a>Vue的版本全局安装一致性</h3><p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/18.png"></p>
 <p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/19.png"></p>
 <h2 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h2><p>vue-cIi是一个脚手架工具，用于搭建vue工程</p>
 <p>它内部使用了<code>webpack</code>,并预置了诸多插件（<code>plugin</code>)和加载器（<code>loader</code>)，以达到开箱即用的效果<br>除了基本的插件和加载器外，<code>vue-cli</code>还预置了：</p>
@@ -423,13 +429,12 @@
 <p>创建工程时遇到问题：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\xzj\Desktop\学习\vue\再识Vue2\再识Vue2_项目&gt;vue create my_site</span><br><span class="line">D:\nvm\v12.17.0\node_modules\@vue\cli\node_modules\vue-codemod\node_modules\@vue\compiler-sfc\dist\compiler-sfc.cjs.js:361</span><br><span class="line">            this.signal.onabort?.(reason);</span><br><span class="line">                                ^</span><br><span class="line"></span><br><span class="line">SyntaxError: Unexpected token <span class="string">&#x27;.&#x27;</span></span><br><span class="line">    at wrapSafe (internal/modules/cjs/loader.js:1054:16)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:1102:27)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)</span><br><span class="line">    at Module.load (internal/modules/cjs/loader.js:986:32)</span><br><span class="line">    at Function.Module._load (internal/modules/cjs/loader.js:879:14)</span><br><span class="line">    at Module.require (internal/modules/cjs/loader.js:1026:19)</span><br><span class="line">    at require (internal/modules/cjs/helpers.js:72:18)</span><br><span class="line">    at Object.&lt;anonymous&gt; (D:\nvm\v12.17.0\node_modules\@vue\cli\node_modules\vue-codemod\dist\src\run-transformation.js:9:24)</span><br><span class="line">    at Module._compile (internal/modules/cjs/loader.js:1138:30)</span><br><span class="line">    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1158:10)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>要解决这个问题:</p>
-<p>需要</p>
+<p>要解决这个问题需要:</p>
 <p><strong>1.更新 Node.js：</strong> 确保你使用的是支持 ECMAScript 2020（ES11）或更新版本的 Node.js。你可以将 Node.js 更新到更高版本，最好使用 LTS（长期支持）版本。</p>
 <p><strong>2.更新或修改代码：</strong> 如果更新 Node.js 不可行，可以修改代码以使用更传统的方法，而不使用可选链。例如，将：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.signal.onabort?.(reason);</span><br></pre></td></tr></table></figure>
 
-<p>替换为：</p>
+<p>替换为</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (this.signal.onabort) &#123;</span><br><span class="line">    this.signal.onabort(reason);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -438,8 +443,6 @@
 
 <h2 id="SFC"><a href="#SFC" class="headerlink" title="SFC"></a>SFC</h2><p>单文件组件，Single File Component,即一个文件就包含了一个组件所需的全部代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;!--组件模板代码--&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="comment">//组件配置</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"><span class="comment">/*组件样式*/</span></span></span></span><br><span class="line"><span class="language-css"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-
 
 
 
@@ -464,7 +467,7 @@
 
 <p><strong>使用当前时间反例子：</strong></p>
 <p><img src="/../images/%E5%86%8D%E8%AF%86Vue2/21.png"></p>
-<h4 id="scoped原理："><a href="#scoped原理：" class="headerlink" title="scoped原理："></a>scoped原理：</h4><p>1、当前组件内标签都被添加 data-v-hash 值的属性</p>
+<h4 id="scoped的原理："><a href="#scoped的原理：" class="headerlink" title="scoped的原理："></a>scoped的原理：</h4><p>1、当前组件内标签都被添加 data-v-hash 值的属性</p>
 <p>2、css选择器都被添加 [data-v-hash]值的属性选择器</p>
 <p>最终效果：</p>
 <p>必须是当前组件的元素，才会有这个自定义属性，才会被这个样式作用到</p>
